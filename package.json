@@ -1,0 +1,25 @@
+{
+  "name": "create-nodejs-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "PORT=8080 NODE_ENV=development nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "axios": "^0.18.0",
+    "nodemon": "^1.19.0",
+    "the-owl": "^1.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cors": "^2.8.5",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
+  }
+}
