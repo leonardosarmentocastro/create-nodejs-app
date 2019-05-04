@@ -22,8 +22,7 @@ const middlewares = (app) => ({
     app.use(cors());
   },
   generateApiDocs() {
-    // TODO: only attach if its "test" environment.
-    theOwl.connect(app);
+    if (process.env.NODE_ENV === 'test') theOwl.connect(app);
   },
   prettifyStacktraceOnBrowser() {
     app.use(errorhandler());
@@ -39,15 +38,13 @@ const middlewares = (app) => ({
 
 const routes = (app) => ({
   connect() {
-    // CONVENTION: Each module *must* default export its router's "connect" function.
-    Object.keys(modules)
-      .forEach(router => modules[router].connect(app));
+    // CONVENTION: Each module exports its "connect" function.
+    Object.values(modules)
+      .forEach(_module => _module.connect(app));
   },
 });
 
-const connect = (app) => {
+exports.connect = (app) => {
   middlewares(app).connect();
   routes(app).connect();
 };
-
-module.exports = connect;

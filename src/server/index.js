@@ -1,3 +1,5 @@
-exports.connect = require('./connect');
-exports.messages = require('./messages');
-exports.server = require('./server');
+module.exports = {
+  ...require('./connect'),
+  ...require('./messages'),
+  ...require('./server'),
+};

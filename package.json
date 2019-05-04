@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=8080 NODE_ENV=development nodemon index.js"
+    "start": "PORT=8080 NODE_ENV=development nodemon index.js",
+    "test": "PORT=8081 NODE_ENV=test ava --verbose",
+    "test:create-docs": "CREATE_DOCS=true npm test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ava": "^1.4.1",
     "axios": "^0.18.0",
+    "got": "^9.6.0",
     "nodemon": "^1.19.0",
-    "the-owl": "^1.0.2"
+    "the-owl": "1.0.7"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

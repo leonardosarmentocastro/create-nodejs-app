@@ -1,4 +1,4 @@
-exports.usersController = require('./controller');
-
-// CONVENTION: Always default export router.
-module.exports = require('./router');
+// CONVENTION: Always export module's "connect" function.
+module.exports = {
+  ...require('./connect'),
+};

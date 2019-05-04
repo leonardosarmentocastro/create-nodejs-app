@@ -1,13 +1,13 @@
 const express = require('express');
 
-const connect = require('./connect');
+const { connect } = require('./connect');
 const {
   getErrorMessageForServerStatup,
   getSuccessMessageForServerClose,
   getSuccessMessageForServerStatup,
 } = require('./messages');
 
-const server = {
+exports.server = {
   close(api) {
     return new Promise((resolve) => {
       if (!api.listening) return resolve();
@@ -49,5 +49,3 @@ const server = {
     return api;
   },
 };
-
-module.exports = server;
