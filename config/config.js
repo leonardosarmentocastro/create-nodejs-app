@@ -1,0 +1,21 @@
+// TODO
+// https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
+
+// const {
+//   AUTHORIZATION_BYPASS_TOKEN,
+//   AUTHORIZATION_SECRET,
+//   MONGODB_CONNECTION_STRING,
+//   MONGODB_DATABASE_NAME,
+//   MONGODB_HOST,
+//   PORT,
+// } = process.env;
+
+// const CONFIG = {
+//   AUTHORIZATION_BYPASS_TOKEN: (AUTHORIZATION_BYPASS_TOKEN || 'AUTHORIZATION_BYPASS_TOKEN'),
+//   AUTHORIZATION_SECRET: (AUTHORIZATION_SECRET || 'AUTHORIZATION_SECRET'),
+//   MONGODB_CONNECTION_STRING: (MONGODB_CONNECTION_STRING || `mongodb://${MONGODB_HOST}/${MONGODB_DATABASE_NAME}`),
+//   MONGODB_DATABASE_NAME,
+//   MONGODB_HOST,
+//   PORT: (PORT || '8080'),
+
+// };
