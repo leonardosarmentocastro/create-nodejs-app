@@ -1,4 +1,4 @@
 module.exports = {
-  ...require('./create-user'),
-  ...require('./find-by-id'),
+  ...require('./create-user-resolver'),
+  ...require('./find-by-id-resolver'),
 };
