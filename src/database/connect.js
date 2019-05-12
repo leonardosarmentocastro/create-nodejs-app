@@ -24,17 +24,11 @@ exports.connect = async () => {
     },
   };
 
-  await retry(async () => {
-    // If anything throws, we retry.
-    await mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true });
-
-    // Anything throwed, we succeed to connect.
-    return;
-  }, options)
-  .catch(err => {
-    const errorMessage = getErrorMessageForDatabaseConnection(err);
-    return Promise.reject(errorMessage);
-  });
+  await retry(() => mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true }), options)
+    .catch(err => {
+      const errorMessage = getErrorMessageForDatabaseConnection(err);
+      return Promise.reject(errorMessage);
+    });
 
   const successMessage = getSuccessMessageForDatabaseConnection();
   return console.info(successMessage);

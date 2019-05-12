@@ -2,18 +2,17 @@ const test = require('ava');
 const got = require('got');
 const theOwl = require('the-owl');
 
-const { server } = require('../../../../server');
+const {
+  setupFunctionalTest,
+  tearDownFunctionalTest
+} = require('../../../__helpers__');
 
-const originalPath = `/health`;
-const baseUrl = `http://localhost:${process.env.PORT}`;
-const url = `${baseUrl}${originalPath}`;
-test.before(async t => {
-  t.context.api = await server.start();
-});
+const endpointOriginalPath = `/health`;
+test.before(t => setupFunctionalTest(t, endpointOriginalPath));
 
 test('(200) must return the application healthy check status', async t => {
-  const response = await got(url, {
-    headers: { ...theOwl.buildHeaders(t.title, originalPath) },
+  const response = await got(t.context.url, {
+    headers: { ...theOwl.buildHeaders(t.title, endpointOriginalPath) },
     json: true
   });
 
@@ -23,4 +22,4 @@ test('(200) must return the application healthy check status', async t => {
 });
 
 test.after(t => theOwl.createDocs());
-test.after.always(async t => await server.close(t.context.api));
+test.after.always(t => tearDownFunctionalTest(t));

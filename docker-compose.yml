@@ -10,6 +10,8 @@ services:
       - ./data/db:/data/db
   server:
     build: .
+    depends_on:
+      - database
     # Receives variables from "docker-compose up" instruction and attach as nodejs "process.env" variables.
     # They will only be replaced if they are not empty, otherwise, values from ".env" file will be used.
     environment:
@@ -17,8 +19,6 @@ services:
       - MONGODB_HOST=${MONGODB_HOST}
       - NODE_ENV=${NODE_ENV}
       - PORT=${PORT}
-    depends_on:
-      - database
     ports:
       # Exposes the given port from "docker-compose up" instruction from your personal computer.
       - "${PORT}:${PORT}"

@@ -6,14 +6,20 @@
   "scripts": {
     "env:symlink": "ln -sf .env.example .env",
     "start": "npm run env:symlink && nodemon index.js",
+    "start:database": "docker-compose up -d database",
     "start:production": "node index.js",
-    "test": "PORT=8081 NODE_ENV=test ava --verbose",
-    "test:create-docs": "CREATE_DOCS=true npm test"
+    "start:with-database": "npm run start:database && MONGODB_HOST=0.0.0.0 npm start",
+    "test": "npm run test:unit && npm run test:functional",
+    "test:functional:ci": "ava **/functional/**/*.js --verbose",
+    "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 ava **/functional/**/*.js --verbose",
+    "test:unit": "ava **/unit/**/*.js --verbose",
+    "test:create-docs": "CREATE_DOCS=true npm run test:functional"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ava": "^1.4.1",
+    "detect-port": "^1.3.0",
     "dotenv": "^8.0.0",
     "got": "^9.6.0",
     "nodemon": "^1.19.0",
