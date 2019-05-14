@@ -36,10 +36,12 @@
   * support to environment variables via .env
   * example endpoints
     * [get] /health return server/database status
-    * [me] /me
-    * [post] /sign-up
-    * [post] /sign-in
-    * [post] /sign-out
+    * users module
+      * [me] /me
+    * authentication module
+      * [post] /sign-up
+      * [post] /sign-in
+      * [post] /sign-out
   * authorization middleware
   * deploy to heroku using travis.ci/gitlab ready
 
@@ -107,3 +109,8 @@ docker-compose up
 docker-compose up database
 MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 ```
+
+## Reference
+
+How do I correctly clone a JavaScript object?
+https://stackoverflow.com/a/10869248/6655011
