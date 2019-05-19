@@ -1,14 +1,10 @@
-const { users } = require('../__fixtures__/_users');
+const { UsersModel } = require('../model');
+const { userNotFoundError } = require('../errors');
 
-exports.findByIdResolver = (req, res) => {
+exports.findByIdResolver = async (req, res) => {
   const userId = req.params.id;
-  const user = users.find(user => user.id === userId);
+  const dbUser = await UsersModel.findById(userId);
+  if (!dbUser) return res.status(500).json(userNotFoundError(userId));
 
-  const hasUser = !!user;
-  if (!hasUser) {
-    return res.status(500)
-      .json({ code: 'USER_NOT_FOUND', message: `User "${userId}" not found!` });
-  }
-
-  return res.status(200).json(user);
+  return res.status(200).json(dbUser.toObject());
 };

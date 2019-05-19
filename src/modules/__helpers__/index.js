@@ -1,4 +1,5 @@
 module.exports = {
-  ...require('./setup-functional-test'),
-  ...require('./teardown-functional-test'),
+  ...require('./close-api-opened-on-random-port'),
+  ...require('./get-request-options'),
+  ...require('./start-api-on-random-port'),
 };

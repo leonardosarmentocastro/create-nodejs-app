@@ -3,23 +3,20 @@ const got = require('got');
 const theOwl = require('the-owl');
 
 const {
-  setupFunctionalTest,
-  tearDownFunctionalTest
+  closeApiOpenedOnRandomPort,
+  getRequestOptions,
+  startApiOnRandomPort,
 } = require('../../../__helpers__');
 
 const endpointOriginalPath = `/health`;
-test.before(t => setupFunctionalTest(t, endpointOriginalPath));
+test.before(t => startApiOnRandomPort(t, endpointOriginalPath));
 
-test('(200) must return the application healthy check status', async t => {
-  const response = await got(t.context.url, {
-    headers: { ...theOwl.buildHeaders(t.title, endpointOriginalPath) },
-    json: true
-  });
-
+test.serial('(200) must return the application healthy check status', async t => {
+  const response = await got(t.context.url, getRequestOptions(t, endpointOriginalPath));
   t.deepEqual(response.body, {
     application: 'up',
   });
 });
 
 test.after(t => theOwl.createDocs());
-test.after.always(t => tearDownFunctionalTest(t));
+test.after.always(t => closeApiOpenedOnRandomPort(t));

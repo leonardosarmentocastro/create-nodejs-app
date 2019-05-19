@@ -11,9 +11,9 @@
     "start:with-database": "npm run start:database && MONGODB_HOST=0.0.0.0 npm start",
     "test": "npm run test:unit && npm run test:functional",
     "test:functional:ci": "ava **/functional/**/*.js --verbose",
-    "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 ava **/functional/**/*.js --verbose",
+    "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME=db-test ava **/functional/**/*.js --verbose --serial",
     "test:unit": "ava **/unit/**/*.js --verbose",
-    "test:create-docs": "CREATE_DOCS=true npm run test:functional"
+    "test:create-docs": "CREATE_DOCS=true npm run test:functional:local"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +34,7 @@
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "mongoose": "^5.5.6",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "validator": "^10.11.0"
   }
 }

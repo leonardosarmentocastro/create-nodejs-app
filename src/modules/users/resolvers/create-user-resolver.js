@@ -1,14 +1,12 @@
-const { users } = require('../__fixtures__/_users');
+const { UsersModel } = require('../model');
 
-exports.createUserResolver = (req, res) => {
-  const user = req.body;
-  if (user && !user.name) {
-    return res.status(500)
-      .json({ code: 'USER_IS_INVALID', message: 'User must contain "name".' });
+exports.createUserResolver = async (req, res) => {
+  try {
+    const userDoc = new UsersModel(req.body);
+    const savedUser = await userDoc.save();
+
+    return res.status(200).json(savedUser.toObject());
+  } catch(error) {
+    return res.status(500).json(error);
   }
-
-  user.id = (users.length + 1);
-  users.push(user);
-
-  return res.status(200).json(user);
 };

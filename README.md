@@ -24,6 +24,7 @@
   * development ready docker-compose to tear up database/server
   * database integration with retry strategy on code
   * support to environment variables via .env
+  * support internationalization
   * example endpoints
     * [get] /health return server/database status
     * [get] /users/:id using database
@@ -34,6 +35,7 @@
   * development ready docker-compose to tear up database/server
   * database integration with retry strategy on code
   * support to environment variables via .env
+  * support internationalization
   * example endpoints
     * [get] /health return server/database status
     * users module

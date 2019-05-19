@@ -2,6 +2,14 @@
 const mongoose = require('mongoose');
 
 const { sharedSchema } = require('../shared');
+const {
+  isEmailAlreadyInUse,
+  isEmailValid,
+  isRequired,
+  isUsernameAlreadyInUse,
+  isUsernameTooLong,
+  validate,
+} = require('./validators');
 
 const usersSchema = new mongoose.Schema({
   email: String,
@@ -13,8 +21,42 @@ const usersSchema = new mongoose.Schema({
 
   username: String,
 });
-usersSchema.add(sharedSchema); // Inherit schema properties.
 
-const usersModel = mongoose.model('User', usersSchema);
+// Middlewares
+const postValidateMiddleware = async (userDoc, next) => {
+  const constraints = [
+    isRequired('email'),
+    isRequired('username'),
+    isEmailValid,
+    isEmailAlreadyInUse,
+    isUsernameTooLong,
+    isUsernameAlreadyInUse,
+  ];
+  const error = await validate(constraints, userDoc);
 
-module.exports = { usersSchema, usersModel };
+  return next(error);
+};
+
+// Virtuals
+// https://mongoosejs.com/docs/api.html#document_Document-toObject
+const transform = (doc, ret) => {
+  const { _id, privateFields, ...publicFields } = ret;
+  return publicFields;
+};
+
+// Setup
+usersSchema.add(sharedSchema);
+usersSchema.post('validate', postValidateMiddleware);
+usersSchema.set('toObject', {
+  transform,
+  virtuals: true // Expose "id" instead of "_id".
+});
+
+const UsersModel = mongoose.model('User', usersSchema);
+
+module.exports = {
+  postValidateMiddleware,
+  transform,
+  usersSchema,
+  UsersModel
+};
