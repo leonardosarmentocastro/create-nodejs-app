@@ -40,7 +40,12 @@ const postValidateMiddleware = async (userDoc, next) => {
 // Virtuals
 // https://mongoosejs.com/docs/api.html#document_Document-toObject
 const transform = (doc, ret) => {
-  const { _id, privateFields, ...publicFields } = ret;
+  const {
+    __v,
+    _id,
+    privateFields,
+    ...publicFields
+  } = ret;
   return publicFields;
 };
 

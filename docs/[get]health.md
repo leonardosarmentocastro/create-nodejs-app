@@ -8,7 +8,7 @@
 
 ```sh
 curl -X GET \
-http://localhost:57721/health
+http://localhost:55558/health
 ```
 
 **Request** :egg:

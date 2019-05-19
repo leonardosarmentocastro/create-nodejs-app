@@ -9,12 +9,12 @@
 
 ```sh
 curl -X GET \
-http://localhost:57735/users/5ce09e1e1f4e662108d7363e
+http://localhost:55572/users/5ce14951e7092e30d16283f3
 ```
 
 **Request** :egg:
 
-Path: `/users/5ce09e1e1f4e662108d7363e`
+Path: `/users/5ce14951e7092e30d16283f3`
 
 Query parameters: _empty_
 
@@ -32,12 +32,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-05-19T00:06:54.070Z",
-  "updatedAt": "2019-05-19T00:06:54.182Z",
+  "createdAt": "2019-05-19T12:17:21.626Z",
+  "updatedAt": "2019-05-19T12:17:21.741Z",
   "email": "email@domain.com",
   "username": "username",
-  "__v": 0,
-  "id": "5ce09e1e1f4e662108d7363e"
+  "id": "5ce14951e7092e30d16283f3"
 }
 ```
 
@@ -45,12 +44,12 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:57735/users/5ce09e1e1f4e662108d7363f
+http://localhost:55572/users/5ce14951e7092e30d16283f4
 ```
 
 **Request** :egg:
 
-Path: `/users/5ce09e1e1f4e662108d7363f`
+Path: `/users/5ce14951e7092e30d16283f4`
 
 Query parameters: _empty_
 
@@ -70,6 +69,6 @@ Body:
 {
   "code": "USER_NOT_FOUND",
   "field": "",
-  "message": "User \"5ce09e1e1f4e662108d7363f\" was not found."
+  "message": "User \"5ce14951e7092e30d16283f4\" was not found."
 }
 ```

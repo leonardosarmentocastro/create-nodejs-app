@@ -13,7 +13,7 @@ test('usersSchema must inherit sharedSchema fields', t => {
 });
 
 
-test('(transform) must strip "_id" and "privateFields" from doc', t => {
+test('(transform) must strip "__v", "_id" and "privateFields" from doc', t => {
   const fieldsNotToBeStripped = {
     id: '123',
     email: 'email@domain.com',
@@ -24,6 +24,7 @@ test('(transform) must strip "_id" and "privateFields" from doc', t => {
   const ret = { // The plain object representation which has been converted
     ...fieldsNotToBeStripped,
 
+    __v: 0,
     _id: 'must be stripped',
     privateFields: { password: 'must be stripped' },
   };

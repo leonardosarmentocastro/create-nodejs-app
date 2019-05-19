@@ -14,7 +14,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -53,12 +53,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-05-19T00:06:53.208Z",
-  "updatedAt": "2019-05-19T00:06:53.345Z",
+  "createdAt": "2019-05-19T12:17:20.814Z",
+  "updatedAt": "2019-05-19T12:17:20.949Z",
   "email": "email@domain.com",
   "username": "username123",
-  "__v": 0,
-  "id": "5ce09e1d1f4c9d21007fcc14"
+  "id": "5ce14950fefb7630d0a70960"
 }
 ```
 
@@ -66,7 +65,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -115,7 +114,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -164,7 +163,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
@@ -213,7 +212,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "username123"
@@ -262,7 +261,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -311,7 +310,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57725/users \
+http://localhost:55562/users \
 -d '{
   "email": "email@not-being-used.com",
   "username": "already-being-used"
