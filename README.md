@@ -1,19 +1,39 @@
 ## ROADMAP
 
-<!-- * try on backend: https://github.com/sindresorhus/got -->
-1. create folders `database`
-  * it will be executed on `./index.js`
-  * add a Dockerfile that will create a mongodb (map volume locally)
+```
+http://userguide.icu-project.org/formatparse/messages
+https://messageformat.github.io/messageformat/page-build#toc3__anchor
+https://github.com/nodeca/js-yaml#safeload-string---options-
+https://yaml-multiline.info/
+
+. shared schema
+  . fix updating at (its being saved at the same time as "createdAt")
+
+. internationalization by hand
+  . write yml files
+  . init:
+    * get default language from .env
+    * parse yml files to javascript objects
+      - https://github.com/nodeca/js-yaml#safeload-string---options-
+      - structure needs to know which language this file refers to
+    * initialize messageformat
+      - https://messageformat.github.io/messageformat/page-build#toc3__anchor
+  . can I avoid it to be a singleton?
+  . languages "en-US" (primary) and "pt-br" (secondary)
+  . test: if all keys from "en-US" (primary) are included on "pt-br" (secondary)
+  . get "accept-language" header from request
+    . if none is set, use default (primary) language
+```
+
 2. add signup, signin and login
   * try to split it into a module so I can plug in wherever I want
-3. add functional tests
-* try this date library instead of luxon: https://github.com/iamkun/dayjs
 * try on frontend (which is to come): https://github.com/sindresorhus/ky
 
 ## Templates
 
 1. simple:
   * production ready dockerfile
+  * support internationalization
   * example end points with functional tests/doc generation
     * [get] /health returning static dumb data (like "{ status: 'ok' }")
     * [get] /users/:id using fixtures
@@ -26,7 +46,7 @@
   * support to environment variables via .env
   * support internationalization
   * example endpoints
-    * [get] /health return server/database status
+    * [get] /health return server/database status (mongoose.connection.readyState)
     * [get] /users/:id using database
     * [post] /users using database
   * deploy to heroku using travis.ci/gitlab ready
@@ -46,40 +66,6 @@
       * [post] /sign-out
   * authorization middleware
   * deploy to heroku using travis.ci/gitlab ready
-
-## Validator idea
-
-It could be written as that:
-
-```js
-const isValueTooLong = {
-  code: 'VALUE_TOO_LONG',
-  field: 'value',
-  message: 'The provided "value" has more than 10 characters.',
-  validator: (value) => value > 10,
-};
-
-const isValueTooShort = {
-  code: 'VALUE_TOO_SHORT',
-  field: 'value',
-  message: 'The provided "value" has less than 10 characters.',
-  validator: (value) => value < 10,
-};
-
-const validate = (value) => [
-    isValueTooLong,
-    isValueTooShort
-  ].reduce((err, constraint, i, array) => {
-    if (err) return err;
-
-    const { validator, ...error } = constraint;
-    const isValid = !validator(value);
-    return isValid ? null : error;
-  }, null);
-
-console.log('## validate(5):', validate(5));
-console.log('## validate(15):', validate(15));
-```
 
 ## Working
 
