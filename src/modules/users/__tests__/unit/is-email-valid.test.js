@@ -9,8 +9,8 @@ test('validator must return "false" if email is not valid', t => {
     'invalid@123!!!!.com.br'
   ].forEach(email => {
     const userDoc = { email };
-    t.assert(
-      isEmailValid(userDoc).validator() === false
+    t.false(
+      isEmailValid(userDoc).validator()
     );
   });
 });

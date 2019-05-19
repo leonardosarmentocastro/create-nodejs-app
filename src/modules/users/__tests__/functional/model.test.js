@@ -3,10 +3,8 @@ const test = require('ava');
 const database = require('../../../../database');
 const { UsersModel } = require('../../model');
 
-test.before('setup database connection/delete all users', async t => {
-  await database.connect();
-  await UsersModel.deleteMany({});
-});
+test.before(t => database.connect());
+test.beforeEach(t => UsersModel.deleteMany({}))
 
 const getUsersSavedOnDatabase = () => UsersModel.find({});
 test('user creation must succeeds', async t => {

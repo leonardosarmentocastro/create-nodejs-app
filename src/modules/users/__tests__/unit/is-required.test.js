@@ -8,10 +8,10 @@ test('validator must return "false" if specified field is empty', t => {
     username: 'not empty',
   };
 
-  t.falsy(
+  t.false(
     isRequired('email')(userDoc).validator()
   );
-  t.truthy(
+  t.true(
     isRequired('username')(userDoc).validator()
   );
 });

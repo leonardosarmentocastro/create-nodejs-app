@@ -12,7 +12,7 @@ test('validator must return "false" when username is already in use by another u
     username,
   };
 
-  t.falsy(
+  t.false(
     await isUsernameAlreadyInUse(userDoc).validator()
   );
 });

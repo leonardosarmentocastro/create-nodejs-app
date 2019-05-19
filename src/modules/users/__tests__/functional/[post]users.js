@@ -6,7 +6,7 @@ const database = require('../../../../database');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
-  startApiOnRandomPort
+  startApiOnRandomPort,
 } = require('../../../__helpers__');
 const { UsersModel } = require('../../model');
 const {
@@ -123,17 +123,17 @@ test(`(500) must return an error when providing an username that exceeds "${USER
 });
 
 test('(500) must return an error when providing an username that is already being used', async t => {
-  const email = 'email@not-being-used.com';
   const username = 'already-being-used';
   const user1 = { ...validUser, username };
   await new UsersModel(user1).save();
 
-  const user2 = { ...user1, email };
+  const email = 'email@not-being-used.com';
+  const user2 = { email, username };
   await got.post(t.context.url, {
     ...getRequestOptions(t, endpointOriginalPath),
     body: user2,
   }).catch(error => {
-    const { validator, ...err } = isUsernameAlreadyInUse(user1);
+    const { validator, ...err } = isUsernameAlreadyInUse(user2);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, err);
   });

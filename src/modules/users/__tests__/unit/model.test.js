@@ -14,15 +14,19 @@ test('usersSchema must inherit sharedSchema fields', t => {
 
 
 test('(transform) must strip "_id" and "privateFields" from doc', t => {
-  const fieldsNotToStripped = { id: '123', anyOtherField: 'potato' };
+  const fieldsNotToBeStripped = {
+    id: '123',
+    email: 'email@domain.com',
+    username: 'username'
+  };
 
   const doc = {}; // The mongoose document which is being converted
   const ret = { // The plain object representation which has been converted
+    ...fieldsNotToBeStripped,
+
     _id: 'must be stripped',
     privateFields: { password: 'must be stripped' },
-
-    ...fieldsNotToStripped,
   };
 
-  t.deepEqual(transform(doc, ret), fieldsNotToStripped);
+  t.deepEqual(transform(doc, ret), fieldsNotToBeStripped);
 });

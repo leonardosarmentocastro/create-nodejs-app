@@ -12,7 +12,7 @@ test('validator must return "false" when email is already in use by another user
     email,
   };
 
-  t.falsy(
+  t.false(
     await isEmailAlreadyInUse(userDoc).validator()
   );
 });
