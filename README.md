@@ -6,6 +6,8 @@ https://messageformat.github.io/messageformat/page-build#toc3__anchor
 https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
+. shared
+  move folder outside /modules, since /modules should only contain what is being served by the application to the outside
 . shared schema
   . fix updating at (its being saved at the same time as "createdAt")
 

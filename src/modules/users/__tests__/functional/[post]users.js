@@ -4,11 +4,13 @@ const theOwl = require('the-owl');
 
 const database = require('../../../../database');
 const {
+  LOCALE,
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,
 } = require('../../../__helpers__');
 const { UsersModel } = require('../../model');
+const { translate } = require('../../../../i18n');
 const {
   isEmailAlreadyInUse,
   isEmailValid,
@@ -53,7 +55,7 @@ test('(500) must return an error when not providing an email', async t => {
   }).catch(error => {
     const { validator, ...err } = isRequired('email')(user);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
@@ -69,7 +71,7 @@ test('(500) must return an error when not providing an username', async t => {
   }).catch(async error => {
     const { validator, ...err } = isRequired('username')(user);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
@@ -85,7 +87,7 @@ test('(500) must return an error when providing an invalid email', async t => {
   }).catch(error => {
     const { validator, ...err } = isEmailValid(user);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
@@ -102,7 +104,7 @@ test('(500) must return an error when providing an email that is already being u
   }).catch(async error => {
     const { validator, ...err } = isEmailAlreadyInUse(user);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
@@ -118,7 +120,7 @@ test(`(500) must return an error when providing an username that exceeds "${USER
   }).catch(error => {
     const { validator, ...err } = isUsernameTooLong(user);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
@@ -135,6 +137,6 @@ test('(500) must return an error when providing an username that is already bein
   }).catch(error => {
     const { validator, ...err } = isUsernameAlreadyInUse(user2);
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, err);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });
 });

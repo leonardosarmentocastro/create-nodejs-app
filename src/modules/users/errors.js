@@ -1,5 +1,4 @@
-exports.userNotFoundError = (userId) => ({
-  code: 'USER_NOT_FOUND',
-  field: '',
-  message: `User "${userId}" was not found.`, // TODO: i18n,
+exports.userNotFoundError = () => ({
+  code: 'USERS_ERROR_USER_NOT_FOUND',
+  field: 'id',
 });

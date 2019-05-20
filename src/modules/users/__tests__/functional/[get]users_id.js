@@ -5,12 +5,14 @@ const mongoose = require('mongoose');
 
 const database = require('../../../../database');
 const {
+  LOCALE,
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
 } = require('../../../__helpers__');
 const { userNotFoundError } = require('../../errors');
 const { UsersModel } = require('../../model');
+const { translate } = require('../../../../i18n');
 
 const endpointOriginalPath = '/users/:id';
 test.before(async t => {
@@ -39,7 +41,10 @@ test('(500) must return an error if the user doesn\'t exist', async t => {
   const url = t.context.url.replace(':id', userId);
   await got(url, getRequestOptions(t, endpointOriginalPath))
     .catch(error => {
+      const err = userNotFoundError(userId);
+      const args = { userId };
+
       t.assert(error.response.statusCode === 500);
-      t.deepEqual(error.response.body, userNotFoundError(userId));
+      t.deepEqual(error.response.body, translate.error(err, LOCALE, args));
     });
 });

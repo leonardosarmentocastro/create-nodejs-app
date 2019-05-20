@@ -1,0 +1,6 @@
+USERS_ERROR_EMAIL_ALREADY_IN_USE: O email "{email}" já está em uso.
+USERS_ERROR_EMAIL_INVALID: O email "{email}" é inválido.
+USERS_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
+USERS_ERROR_USER_NOT_FOUND: Usuário "{userId}" não encontrado.
+USERS_ERROR_USERNAME_ALREADY_IN_USE: O nome de usuário "{username}" já está em uso.
+USERS_ERROR_USERNAME_TOO_LONG: O nome de usuário "{username}" é longo demais (máximo de caracteres é {USERNAME_MAX_LENGTH}).

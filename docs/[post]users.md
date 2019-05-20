@@ -14,11 +14,12 @@
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -32,6 +33,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -53,11 +55,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-05-19T12:17:20.814Z",
-  "updatedAt": "2019-05-19T12:17:20.949Z",
+  "createdAt": "2019-05-20T17:28:13.319Z",
+  "updatedAt": "2019-05-20T17:28:13.544Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5ce14950fefb7630d0a70960"
+  "id": "5ce2e3ad00b54e65b092f1a1"
 }
 ```
 
@@ -65,11 +67,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "",
   "username": "username123"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -83,6 +86,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -104,9 +108,9 @@ Body:
 
 ```
 {
-  "code": "IS_REQUIRED",
+  "code": "USERS_ERROR_FIELD_IS_REQUIRED",
   "field": "email",
-  "message": "The field \"email\" is required."
+  "message": "O campo \"email\" é mandatório."
 }
 ```
 
@@ -114,11 +118,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -132,6 +137,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -153,9 +159,9 @@ Body:
 
 ```
 {
-  "code": "IS_REQUIRED",
+  "code": "USERS_ERROR_FIELD_IS_REQUIRED",
   "field": "username",
-  "message": "The field \"username\" is required."
+  "message": "O campo \"username\" é mandatório."
 }
 ```
 
@@ -163,11 +169,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -181,6 +188,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -202,9 +210,9 @@ Body:
 
 ```
 {
-  "code": "EMAIL_INVALID",
+  "code": "USERS_ERROR_EMAIL_INVALID",
   "field": "email",
-  "message": "The email \"invalid@123!!!!.com.br\" is invalid."
+  "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
 ```
 
@@ -212,11 +220,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "username123"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -230,6 +239,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -251,9 +261,9 @@ Body:
 
 ```
 {
-  "code": "EMAIL_ALREADY_IN_USE",
+  "code": "USERS_ERROR_EMAIL_ALREADY_IN_USE",
   "field": "email",
-  "message": "The email \"email@already-being-used.com\" is already in use."
+  "message": "O email \"email@already-being-used.com\" já está em uso."
 }
 ```
 
@@ -261,11 +271,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -279,6 +290,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -300,9 +312,9 @@ Body:
 
 ```
 {
-  "code": "USERNAME_TOO_LONG",
+  "code": "USERS_ERROR_USERNAME_TOO_LONG",
   "field": "username",
-  "message": "The username \"aaaaaaaaaaaaaaaaaaaaaaaaa\" is too long (max length is 24)."
+  "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é undefined)."
 }
 ```
 
@@ -310,11 +322,12 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:55562/users \
+http://localhost:62505/users \
 -d '{
   "email": "email@not-being-used.com",
   "username": "already-being-used"
 }' \
+-H 'accept-language: pt-br'
 -H 'content-type: application/json'
 ```
 
@@ -328,6 +341,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
+| accept-language | pt-br |
 | content-type | application/json |
 
 Body: 
@@ -349,8 +363,8 @@ Body:
 
 ```
 {
-  "code": "USERNAME_ALREADY_IN_USE",
+  "code": "USERS_ERROR_USERNAME_ALREADY_IN_USE",
   "field": "username",
-  "message": "The username \"already-being-used\" is already in use."
+  "message": "O nome de usuário \"already-being-used\" já está em uso."
 }
 ```
