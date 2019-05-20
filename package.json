@@ -9,7 +9,7 @@
     "start:database": "docker-compose up -d database",
     "start:production": "node index.js",
     "start:with-database": "npm run start:database && MONGODB_HOST=0.0.0.0 npm start",
-    "test": "npm run test:unit && npm run test:functional",
+    "test": "npm run test:unit && npm run test:functional:local",
     "test:functional:ci": "ava **/functional/**/*.js --verbose",
     "test:functional:create-docs": "CREATE_DOCS=true npm run test:functional:local",
     "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME=db-test ava **/functional/**/*.js --verbose --serial",
