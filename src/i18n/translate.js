@@ -1,12 +1,15 @@
 const MessageFormat = require('messageformat');
 
-const { loadTranslationFiles } = require('./load-translation-files');
-const { AVAILABLE_LANGUAGES } = require('./available-languages');
+const { $translations } = require('./translations');
 
 class Translate {
   constructor() {
-    const translationFiles = loadTranslationFiles();
-    const mf = new MessageFormat(AVAILABLE_LANGUAGES);
+    const translations = $translations();
+
+    const translationFiles = translations.load();
+    const availableLanguages = translations.getAvailableLanguages();
+    const mf = new MessageFormat(availableLanguages);
+
     this.translate = mf.compile(translationFiles);
   }
 
