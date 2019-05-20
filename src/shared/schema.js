@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // Middlewares
 const preSaveMiddleware = function(next) {
   const schema = this;
-  schema.updatedAt = dayjs().toISOString();
+  schema.updatedAt = schema.updatedAt ? dayjs().toISOString() : schema.createdAt;
 
   next();
 }

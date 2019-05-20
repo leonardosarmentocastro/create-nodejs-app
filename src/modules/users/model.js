@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const { sharedSchema } = require('../shared');
+const { sharedSchema } = require('../../shared');
 const {
   isEmailAlreadyInUse,
   isEmailValid,

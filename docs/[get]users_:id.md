@@ -9,13 +9,13 @@
 
 ```sh
 curl -X GET \
-http://localhost:62515/users/5ce2e3ae78d83365b185cd81 \
+http://localhost:56196/users/5ce31574107bd32a6e82d91a \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5ce2e3ae78d83365b185cd81`
+Path: `/users/5ce31574107bd32a6e82d91a`
 
 Query parameters: _empty_
 
@@ -37,11 +37,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-05-20T17:28:14.323Z",
-  "updatedAt": "2019-05-20T17:28:14.518Z",
+  "createdAt": "2019-05-20T21:00:35.993Z",
+  "updatedAt": "2019-05-20T21:00:35.993Z",
   "email": "email@domain.com",
   "username": "username",
-  "id": "5ce2e3ae78d83365b185cd81"
+  "id": "5ce31574107bd32a6e82d91a"
 }
 ```
 
@@ -49,13 +49,13 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:62515/users/5ce2e3ae78d83365b185cd82 \
+http://localhost:56196/users/5ce31574107bd32a6e82d91b \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5ce2e3ae78d83365b185cd82`
+Path: `/users/5ce31574107bd32a6e82d91b`
 
 Query parameters: _empty_
 
@@ -78,7 +78,7 @@ Body:
 ```
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
-  "field": "",
-  "message": "Usuário \"5ce2e3ae78d83365b185cd82\" não encontrado."
+  "field": "id",
+  "message": "Usuário \"5ce31574107bd32a6e82d91b\" não encontrado."
 }
 ```

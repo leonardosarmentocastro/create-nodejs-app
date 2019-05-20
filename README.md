@@ -10,21 +10,6 @@ https://yaml-multiline.info/
   move folder outside /modules, since /modules should only contain what is being served by the application to the outside
 . shared schema
   . fix updating at (its being saved at the same time as "createdAt")
-
-. internationalization by hand
-  . write yml files
-  . init:
-    * get default language from .env
-    * parse yml files to javascript objects
-      - https://github.com/nodeca/js-yaml#safeload-string---options-
-      - structure needs to know which language this file refers to
-    * initialize messageformat
-      - https://messageformat.github.io/messageformat/page-build#toc3__anchor
-  . can I avoid it to be a singleton?
-  . languages "en-US" (primary) and "pt-br" (secondary)
-  . test: if all keys from "en-US" (primary) are included on "pt-br" (secondary)
-  . get "accept-language" header from request
-    . if none is set, use default (primary) language
 ```
 
 2. add signup, signin and login
