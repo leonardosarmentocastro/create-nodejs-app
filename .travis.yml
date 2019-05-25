@@ -2,8 +2,8 @@ language: node_js
 node_js: lts/* # Run against latest node stable release.
 cache: npm # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#npm-ci-support
 services:
-  - docker # Enable usage of docker commands.
   - mongodb # Start mongodb for functional tests.
+  - docker # Enable usage of docker commands.
 env:
   - APP_NAME=create-nodejs-app
   - APP_PROCESS_TYPE=server
