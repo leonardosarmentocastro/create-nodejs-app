@@ -39,7 +39,7 @@ before_deploy:
   - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
 
   - echo 'LOGIN_HEROKU_REGISTRY::START'
-  - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com
+  - docker login --username=_ --password=${SECRET_HEROKU_AUTHORIZATION_TOKEN} registry.heroku.com
   - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
 
 deploy:
