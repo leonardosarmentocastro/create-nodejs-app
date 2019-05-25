@@ -35,22 +35,22 @@ before_deploy:
   - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
 
   # - echo 'LOGIN_DOCKER_REGISTRY::START'
-  # - echo "$SECRET_ENCRYPTED_DOCKER_PASSWORD" | docker login -u "$SECRET_ENCRYPTED_DOCKER_USERNAME" --password-stdin
+  # - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
   # - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
 
   # - echo 'LOGIN_HEROKU_REGISTRY::START'
-  # - echo "$SECRET_ENCRYPTED_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com
+  # - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com
   # - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
 
 deploy:
   provider: script
   script:
     echo 'LOGIN_DOCKER_REGISTRY::START';
-    echo "$SECRET_ENCRYPTED_DOCKER_PASSWORD" | docker login -u "$SECRET_ENCRYPTED_DOCKER_USERNAME" --password-stdin;
+    echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin;
     echo 'LOGIN_DOCKER_REGISTRY::FINISH';
 
     echo 'LOGIN_HEROKU_REGISTRY::START';
-    echo "$SECRET_ENCRYPTED_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com;
+    echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com;
     echo 'LOGIN_HEROKU_REGISTRY::FINISH';
 
     echo 'BUILDING_DOCKER_IMAGE::START';
