@@ -10,7 +10,7 @@ env:
   - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
   - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
   - NODE_ENV=test
-  - MONGODB_HOST=localhost
+  - MONGODB_HOST=127.0.0.1
   - MONGODB_DATABASE_NAME=db-test
 
 install: npm ci # Clean/faster install of dependencies.
