@@ -28,7 +28,7 @@ before_script:
   - echo "$SECRET_HEROKU_API_KEY" | docker login -u "$SECRET_HEROKU_USERNAME" --password-stdin registry.heroku.com
   - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
 
-  - sleep 5 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
+  - sleep 15 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
 
 script:
   - echo 'RUNNING_TESTS::START'
