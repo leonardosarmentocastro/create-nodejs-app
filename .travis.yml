@@ -5,12 +5,13 @@ services:
   - mongodb # Start mongodb for functional tests.
   - docker # Enable usage of docker commands.
 env:
-  - APP_NAME=create-nodejs-app
-  - APP_PROCESS_TYPE=server
-  - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
-  - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
-  - NODE_ENV=test
-  - MONGODB_CONNECTION_STRING=mongodb://0.0.0.0:27017/db-test
+  global:
+    - APP_NAME=create-nodejs-app
+    - APP_PROCESS_TYPE=server
+    - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
+    - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
+    - NODE_ENV=test
+    - MONGODB_CONNECTION_STRING=mongodb://0.0.0.0:27017/db-test
 
 install: npm ci # Clean/faster install of dependencies.
 
