@@ -5,8 +5,7 @@ const { server } = require('./src/server');
 (async () => {
   try {
     await database.connect();
-    const api = await server.start();
-    // await server.close(api); // Example of how to close the API.
+    await server.start();
   } catch(err) {
     console.error(err);
   }

@@ -35,9 +35,11 @@ exports.getInfoMessageForRetryingToConnect = (retries, retryCount, retryInSecond
 }
 
 exports.getSuccessMessageForDatabaseConnection = () => {
+  const isProduction = (process.env.NODE_ENV === 'production');
+  const connectedOnURI = isProduction ? '' : `URI: "${textSecondary(CONNECTION_STRING)}"`;
   const message = [
     `${successBg.white('  CONNECTED  ')}`,
-    `${textPrimary('Connection to MongoDB was stablished on URI:')} "${textSecondary(CONNECTION_STRING)}"`,
+    `${textPrimary('Connection to MongoDB was stablished.')} ${connectedOnURI}`.trim(),
   ].join(' ');
 
   return message;

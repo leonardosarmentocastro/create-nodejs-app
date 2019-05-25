@@ -6,10 +6,9 @@ https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
 0. ci
-1. flag stdout messages depending on environment/log level
-  * database connection string must not be displayed on "production" mode (otherwise, it would be in the heroku logs)
-  * show default language on "server started" message
-2. deploy only on tags
+  - trigger CI only on master or tags
+  - create documentation explaining step by step (jeez, so many things to configure)
+  - create a ".gitlab-ci.yml"
 3. add signup, signin and login
   * try to split it into a module so I can plug in wherever I want
 * try on frontend (which is to come): https://github.com/sindresorhus/ky

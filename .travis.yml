@@ -8,7 +8,7 @@ env:
   global:
     - APP_NAME=create-nodejs-app
     - APP_PROCESS_TYPE=web
-    - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
+    - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME:$TRAVIS_COMMIT
     - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
     - NODE_ENV=test
     - MONGODB_DATABASE_NAME=db-test
@@ -20,46 +20,46 @@ before_script:
   - sleep 15 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
 
 script:
-  - echo 'RUNNING_TESTS::START'
+  - echo 'START::RUNNING_TESTS'
   - npm run test:ci # Run unit/functional tests using mongodb from "services".
-  - echo 'RUNNING_TESTS::FINISH'
+  - echo 'FINISH::RUNNING_TESTS'
 
 after_success:
-  - echo 'COLLECT_CODE_COVERAGE::START'
+  - echo 'START::COLLECT_CODE_COVERAGE'
   - npx codecov --file=./coverage/lcov.info # https://codecov.io
-  - echo 'COLLECT_CODE_COVERAGE::FINISH'
+  - echo 'FINISH::COLLECT_CODE_COVERAGE'
 
 before_deploy:
-  - echo 'DOWNLOADING_HEROKU_TOOLBELT::START'
+  - echo 'START::DOWNLOADING_HEROKU_TOOLBELT'
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-  - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
+  - echo 'FINISH::DOWNLOADING_HEROKU_TOOLBELT'
+
+  - echo 'START::LOGIN_DOCKER_REGISTRY'
+  - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
+  - echo 'FINISH::LOGIN_DOCKER_REGISTRY'
+
+  - echo 'START::LOGIN_HEROKU_REGISTRY'
+  - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+  - echo 'FINISH::LOGIN_HEROKU_REGISTRY'
 
 deploy:
   provider: script
   script:
-    echo 'LOGIN_DOCKER_REGISTRY::START';
-    echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin;
-    echo 'LOGIN_DOCKER_REGISTRY::FINISH';
-
-    echo 'LOGIN_HEROKU_REGISTRY::START';
-    echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com;
-    echo 'LOGIN_HEROKU_REGISTRY::FINISH';
-
-    echo 'BUILDING_DOCKER_IMAGE::START';
+    echo 'START::BUILDING_DOCKER_IMAGE';
     docker build -t $DOCKER_IMAGE_NAME .;
     docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME;
-    echo 'BUILDING_DOCKER_IMAGE::FINISH';
+    echo 'FINISH::BUILDING_DOCKER_IMAGE';
 
-    echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::START';
+    echo 'START::PUSH_DOCKER_IMAGE_TO_DOCKERHUB';
     docker push $DOCKER_IMAGE_NAME;
-    echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::FINISH';
+    echo 'FINISH::PUSH_DOCKER_IMAGE_TO_DOCKERHUB';
 
-    echo 'PUSH_DOCKER_IMAGE_TO_HEROKU::START';
+    echo 'START::PUSH_DOCKER_IMAGE_TO_HEROKU';
     docker push $HEROKU_DOCKER_IMAGE_NAME;
-    echo 'PUSH_DOCKER_IMAGE_TO_HEROKU::FINISH';
+    echo 'FINISH::PUSH_DOCKER_IMAGE_TO_HEROKU';
 
-    echo 'RELEASE::START';
+    echo 'START::RELEASE';
     heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;
-    echo 'RELEASE::FINISH';
+    echo 'FINISH::RELEASE';
   on:
     branch: adding_database
