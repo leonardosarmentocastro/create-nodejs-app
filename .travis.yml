@@ -11,7 +11,8 @@ env:
     - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
     - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
     - NODE_ENV=test
-    - MONGODB_CONNECTION_STRING=mongodb://0.0.0.0:27017/db-test
+    - MONGODB_DATABASE_NAME=db-test
+    - MONGODB_HOST=0.0.0.0
 
 install: npm ci # Clean/faster install of dependencies.
 
@@ -35,11 +36,6 @@ script:
   - npm run test:ci # Run unit/functional tests using mongodb from "services".
   - echo 'RUNNING_TESTS::FINISH'
 
-  - echo 'BUILDING_DOCKER_IMAGE::START'
-  - docker build -t $DOCKER_IMAGE_NAME .
-  - docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME
-  - echo 'BUILDING_DOCKER_IMAGE::FINISH'
-
 after_success:
   - echo 'COLLECT_CODE_COVERAGE::START'
   - npx codecov --file=./coverage/lcov.info # https://codecov.io
@@ -48,6 +44,11 @@ after_success:
 deploy:
   provider: script
   script:
+    echo 'BUILDING_DOCKER_IMAGE::START';
+    docker build -t $DOCKER_IMAGE_NAME .;
+    docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME;
+    echo 'BUILDING_DOCKER_IMAGE::FINISH';
+
     echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::START';
     docker push $DOCKER_IMAGE_NAME;
     echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::FINISH';
@@ -60,4 +61,4 @@ deploy:
     heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;
     echo 'RELEASE::FINISH';
   on:
-    branch: master
+    branch: adding_database
