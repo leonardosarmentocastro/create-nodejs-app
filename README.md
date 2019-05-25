@@ -5,6 +5,7 @@ https://messageformat.github.io/messageformat/page-build#toc3__anchor
 https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
+0. ci
 1. flag stdout messages depending on environment/log level
   * database connection string must not be displayed on "production" mode (otherwise, it would be in the heroku logs)
   * show default language on "server started" message
