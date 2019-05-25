@@ -17,18 +17,6 @@ env:
 install: npm ci # Clean/faster install of dependencies.
 
 before_script:
-  - echo 'DOWNLOADING_HEROKU_TOOLBELT::START'
-  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-  - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
-
-  - echo 'LOGIN_DOCKER_REGISTRY::START'
-  - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
-  - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
-
-  - echo 'LOGIN_HEROKU_REGISTRY::START'
-  - echo "$SECRET_HEROKU_API_KEY" | docker login -u "$SECRET_HEROKU_USERNAME" --password-stdin registry.heroku.com
-  - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
-
   - sleep 15 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
 
 script:
@@ -40,6 +28,19 @@ after_success:
   - echo 'COLLECT_CODE_COVERAGE::START'
   - npx codecov --file=./coverage/lcov.info # https://codecov.io
   - echo 'COLLECT_CODE_COVERAGE::FINISH'
+
+before_deploy:
+  - echo 'DOWNLOADING_HEROKU_TOOLBELT::START'
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
+
+  - echo 'LOGIN_DOCKER_REGISTRY::START'
+  - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
+  - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
+
+  - echo 'LOGIN_HEROKU_REGISTRY::START'
+  - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com
+  - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
 
 deploy:
   provider: script
