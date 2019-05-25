@@ -1,18 +1,15 @@
 ## ROADMAP
 
-```
 http://userguide.icu-project.org/formatparse/messages
 https://messageformat.github.io/messageformat/page-build#toc3__anchor
 https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
-. shared
-  move folder outside /modules, since /modules should only contain what is being served by the application to the outside
-. shared schema
-  . fix updating at (its being saved at the same time as "createdAt")
-```
-
-2. add signup, signin and login
+1. flag stdout messages depending on environment/log level
+  * database connection string must not be displayed on "production" mode (otherwise, it would be in the heroku logs)
+  * show default language on "server started" message
+2. deploy only on tags
+3. add signup, signin and login
   * try to split it into a module so I can plug in wherever I want
 * try on frontend (which is to come): https://github.com/sindresorhus/ky
 
@@ -67,13 +64,14 @@ docker-compose up
   docker-compose up database
 
   ## 2.2. Overriding environment values are also possible (check "environments" under "docker-compose.yml")
-  ### NOTE 1: It will not be possible to reach the local "database" container if you override the "MONGODB_HOST".
-  ### Because, in this case, we are making advantage of docker name resolution to connect to the database, set as
+  ### NOTE: Caution when overriding "MONGODB_HOST" to reach the local "database" container.
+  ### In docker-compose we are making advantage of docker name resolution to connect to the database, set as
   ### "database" service on "docker-compose" file.
   ### This will not work:
   ### MONGODB_HOST=127.0.0.1 docker-compose up server
-  ### docker-compose up database
-  PORT=3000 docker-compose up server
+  ### This will work:
+  ### MONGODB_HOST=database docker-compose up server
+  PORT=3000 MONGODB_CONNECTION_STRING=mongodb://database/db-prod docker-compose up server
   docker-compose up database
 
 ## 3. Running the application locally and the server from docker-compose

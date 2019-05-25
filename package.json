@@ -10,10 +10,12 @@
     "start:production": "node index.js",
     "start:with-database": "npm run start:database && MONGODB_HOST=0.0.0.0 npm start",
     "test": "npm run test:unit && npm run test:functional:local",
-    "test:functional:ci": "ava **/functional/**/*.js --verbose",
+    "test:ci": "nyc npm run test:unit && npm run test:functional",
+    "test:functional": "ava **/functional/**/*.js --verbose --serial",
     "test:functional:create-docs": "CREATE_DOCS=true npm run test:functional:local",
-    "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME=db-test ava **/functional/**/*.js --verbose --serial",
-    "test:unit": "ava **/unit/**/*.js --verbose"
+    "test:functional:local": "npm run start:database && MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME=db-test npm run test:functional",
+    "test:unit": "ava **/unit/**/*.js --verbose",
+    "test:with-coverage": "nyc npm test"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "dotenv": "^8.0.0",
     "got": "^9.6.0",
     "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
     "the-owl": "1.0.7"
   },
   "dependencies": {
@@ -39,5 +42,11 @@
     "mongoose": "^5.5.6",
     "morgan": "^1.9.1",
     "validator": "^10.11.0"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }

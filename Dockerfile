@@ -16,4 +16,4 @@ COPY . .
 # Expose "8080" to be used in production.
 # On development, running from "docker-compose" will let you choose a port to be exposed.
 EXPOSE 8080
-CMD [ "npm", "start", "production" ]
+CMD [ "npm", "run", "start:production" ]

@@ -1,0 +1,63 @@
+language: node_js
+node_js: lts/* # Run against latest node stable release.
+cache: npm # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#npm-ci-support
+services:
+  - docker # Enable usage of docker commands.
+  - mongodb # Start mongodb for functional tests.
+env:
+  - APP_NAME=create-nodejs-app
+  - APP_PROCESS_TYPE=server
+  - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME
+  - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
+  - NODE_ENV=test
+  - MONGODB_HOST=127.0.0.1
+  - MONGODB_DATABASE_NAME=db-test
+
+install: npm ci # Clean/faster install of dependencies.
+
+before_script:
+  - echo 'DOWNLOADING_HEROKU_TOOLBELT::START'
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
+
+  - echo 'LOGIN_DOCKER_REGISTRY::START'
+  - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
+  - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
+
+  - echo 'LOGIN_HEROKU_REGISTRY::START'
+  - echo "$SECRET_HEROKU_API_KEY" | docker login -u "$SECRET_HEROKU_USERNAME" --password-stdin registry.heroku.com
+  - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
+
+  - sleep 5 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
+
+script:
+  - echo 'RUNNING_TESTS::START'
+  - npm run test:ci # Run unit/functional tests using mongodb from "services".
+  - echo 'RUNNING_TESTS::FINISH'
+
+  - echo 'BUILDING_DOCKER_IMAGE::START'
+  - docker build -t $DOCKER_IMAGE_NAME .
+  - docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME
+  - echo 'BUILDING_DOCKER_IMAGE::FINISH'
+
+after_success:
+  - echo 'COLLECT_CODE_COVERAGE::START'
+  - npx codecov --file=./coverage/lcov.info # https://codecov.io
+  - echo 'COLLECT_CODE_COVERAGE::FINISH'
+
+deploy:
+  provider: script
+  script:
+    echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::START';
+    docker push $DOCKER_IMAGE_NAME;
+    echo 'PUSH_DOCKER_IMAGE_TO_DOCKERHUB::FINISH';
+
+    echo 'PUSH_DOCKER_IMAGE_TO_HEROKU::START';
+    docker push $HEROKU_DOCKER_IMAGE_NAME;
+    echo 'PUSH_DOCKER_IMAGE_TO_HEROKU::FINISH';
+
+    echo 'RELEASE::START';
+    heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;
+    echo 'RELEASE::FINISH';
+  on:
+    branch: master
