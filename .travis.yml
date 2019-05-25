@@ -34,14 +34,6 @@ before_deploy:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - echo 'DOWNLOADING_HEROKU_TOOLBELT:::FINISH'
 
-  # - echo 'LOGIN_DOCKER_REGISTRY::START'
-  # - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
-  # - echo 'LOGIN_DOCKER_REGISTRY::FINISH'
-
-  # - echo 'LOGIN_HEROKU_REGISTRY::START'
-  # - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login --username=_ --password-stdin registry.heroku.com
-  # - echo 'LOGIN_HEROKU_REGISTRY::FINISH'
-
 deploy:
   provider: script
   script:
