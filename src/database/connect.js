@@ -9,6 +9,7 @@ const {
 } = require('./messages');
 
 exports.connect = async () => {
+  console.log('### process.env.MONGODB_CONNECTION_STRING', process.env.MONGODB_CONNECTION_STRING);
   let retryCount = 0;
   const retries = 5;
   const minTimeout = 3000;
