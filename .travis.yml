@@ -35,6 +35,8 @@ before_deploy:
   - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
 
 deploy:
+  branches:
+    only: [ "master" ]
   provider: script
   script:
     # Build docker image and tag it following heroku convention.
@@ -47,5 +49,3 @@ deploy:
 
     # Release (deploy) the newly builded docker image.
     heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;
-  on:
-    branch: adding_database

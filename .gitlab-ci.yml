@@ -14,22 +14,19 @@ variables:
   MONGODB_HOST: mongo
 
 test:
-  stage: test
   image: node:alpine
-  services:
-    - mongo:latest # Start mongodb for functional tests.
   script:
     - npm ci # Clean/faster install of dependencies.
     - npm run test:ci # Run unit/functional tests using mongodb from "services".
     - npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
+  services:
+    - mongo:latest # Start mongodb for functional tests.
+  stage: test
 
 build:
-  stage: build
-  only:
-    - adding_database
   image: docker
-  services:
-    - docker:dind # Starts docker daemon.
+  only:
+    - master
   script:
     # Log into dockerhub/heroku registries to later push docker images to them.
     - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
@@ -42,15 +39,18 @@ build:
     # Push docker images to dockerhub/heroku registries.
     - docker push $DOCKER_IMAGE_NAME
     - docker push $HEROKU_DOCKER_IMAGE_NAME
+  services:
+    - docker:dind # Starts docker daemon.
+  stage: build
 
 deploy:
-  stage: deploy
   image: node:lts # Has bash, needed for heroku toolbelt.
   only:
-    - adding_database
+    - master
   script:
     # Download heroku toolbelt.
     - wget -qO- https://toolbelt.heroku.com/install.sh | sh
 
     # Release (deploy) the newly builded docker image.
     - heroku container:release $APP_PROCESS_TYPE --app $APP_NAME
+  stage: deploy
