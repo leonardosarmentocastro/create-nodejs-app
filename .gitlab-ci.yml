@@ -45,3 +45,5 @@ deploy:
 
     # Release (deploy) the newly builded docker image.
     - heroku container:release $APP_PROCESS_TYPE --app $APP_NAME
+  tags:
+    - docker
