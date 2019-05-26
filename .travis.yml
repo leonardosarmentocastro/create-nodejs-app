@@ -33,4 +33,4 @@ deploy:
   on:
     branch: master
   provider: script
-  script: ./ci/deploy.sh
+  script: bash ci/deploy.sh
