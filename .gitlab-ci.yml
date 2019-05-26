@@ -1,3 +1,4 @@
+image: node:lts # Run against latest node stable release.
 stages:
   - test
   - deploy
@@ -13,7 +14,6 @@ variables:
 
 test:
   stage: test
-  image: node:lts # Run against latest node stable release.
   services:
     - mongo:latest # Start mongodb for functional tests.
   script:
@@ -23,7 +23,8 @@ test:
 
 deploy:
   stage: deploy
-  image: docker:dind
+  only:
+    - adding_database
   script:
     # Download heroku toolbelt.
     - wget -qO- https://toolbelt.heroku.com/install.sh | sh
@@ -42,5 +43,5 @@ deploy:
 
     # Release (deploy) the newly builded docker image.
     - heroku container:release $APP_PROCESS_TYPE --app $APP_NAME
-  only:
-    - adding_database
+  tags:
+    - docker
