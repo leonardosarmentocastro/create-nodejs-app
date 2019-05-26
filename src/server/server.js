@@ -21,11 +21,8 @@ exports.server = {
     });
   },
 
-  listen(app) {
-    const options = {
-      port: process.env.PORT,
-      environment: process.env.NODE_ENV,
-    };
+  listen(app, port) {
+    const options = { environment: process.env.NODE_ENV, port };
 
     return new Promise((resolve, reject) => {
       app.listen(options, function() {
@@ -41,11 +38,11 @@ exports.server = {
     });
   },
 
-  async start() {
+  async start(port = process.env.PORT) {
     const app = express();
     connect(app);
 
-    const api = await this.listen(app);
+    const api = await this.listen(app, port);
     return api;
   },
 };
