@@ -14,7 +14,7 @@ variables:
 
 test:
   stage: test
-  image: node:alpine # Run against latest node stable release.
+  image: node:alpine
   services:
     - mongo:latest # Start mongodb for functional tests.
   script:
@@ -28,7 +28,7 @@ build:
     - adding_database
   image: docker
   services:
-    - docker:dind
+    - docker:dind # Starts docker daemon.
   script:
     # Log into dockerhub/heroku registries to later push docker images to them.
     - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
@@ -44,7 +44,7 @@ build:
 
 deploy:
   stage: deploy
-  image: node:alpine # Run against latest node stable release.
+  image: node:lts # Has bash, needed for heroku toolbelt.
   only:
     - adding_database
   script:
