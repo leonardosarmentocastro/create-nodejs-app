@@ -12,6 +12,16 @@ test('(getAvailableLanguages) must return an array with all file names under tra
   );
 });
 
+test('(getAvailableLanguages) must not include languages from files that are not of ".yml" extension', t => {
+  const translations = $translations();
+  const whiteoutFile = '.wh..wh..opq'; // Weird file extension that appeared on released Docker image.
+  translations.getTranslationFileNames = () => [ 'es-ES.yml', 'fr-FR.yml', whiteoutFile ];
+
+  t.deepEqual(
+    translations.getAvailableLanguages(), [ 'es-ES', 'fr-FR' ]
+  );
+});
+
 test('(getTranslationFileNames) must return file names under translation folder', t => {
   const translationFileNames = [ 'de-DE.yml', 'it-IT.yml' ];
   const translations = $translations({ __readdirSync: () => translationFileNames });

@@ -15,9 +15,14 @@ exports.$translations = ({
   getAvailableLanguages() {
     return this.getTranslationFileNames()
       .reduce((availableLanguages, translationFileName) => {
-        console.log('#### translationFileName', translationFileName); // TODO: remove
-        const [ language ] = translationFileName.split('.yml');
-        return availableLanguages.concat(language);
+        const substrings = translationFileName.split('.yml');
+        const isYmlFile = (substrings.length >= 2);
+        if (isYmlFile) {
+          const [ language ] = substrings;
+          return availableLanguages.concat(language);
+        }
+
+        return availableLanguages;
       }, []);
   },
 

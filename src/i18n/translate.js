@@ -8,7 +8,6 @@ class Translate {
 
     const translationFiles = translations.load();
     const availableLanguages = translations.getAvailableLanguages();
-    console.log('## availableLanguages', availableLanguages); // TODO: remove
     const mf = new MessageFormat(availableLanguages);
 
     this.translate = mf.compile(translationFiles);
