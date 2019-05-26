@@ -36,7 +36,7 @@ exports.getSuccessMessageForServerClose = () => {
 exports.getSuccessMessageForServerStatup = (options) => {
   const { port, environment } = options;
   const message = [
-    `\r\n${successBg.white('  STARTED  ')}`,
+    `${successBg.white('  STARTED  ')}`,
     `${textPrimary('Server listening on port')} ${textSecondary(port)}`,
     `${textPrimary('in')} ${textSecondary(environment)} ${textPrimary('mode.')}`
   ].join(' ');

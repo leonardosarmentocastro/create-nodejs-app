@@ -8,7 +8,8 @@
 
 ```sh
 curl -X GET \
-http://localhost:8081/health
+http://localhost:56181/health \
+-H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
@@ -17,7 +18,11 @@ Path: `/health`
 
 Query parameters: _empty_
 
-Headers: _empty_
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
 
 Body: _empty_
 

@@ -1,0 +1,51 @@
+language: node_js
+node_js: lts/* # Run against latest node stable release.
+cache: npm # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#npm-ci-support
+services:
+  - mongodb # Start mongodb for functional tests.
+  - docker # Enable usage of docker commands.
+env:
+  global:
+    - APP_NAME=create-nodejs-app
+    - APP_PROCESS_TYPE=web
+    - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME:$TRAVIS_COMMIT
+    - HEROKU_API_KEY=$SECRET_HEROKU_AUTHORIZATION_TOKEN # Needed for Heroku CLI image release.
+    - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
+    - NODE_ENV=test
+    - MONGODB_DATABASE_NAME=db-ci
+    - MONGODB_HOST=0.0.0.0
+
+install: npm ci # Clean/faster install of dependencies.
+
+before_script:
+  - sleep 15 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
+
+script:
+  - npm run test:ci # Run unit/functional tests using mongodb from "services".
+
+after_success:
+  - npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
+
+before_deploy:
+  # Download heroku toolbelt.
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+
+  # Log into dockerhub/heroku registries to later push docker images to them.
+  - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
+  - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+
+deploy:
+  branches:
+    only: [ "master" ]
+  provider: script
+  script:
+    # Build docker image and tag it following heroku convention.
+    docker build -t $DOCKER_IMAGE_NAME .;
+    docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME;
+
+    # Push docker images to dockerhub/heroku registries.
+    docker push $DOCKER_IMAGE_NAME;
+    docker push $HEROKU_DOCKER_IMAGE_NAME;
+
+    # Release (deploy) the newly builded docker image.
+    heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;

@@ -3,8 +3,8 @@ const cors = require('cors');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 
-const theOwl = require('the-owl');
 const modules = require('../modules');
+const i18n = require('../i18n');
 
 const middlewares = (app) => ({
   connect() {
@@ -21,8 +21,11 @@ const middlewares = (app) => ({
   cors() {
     app.use(cors());
   },
+  i18n() {
+    i18n.connect(app);
+  },
   generateApiDocs() {
-    if (process.env.NODE_ENV === 'test') theOwl.connect(app);
+    if (process.env.NODE_ENV === 'test') require('the-owl').connect(app);
   },
   prettifyStacktraceOnBrowser() {
     app.use(errorhandler());
