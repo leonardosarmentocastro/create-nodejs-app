@@ -9,7 +9,7 @@ variables:
   HEROKU_DOCKER_IMAGE_NAME: registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
   NODE_ENV: test
   MONGODB_DATABASE_NAME: db-ci
-  MONGODB_HOST: mongodb
+  MONGODB_HOST: mongo
 
 test:
   stage: test
