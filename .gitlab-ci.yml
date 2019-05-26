@@ -1,6 +1,6 @@
-image: node:lts # Run against latest node stable release.
 stages:
   - test
+  - build
   - deploy
 
 variables:
@@ -14,6 +14,7 @@ variables:
 
 test:
   stage: test
+  image: node:alpine # Run against latest node stable release.
   services:
     - mongo:latest # Start mongodb for functional tests.
   script:
@@ -21,16 +22,12 @@ test:
     - npm run test:ci # Run unit/functional tests using mongodb from "services".
     - npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
 
-deploy:
-  stage: deploy
+build:
+  stage: build
   only:
     - adding_database
-  services:
-    - docker:dind
+  image: docker:dind
   script:
-    # Download heroku toolbelt.
-    - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-
     # Log into dockerhub/heroku registries to later push docker images to them.
     - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
     - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
@@ -43,7 +40,14 @@ deploy:
     - docker push $DOCKER_IMAGE_NAME
     - docker push $HEROKU_DOCKER_IMAGE_NAME
 
+deploy:
+  stage: deploy
+  image: node:alpine # Run against latest node stable release.
+  only:
+    - adding_database
+  script:
+    # Download heroku toolbelt.
+    - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+
     # Release (deploy) the newly builded docker image.
     - heroku container:release $APP_PROCESS_TYPE --app $APP_NAME
-  tags:
-    - docker
