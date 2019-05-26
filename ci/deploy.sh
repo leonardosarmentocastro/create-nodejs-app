@@ -1,9 +1,9 @@
 # Download heroku toolbelt.
-wget -qO- https://toolbelt.heroku.com/install.sh | sh
+wget -qO- https://toolbelt.heroku.com/install.sh | sh;
 
 # Log into dockerhub/heroku registries to later push docker images to them.
-echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
-echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin;
+echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com;
 
 # Build docker image and tag it following heroku convention.
 docker build -t $DOCKER_IMAGE_NAME .;
