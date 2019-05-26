@@ -25,6 +25,8 @@ deploy:
   stage: deploy
   only:
     - adding_database
+  services:
+    - docker:dind
   script:
     # Download heroku toolbelt.
     - wget -qO- https://toolbelt.heroku.com/install.sh | sh
@@ -43,5 +45,3 @@ deploy:
 
     # Release (deploy) the newly builded docker image.
     - heroku container:release $APP_PROCESS_TYPE --app $APP_NAME
-  tags:
-    - docker
