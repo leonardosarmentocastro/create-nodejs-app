@@ -1,9 +1,9 @@
 const test = require('ava');
 const yaml = require('js-yaml');
 
-const { $translations } = require('../../translations');
+const { $translations, TRANSLATIONS_FILE_EXTENSION } = require('../../translations');
 
-test('(getAvailableLanguages) must return an array with all file names under translation folder, stripping its ".yml" extension', t => {
+test(`(getAvailableLanguages) must return an array with all file names under translation folder, stripping its "${TRANSLATIONS_FILE_EXTENSION}" extension`, t => {
   const translations = $translations();
   translations.getTranslationFileNames = () => [ 'es-ES.yml', 'fr-FR.yml' ];
 
@@ -12,7 +12,7 @@ test('(getAvailableLanguages) must return an array with all file names under tra
   );
 });
 
-test('(getAvailableLanguages) must not include languages from files that are not of ".yml" extension', t => {
+test(`(getAvailableLanguages) must not include languages from files that are not of "${TRANSLATIONS_FILE_EXTENSION}" extension`, t => {
   const translations = $translations();
   const whiteoutFile = '.wh..wh..opq'; // Weird file extension that appeared on released Docker image.
   translations.getTranslationFileNames = () => [ 'es-ES.yml', 'fr-FR.yml', whiteoutFile ];
@@ -37,7 +37,7 @@ test('(load) must read all ".yml" files and map them as "language: content" js o
   const translations = $translations({
     __readFileSync: () => translationFileContent
   });
-  translations.getTranslationFileNames = () => [ 'en-us.yml', 'pt-br.yml' ];
+  translations.getAvailableLanguages = () => [ 'en-us', 'pt-br' ];
 
   const object = yaml.safeLoad(translationFileContent);
   const translationFiles = await translations.load();
