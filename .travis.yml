@@ -11,7 +11,7 @@ env:
     - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME:$TRAVIS_COMMIT
     - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
     - NODE_ENV=test
-    - MONGODB_DATABASE_NAME=db-test
+    - MONGODB_DATABASE_NAME=db-ci
     - MONGODB_HOST=0.0.0.0
 
 install: npm ci # Clean/faster install of dependencies.
@@ -20,46 +20,31 @@ before_script:
   - sleep 15 # https://docs.travis-ci.com/user/database-setup/#mongodb-does-not-immediately-accept-connections
 
 script:
-  - echo 'START::RUNNING_TESTS'
   - npm run test:ci # Run unit/functional tests using mongodb from "services".
-  - echo 'FINISH::RUNNING_TESTS'
 
 after_success:
-  - echo 'START::COLLECT_CODE_COVERAGE'
-  - npx codecov --file=./coverage/lcov.info # https://codecov.io
-  - echo 'FINISH::COLLECT_CODE_COVERAGE'
+  - npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
 
 before_deploy:
-  - echo 'START::DOWNLOADING_HEROKU_TOOLBELT'
+  # Download heroku toolbelt.
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-  - echo 'FINISH::DOWNLOADING_HEROKU_TOOLBELT'
 
-  - echo 'START::LOGIN_DOCKER_REGISTRY'
+  # Log into dockerhub/heroku registries to later push docker images to them.
   - echo "$SECRET_DOCKER_PASSWORD" | docker login -u "$SECRET_DOCKER_USERNAME" --password-stdin
-  - echo 'FINISH::LOGIN_DOCKER_REGISTRY'
-
-  - echo 'START::LOGIN_HEROKU_REGISTRY'
   - echo "$SECRET_HEROKU_AUTHORIZATION_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
-  - echo 'FINISH::LOGIN_HEROKU_REGISTRY'
 
 deploy:
   provider: script
   script:
-    echo 'START::BUILDING_DOCKER_IMAGE';
+    # Build docker image and tag it following heroku convention.
     docker build -t $DOCKER_IMAGE_NAME .;
     docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME;
-    echo 'FINISH::BUILDING_DOCKER_IMAGE';
 
-    echo 'START::PUSH_DOCKER_IMAGE_TO_DOCKERHUB';
+    # Push docker images to dockerhub/heroku registries.
     docker push $DOCKER_IMAGE_NAME;
-    echo 'FINISH::PUSH_DOCKER_IMAGE_TO_DOCKERHUB';
-
-    echo 'START::PUSH_DOCKER_IMAGE_TO_HEROKU';
     docker push $HEROKU_DOCKER_IMAGE_NAME;
-    echo 'FINISH::PUSH_DOCKER_IMAGE_TO_HEROKU';
 
-    echo 'START::RELEASE';
+    # Release (deploy) the newly builded docker image.
     heroku container:release $APP_PROCESS_TYPE --app $APP_NAME;
-    echo 'FINISH::RELEASE';
   on:
     branch: adding_database
