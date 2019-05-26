@@ -1,6 +1,7 @@
 stages:
   - test
   - deploy
+
 variables:
   APP_NAME: create-nodejs-app
   APP_PROCESS_TYPE: web
@@ -11,6 +12,7 @@ variables:
   MONGODB_HOST: 0.0.0.0
 
 test:
+  stage: test
   image: node/lts-alpine # Run against latest node stable release.
   services:
     - mongo:latest # Start mongodb for functional tests.
@@ -20,6 +22,7 @@ test:
     - npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
 
 deploy:
+  stage: deploy
   image: docker:dind
   script:
     # Download heroku toolbelt.
