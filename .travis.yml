@@ -9,6 +9,7 @@ env:
     - APP_NAME=create-nodejs-app
     - APP_PROCESS_TYPE=web
     - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME:$TRAVIS_COMMIT
+    - HEROKU_API_KEY=$SECRET_HEROKU_AUTHORIZATION_TOKEN # Needed for Heroku CLI image release.
     - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
     - NODE_ENV=test
     - MONGODB_DATABASE_NAME=db-ci

@@ -15,13 +15,14 @@ exports.$translations = ({
   getAvailableLanguages() {
     return this.getTranslationFileNames()
       .reduce((availableLanguages, translationFileName) => {
+        console.log('#### translationFileName', translationFileName); // TODO: remove
         const [ language ] = translationFileName.split('.yml');
         return availableLanguages.concat(language);
       }, []);
   },
 
   getTranslationFileNames() {
-    return __readdirSync(TRANSLATIONS_PATH, options)
+    return __readdirSync(TRANSLATIONS_PATH, options);
   },
 
   load() {
