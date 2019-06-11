@@ -21,7 +21,7 @@ class Translate {
     };
   }
 
-  get(locale, key, args) {
+  get(key, locale, args) {
     return this.translate[locale][key](args);
   };
 }

@@ -10,7 +10,7 @@ const {
   getRequestOptions,
   startApiOnRandomPort
 } = require('../../../__helpers__');
-const { userNotFoundError } = require('../../errors');
+const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { UsersModel } = require('../../model');
 const { translate } = require('../../../../i18n');
 
@@ -41,7 +41,7 @@ test('(500) must return an error if the user doesn\'t exist', async t => {
   const url = t.context.url.replace(':id', userId);
   await got(url, getRequestOptions(t, endpointOriginalPath))
     .catch(error => {
-      const err = userNotFoundError(userId);
+      const err = USERS_ERROR_USER_NOT_FOUND;
       const args = { userId };
 
       t.assert(error.response.statusCode === 500);

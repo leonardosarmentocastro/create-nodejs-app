@@ -6,9 +6,9 @@ https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
 0. ci
-  - trigger CI only on master or tags
   - create documentation explaining step by step (jeez, so many things to configure)
-  - create a ".gitlab-ci.yml"
+1. Prompt user to select witch kind of tempalte he wants: https://github.com/enquirer/enquirer
+2. record gifs with "Gifox": https://gifox.io/
 3. add signup, signin and login
   * try to split it into a module so I can plug in wherever I want
 * try on frontend (which is to come): https://github.com/sindresorhus/ky

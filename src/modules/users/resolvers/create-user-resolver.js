@@ -6,7 +6,9 @@ exports.createUserResolver = async (req, res) => {
 
   try {
     const savedUser = await userDoc.save();
-    return res.status(200).json(savedUser.toObject());
+    const transformedUser = savedUser.toObject();
+
+    return res.status(200).json(transformedUser);
   } catch(err) {
     const args = userDoc.toObject();
     const error = translate.error(err, req.locale, args);

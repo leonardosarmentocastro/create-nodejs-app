@@ -24,7 +24,9 @@ exports.connect = async () => {
     },
   };
 
-  await retry(() => mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true }), options)
+  // https://mongoosejs.com/docs/deprecations.html
+  const mongooseOptions = { useNewUrlParser: true, useFindAndModify: false };
+  await retry(() => mongoose.connect(CONNECTION_STRING, mongooseOptions), options)
     .catch(err => {
       const errorMessage = getErrorMessageForDatabaseConnection(err);
       return Promise.reject(errorMessage);

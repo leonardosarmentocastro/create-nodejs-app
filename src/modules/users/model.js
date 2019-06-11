@@ -37,8 +37,13 @@ const postValidateMiddleware = async (userDoc, next) => {
   return next(error);
 };
 
-// Virtuals
-// https://mongoosejs.com/docs/api.html#document_Document-toObject
+const setUpdateOptions = function(next) {
+  this.options.new = true; // Return the updated document instead of the original one.
+  this.options.runValidators = true;
+  next();
+};
+
+// Virtuals - https://mongoosejs.com/docs/api.html#document_Document-toObject
 const transform = (doc, ret) => {
   const {
     __v,
@@ -46,12 +51,14 @@ const transform = (doc, ret) => {
     privateFields,
     ...publicFields
   } = ret;
+
   return publicFields;
 };
 
 // Setup
 usersSchema.add(sharedSchema);
 usersSchema.post('validate', postValidateMiddleware);
+usersSchema.pre('findOneAndUpdate', setUpdateOptions);
 usersSchema.set('toObject', {
   transform,
   virtuals: true // Expose "id" instead of "_id".

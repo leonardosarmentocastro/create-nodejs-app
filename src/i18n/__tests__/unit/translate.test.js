@@ -20,7 +20,7 @@ test('must return translated content', t => {
 
   keys.forEach(key =>
     locales.reduce((prevTranslation, locale) => {
-      const translation = translate.get(locale, key, args);
+      const translation = translate.get(key, locale, args);
       if (!prevTranslation) return translation;
 
       t.truthy(translation);

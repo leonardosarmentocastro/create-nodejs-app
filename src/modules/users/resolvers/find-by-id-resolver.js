@@ -1,17 +1,14 @@
 const { isMongoId } = require('validator');
 
 const { UsersModel } = require('../model');
-const { userNotFoundError } = require('../errors');
+const { USERS_ERROR_USER_NOT_FOUND } = require('../errors');
 const { translate } = require('../../../i18n');
 
 const error = (req) => {
-  const userId = req.params.id;
+  const err = USERS_ERROR_USER_NOT_FOUND;
+  const args = { userId: req.params.id };
 
-  const err = userNotFoundError();
-  const args = { userId };
-  const error = translate.error(err, req.locale, args);
-
-  return error;
+  return translate.error(err, req.locale, args);
 }
 
 exports.findByIdResolver = async (req, res) => {

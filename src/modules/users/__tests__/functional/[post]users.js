@@ -3,14 +3,15 @@ const got = require('got');
 const theOwl = require('the-owl');
 
 const database = require('../../../../database');
+const { validUserFixture } = require('../__fixtures__');
 const {
   LOCALE,
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,
 } = require('../../../__helpers__');
-const { UsersModel } = require('../../model');
 const { translate } = require('../../../../i18n');
+const { UsersModel } = require('../../model');
 const {
   isEmailAlreadyInUse,
   isEmailValid,
@@ -29,9 +30,8 @@ test.beforeEach(t => UsersModel.deleteMany());
 test.after(t => theOwl.createDocs());
 test.after.always(t => closeApiOpenedOnRandomPort(t));
 
-const validUser = { email: 'email@domain.com', username: 'username123' };
 test('(200) must return the newly created user', async t => {
-  const user = { ...validUser };
+  const user = { ...validUserFixture };
   const response = await got.post(t.context.url, {
     ...getRequestOptions(t, endpointOriginalPath),
     body: user,
@@ -45,7 +45,7 @@ test('(200) must return the newly created user', async t => {
 
 test('(500) must return an error when not providing an email', async t => {
   const user = {
-    ...validUser,
+    ...validUserFixture,
     email: ''
   };
 
@@ -61,7 +61,7 @@ test('(500) must return an error when not providing an email', async t => {
 
 test('(500) must return an error when not providing an username', async t => {
   const user = {
-    ...validUser,
+    ...validUserFixture,
     username: ''
   };
 
@@ -77,7 +77,7 @@ test('(500) must return an error when not providing an username', async t => {
 
 test('(500) must return an error when providing an invalid email', async t => {
   const user = {
-    ...validUser,
+    ...validUserFixture,
     email: 'invalid@123!!!!.com.br'
   };
 
@@ -93,7 +93,7 @@ test('(500) must return an error when providing an invalid email', async t => {
 
 test('(500) must return an error when providing an email that is already being used', async t => {
   const user = {
-    ...validUser,
+    ...validUserFixture,
     email: 'email@already-being-used.com'
   };
   await new UsersModel(user).save();
@@ -110,7 +110,7 @@ test('(500) must return an error when providing an email that is already being u
 
 test(`(500) must return an error when providing an username that exceeds "${USERNAME_MAX_LENGTH}" characters`, async t => {
   const user = {
-    ...validUser,
+    ...validUserFixture,
     username: 'a'.repeat(USERNAME_MAX_LENGTH + 1)
   };
 
@@ -126,7 +126,7 @@ test(`(500) must return an error when providing an username that exceeds "${USER
 
 test('(500) must return an error when providing an username that is already being used', async t => {
   const username = 'already-being-used';
-  const user1 = { ...validUser, username };
+  const user1 = { ...validUserFixture, username };
   await new UsersModel(user1).save();
 
   const email = 'email@not-being-used.com';
