@@ -4,6 +4,7 @@ const theOwl = require('the-owl');
 const mongoose = require('mongoose');
 
 const database = require('../../../../database');
+const { validUserFixture } = require('../__fixtures__');
 const {
   LOCALE,
   closeApiOpenedOnRandomPort,
@@ -14,22 +15,30 @@ const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { UsersModel } = require('../../model');
 const { translate } = require('../../../../i18n');
 
-const endpointOriginalPath = '/users/:id';
-test.before(async t => {
-  await startApiOnRandomPort(t, endpointOriginalPath);
+// Utility
+const getUrl = (t, userId) => t.context.url.replace(':id', userId);
+
+// Setup
+test.before('prepare: start api / connect to database', async t => {
+  t.context.endpointOriginalPath = '/users/:id';
+
+  await startApiOnRandomPort(t);
   await database.connect();
 });
-test.beforeEach(t => UsersModel.deleteMany());
-test.after(t => theOwl.createDocs());
-test.after.always(t => closeApiOpenedOnRandomPort(t));
+test.beforeEach('cleanup database', t => UsersModel.deleteMany());
+test.after('create api docs (if enabled)', t => theOwl.createDocs());
+test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
+// Tests
 test('(200) must return the user saved on database if it exists', async t => {
-  const user = { email: 'email@domain.com', username: 'username' };
+  // Prepare
+  const user = { ...validUserFixture };
   const savedUser = (await new UsersModel(user).save()).toObject();
 
-  const url = t.context.url.replace(':id', savedUser.id);
-  const response = await got(url, getRequestOptions(t, endpointOriginalPath));
+  // Execute
+  const response = await got(getUrl(t, savedUser.id), getRequestOptions(t));
 
+  // Assert
   t.assert(response.statusCode === 200);
   t.assert(response.body.id === savedUser.id);
   Object.keys(user)
@@ -37,9 +46,12 @@ test('(200) must return the user saved on database if it exists', async t => {
 });
 
 test('(500) must return an error if the user doesn\'t exist', async t => {
+  // Prepare
   const userId = mongoose.Types.ObjectId();
-  const url = t.context.url.replace(':id', userId);
-  await got(url, getRequestOptions(t, endpointOriginalPath))
+
+  // Execute
+  await got(getUrl(t, userId), getRequestOptions(t))
+    // Assert
     .catch(error => {
       const err = USERS_ERROR_USER_NOT_FOUND;
       const args = { userId };

@@ -23,10 +23,14 @@ const {
   // USERNAME_MAX_LENGTH,
 } = require('../../validators');
 
-const getUrl = (t, userId = t.context.userId) => t.context.url.replace(':id', userId);
-const endpointOriginalPath = '/users/:id';
+// Utility
+const getUrl = (t, userId = t.context.user.id) => t.context.url.replace(':id', userId);
+
+// Setup
 test.before('start api / connect to database', async t => {
-  await startApiOnRandomPort(t, endpointOriginalPath);
+  t.context.endpointOriginalPath = '/users/:id';
+
+  await startApiOnRandomPort(t);
   await database.connect();
 });
 test.beforeEach('cleanup / prepopulate the database', async t => {
@@ -34,27 +38,36 @@ test.beforeEach('cleanup / prepopulate the database', async t => {
 
   const createdUser = await UsersModel.create(validUserFixture);
   const transformedUser = createdUser.toObject();
-  t.context.userId = transformedUser.id;
+  t.context.user = transformedUser;
 });
 test.after('create api docs (if enabled)', t => theOwl.createDocs());
 test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
 
+// Tests
 test('(200) must return the newly updated user', async t => {
+  // Prepare
   const userPayload = { email: 'new-email@domain.com' };
 
+  // Execute
   const response = await got.put(getUrl(t), {
-    ...getRequestOptions(t, endpointOriginalPath),
+    ...getRequestOptions(t),
     body: userPayload,
   });
 
+  // Assert
   const updatedUser = response.body;
-  t.assert(updatedUser.id === t.context.userId);
-  t.assert(updatedUser.email === userPayload.email);
+  t.assert(updatedUser.id === t.context.user.id); // not updated field
+  t.assert(updatedUser.username === t.context.user.username); // not updated field
+  t.assert(updatedUser.email === userPayload.email); // updated field
 });
 
 test('(500) must return an error if the user doesn\'t exists', async t => {
+  // Prepare
   const userId = mongoose.Types.ObjectId();
-  await got.put(getUrl(t, userId), getRequestOptions(t, endpointOriginalPath))
+
+  // Execute
+  await got.put(getUrl(t, userId), getRequestOptions(t))
+    // Assert
     .catch(error => {
       const err = USERS_ERROR_USER_NOT_FOUND;
       const args = { userId };
@@ -65,12 +78,16 @@ test('(500) must return an error if the user doesn\'t exists', async t => {
 });
 
 test('(500) must return an error when providing an empty email', async t => {
+  // Prepare
   const userPayload = { email: '' };
 
+  // Execute
   await got.put(getUrl(t), {
-    ...getRequestOptions(t, endpointOriginalPath),
+    ...getRequestOptions(t),
     body: userPayload,
-  }).catch(error => {
+  })
+  // Assert
+  .catch(error => {
     const { validator, ...err } = isRequired('email')(userPayload);
 
     t.assert(error.response.statusCode == 500);

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const { sharedSchema } = require('../../shared');
 const {
+  isAlreadyInUse,
   isEmailAlreadyInUse,
   isEmailValid,
   isRequired,
@@ -23,24 +24,18 @@ const usersSchema = new mongoose.Schema({
 });
 
 // Middlewares
-const postValidateMiddleware = async (userDoc, next) => {
+const validationsMiddleware = async (userDoc, next) => {
   const constraints = [
     isRequired('email'),
     isRequired('username'),
     isEmailValid,
-    isEmailAlreadyInUse,
+    isAlreadyInUse('email'),
     isUsernameTooLong,
-    isUsernameAlreadyInUse,
+    isAlreadyInUse('username'),
   ];
   const error = await validate(constraints, userDoc);
 
   return next(error);
-};
-
-const setUpdateOptions = function(next) {
-  this.options.new = true; // Return the updated document instead of the original one.
-  this.options.runValidators = true;
-  next();
 };
 
 // Virtuals - https://mongoosejs.com/docs/api.html#document_Document-toObject
@@ -57,8 +52,7 @@ const transform = (doc, ret) => {
 
 // Setup
 usersSchema.add(sharedSchema);
-usersSchema.post('validate', postValidateMiddleware);
-usersSchema.pre('findOneAndUpdate', setUpdateOptions);
+usersSchema.post('validate', validationsMiddleware);
 usersSchema.set('toObject', {
   transform,
   virtuals: true // Expose "id" instead of "_id".
@@ -67,7 +61,7 @@ usersSchema.set('toObject', {
 const UsersModel = mongoose.model('User', usersSchema);
 
 module.exports = {
-  postValidateMiddleware,
+  validationsMiddleware,
   transform,
   usersSchema,
   UsersModel

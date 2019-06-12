@@ -8,15 +8,21 @@ const {
   startApiOnRandomPort,
 } = require('../../../__helpers__');
 
-const endpointOriginalPath = `/health`;
-test.before(t => startApiOnRandomPort(t, endpointOriginalPath));
+// Setup
+test.before('setup: start api', t => {
+  t.context.endpointOriginalPath = '/health';
+  return startApiOnRandomPort(t);
+});
+test.after('create api docs (if enabled)', t => theOwl.createDocs());
+test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
-test.serial('(200) must return the application healthy check status', async t => {
-  const response = await got(t.context.url, getRequestOptions(t, endpointOriginalPath));
+// Tests
+test('(200) must return the application healthy check status', async t => {
+  // Execute
+  const response = await got(t.context.url, getRequestOptions(t));
+
+  // Assert
   t.deepEqual(response.body, {
     application: 'up',
   });
 });
-
-test.after(t => theOwl.createDocs());
-test.after.always(t => closeApiOpenedOnRandomPort(t));

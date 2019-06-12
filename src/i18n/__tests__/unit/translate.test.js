@@ -10,11 +10,10 @@ test('must return translated content', t => {
   const args = {};
   const locales = [ LOCALE_PRIMARY, LOCALE_SECONDARY ];
   const keys = [
-    'USERS_ERROR_EMAIL_ALREADY_IN_USE',
     'USERS_ERROR_EMAIL_INVALID',
+    'USERS_ERROR_FIELD_ALREADY_IN_USE',
     'USERS_ERROR_FIELD_IS_REQUIRED',
     'USERS_ERROR_USER_NOT_FOUND',
-    'USERS_ERROR_USERNAME_ALREADY_IN_USE',
     'USERS_ERROR_USERNAME_TOO_LONG',
   ];
 
