@@ -8,7 +8,7 @@ exports.updateUserResolver = async (req, res) => {
   const userId = req.params.id;
   if (!isMongoId(userId)) return userNotFoundError(req, res);
 
-  let userDoc = await UsersModel.findById(userId);
+  const userDoc = await UsersModel.findById(userId);
   if (!userDoc) return userNotFoundError(req, res);
 
   const userPayload = req.body;
@@ -20,6 +20,7 @@ exports.updateUserResolver = async (req, res) => {
 
     return res.status(200).json(transformedUser);
   } catch(err) {
+    // TODO: add a middleware that catches unknown errors (sharedUnexpectedError).
     return userTranslatedValidationError(req, res, { err, userDoc });
   }
 };
