@@ -14,7 +14,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -55,11 +55,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-05-20T21:00:35.063Z",
-  "updatedAt": "2019-05-20T21:00:35.063Z",
+  "createdAt": "2019-06-16T22:27:33.069Z",
+  "updatedAt": "2019-06-16T22:27:33.069Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5ce31573802f8e2a6dcb0740"
+  "id": "5d06c25521502a77295bea86"
 }
 ```
 
@@ -67,7 +67,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -118,7 +118,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -169,7 +169,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
@@ -220,7 +220,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "username123"
@@ -261,9 +261,9 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_EMAIL_ALREADY_IN_USE",
+  "code": "USERS_ERROR_FIELD_ALREADY_IN_USE",
   "field": "email",
-  "message": "O email \"email@already-being-used.com\" já está em uso."
+  "message": "Este email já está em uso."
 }
 ```
 
@@ -271,7 +271,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -322,7 +322,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:56186/users \
+http://localhost:54644/users \
 -d '{
   "email": "email@not-being-used.com",
   "username": "already-being-used"
@@ -363,8 +363,8 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_USERNAME_ALREADY_IN_USE",
+  "code": "USERS_ERROR_FIELD_ALREADY_IN_USE",
   "field": "username",
-  "message": "O nome de usuário \"already-being-used\" já está em uso."
+  "message": "Este username já está em uso."
 }
 ```

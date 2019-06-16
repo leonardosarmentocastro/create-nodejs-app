@@ -3,7 +3,7 @@ const test = require('ava');
 
 const {
   preSaveMiddleware,
-  sharedsharedSanitizerr,
+  sharedSanitizer,
   SHARED_SCHEMA_NOT_SETTABLE_FIELDS,
 } = require('../../schema');
 
