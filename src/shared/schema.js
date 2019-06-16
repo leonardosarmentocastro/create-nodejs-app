@@ -24,4 +24,16 @@ const sharedSchema = new mongoose.Schema({
 });
 sharedSchema.pre('save', preSaveMiddleware);
 
-module.exports = { preSaveMiddleware, sharedSchema };
+// Utils
+const SHARED_SCHEMA_NOT_SETTABLE_FIELDS = [ 'id', '_id', 'createdAt', 'updatedAt' ];
+const sharedSanitizer = (schema, fieldsToRemove = SHARED_SCHEMA_NOT_SETTABLE_FIELDS) =>
+  Object.keys(schema)
+    .filter(key => !fieldsToRemove.includes(key))
+    .reduce((accumulator, key) => ({ ...accumulator, [key]: schema[key] }), {});
+
+module.exports = {
+  preSaveMiddleware,
+  sharedSanitizer,
+  SHARED_SCHEMA_NOT_SETTABLE_FIELDS,
+  sharedSchema
+};

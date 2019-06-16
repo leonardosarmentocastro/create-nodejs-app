@@ -14,6 +14,7 @@ const { validUserFixture } = require('../__fixtures__');
 const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { translate } = require('../../../../i18n');
 const { UsersModel } = require('../../model');
+const { SHARED_SCHEMA_NOT_SETTABLE_FIELDS } = require('../../../../shared');
 const {
   isAlreadyInUse,
   isEmailValid,
@@ -72,7 +73,8 @@ test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
 
 test('(200) must be idempotent when updating without setting new values to fields', async t => {
   // Prepare
-  const userPayload = { ...validUserFixture };
+  const { email, username } = t.context.user;
+  const userPayload = { email, username };
 
   // Execute
   const response = await got.put(getUrl(t), {
@@ -84,11 +86,26 @@ test('(200) must be idempotent when updating without setting new values to field
   t.assert(response.statusCode === 200);
 });
 
-// TODO:
-// const NOT_UPDATABLE_FIELDS = [ 'id', '_id', 'createdAt', 'updatedAt' ];
-// test('(200) The fields "${NOT_UPDATABLE_FIELDS.toString()}" must not be updatable', async t => {
+test(`(200) The fields "${SHARED_SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be updatable`, async t => {
+  // Prepare
+  const notSettableFields = SHARED_SCHEMA_NOT_SETTABLE_FIELDS
+    .reduce((accumulator, field) => ({ ...accumulator, [field]: 'value' }), {});
+  const userPayload = { ...notSettableFields };
 
-// });
+  // Execute
+  const response = await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: userPayload,
+  });
+
+  // Assert
+  const updatedUser = response.body;
+  t.assert(response.statusCode === 200);
+  SHARED_SCHEMA_NOT_SETTABLE_FIELDS
+    .forEach(key =>
+      t.assert(updatedUser[key] !== notSettableFields[key])
+    );
+});
 
 test('(500) must return an error if the user doesn\'t exists', async t => {
   // Prepare

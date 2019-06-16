@@ -1,8 +1,8 @@
 const { userTranslatedValidationError } = require('../errors');
-const { translate } = require('../../../i18n');
 const { UsersModel } = require('../model');
 
 exports.createUserResolver = async (req, res) => {
+  // TODO: use "sharedSanitizer" / add tests
   const userDoc = new UsersModel(req.body);
 
   try {
