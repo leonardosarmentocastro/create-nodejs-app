@@ -11,14 +11,13 @@ const {
   startApiOnRandomPort,
 } = require('../../../__helpers__');
 const { translate } = require('../../../../i18n');
-const { UsersModel } = require('../../model');
+const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 const {
-  isAlreadyInUse,
-  isEmailValid,
-  isRequired,
-  isUsernameTooLong,
-  USERNAME_MAX_LENGTH,
-} = require('../../validators');
+  isAlreadyInUseValidator,
+  isValidEmailValidator,
+  isRequiredValidator,
+  isTooLongValidator,
+} = require('../../../../shared');
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {
@@ -63,7 +62,7 @@ test('(500) must return an error when not providing an email', async t => {
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isRequired('email')(user);
+    const { validator, ...err } = isRequiredValidator('email')(user);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
@@ -83,7 +82,7 @@ test('(500) must return an error when not providing an username', async t => {
   })
   // Assert
   .catch(async error => {
-    const { validator, ...err } = isRequired('username')(user);
+    const { validator, ...err } = isRequiredValidator('username')(user);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
@@ -103,7 +102,7 @@ test('(500) must return an error when providing an invalid email', async t => {
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isEmailValid(user);
+    const { validator, ...err } = isValidEmailValidator(user);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
@@ -124,17 +123,17 @@ test('(500) must return an error when providing an email that is already being u
   })
   // Assert
   .catch(async error => {
-    const { validator, ...err } = isAlreadyInUse('email')(user);
+    const { validator, ...err } = isAlreadyInUseValidator('email')(user);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
 });
 
-test(`(500) must return an error when providing an username that exceeds "${USERNAME_MAX_LENGTH}" characters`, async t => {
+test(`(500) must return an error when providing an username that exceeds "${USERS_USERNAME_MAX_LENGTH}" characters`, async t => {
   // Prepare
   const user = {
     ...validUserFixture,
-    username: 'a'.repeat(USERNAME_MAX_LENGTH + 1)
+    username: 'a'.repeat(USERS_USERNAME_MAX_LENGTH + 1)
   };
 
   // Execute
@@ -144,7 +143,7 @@ test(`(500) must return an error when providing an username that exceeds "${USER
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isUsernameTooLong(user);
+    const { validator, ...err } = isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH)(user);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user));
   });
@@ -166,7 +165,7 @@ test('(500) must return an error when providing an username that is already bein
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isAlreadyInUse('username')(user2);
+    const { validator, ...err } = isAlreadyInUseValidator('username')(user2);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });

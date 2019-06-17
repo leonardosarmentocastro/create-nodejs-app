@@ -13,15 +13,14 @@ const {
 const { validUserFixture } = require('../__fixtures__');
 const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { translate } = require('../../../../i18n');
-const { UsersModel } = require('../../model');
-const { SHARED_SCHEMA_NOT_SETTABLE_FIELDS } = require('../../../../shared');
+const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
+const { SCHEMA_NOT_SETTABLE_FIELDS } = require('../../../../shared');
 const {
-  isAlreadyInUse,
-  isEmailValid,
-  isRequired,
-  isUsernameTooLong,
-  USERNAME_MAX_LENGTH,
-} = require('../../validators');
+  isAlreadyInUseValidator,
+  isValidEmailValidator,
+  isRequiredValidator,
+  isTooLongValidator,
+} = require('../../../../shared');
 
 // Utility
 const getUrl = (t, userId = t.context.user.id) => t.context.url.replace(':id', userId);
@@ -83,12 +82,14 @@ test('(200) must be idempotent when updating without setting new values to field
   });
 
   // Assert
+  const updatedUser = response.body;
   t.assert(response.statusCode === 200);
+  t.not(updatedUser.updatedAt, t.context.user.updatedAt); // "updatedAt" must have a new value
 });
 
-test(`(200) The fields "${SHARED_SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be updatable`, async t => {
+test(`(200) The fields "${SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be updatable`, async t => {
   // Prepare
-  const notSettableFields = SHARED_SCHEMA_NOT_SETTABLE_FIELDS
+  const notSettableFields = SCHEMA_NOT_SETTABLE_FIELDS
     .reduce((accumulator, field) => ({ ...accumulator, [field]: 'value' }), {});
   const userPayload = { ...notSettableFields };
 
@@ -101,7 +102,7 @@ test(`(200) The fields "${SHARED_SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must no
   // Assert
   const updatedUser = response.body;
   t.assert(response.statusCode === 200);
-  SHARED_SCHEMA_NOT_SETTABLE_FIELDS
+  SCHEMA_NOT_SETTABLE_FIELDS
     .forEach(key =>
       t.assert(updatedUser[key] !== notSettableFields[key])
     );
@@ -134,7 +135,7 @@ test('(500) must return an error when providing an empty email', async t => {
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isRequired('email')(userPayload);
+    const { validator, ...err } = isRequiredValidator('email')(userPayload);
 
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
@@ -152,7 +153,7 @@ test('(500) must return an error when providing an invalid email', async t => {
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isEmailValid(userPayload);
+    const { validator, ...err } = isValidEmailValidator(userPayload);
 
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
@@ -161,13 +162,11 @@ test('(500) must return an error when providing an invalid email', async t => {
 
 test('(500) must return an error when providing an email that is already being used', async t => {
   // Prepare
-  const createdUser = {
-    email: 'email@already-being-used.com',
-    username: `not_${t.context.user.username}`
-  };
+  const email = 'email@already-being-used.com';
+  const createdUser = { email, username: 'random_username' };
   await UsersModel.create(createdUser);
 
-  const userPayload = { email: createdUser.email };
+  const userPayload = { email };
 
   // Execute
   await got.put(getUrl(t), {
@@ -176,22 +175,67 @@ test('(500) must return an error when providing an email that is already being u
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isAlreadyInUse('email')(userPayload);
+    const { validator, ...err } = isAlreadyInUseValidator('email')(userPayload);
 
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
   });
 });
 
-// TODO
-// test('(500) must return an error when providing an empty username', async t => {
+test('(500) must return an error when providing an empty username', async t => {
+  // Prepare
+  const userPayload = { username: '' };
 
-// });
+  // Execute
+  await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: userPayload,
+  })
+  // Assert
+  .catch(error => {
+    const { validator, ...err } = isRequiredValidator('username')(userPayload);
 
-// test(`(500) must return an error when providing an username that exceeds "${USERNAME_MAX_LENGTH}" characters`, async t => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+  });
+});
 
-// });
+test(`(500) must return an error when providing an username that exceeds "${USERS_USERNAME_MAX_LENGTH}" characters`, async t => {
+  // Prepare
+  const userPayload = { username: 'a'.repeat(USERS_USERNAME_MAX_LENGTH + 1) };
 
-// test('(500) must return an error when providing an username that is already being used', async t => {
+  // Execute
+  await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: userPayload,
+  })
+  // Assert
+  .catch(error => {
+    const { validator, ...err } = isTooLongValidator('username', )(userPayload);
 
-// });
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+  });
+});
+
+test('(500) must return an error when providing an username that is already being used', async t => {
+  // Prepare
+  const username = `username_being_used`;
+  const createdUser = { email: 'email@not-being-used.com', username };
+  await UsersModel.create(createdUser);
+
+  const userPayload = { username };
+
+  // Execute
+  await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: userPayload,
+  })
+  // Assert
+  .catch(error => {
+    const { validator, ...err } = isAlreadyInUseValidator('username')(userPayload);
+
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+  });
+});

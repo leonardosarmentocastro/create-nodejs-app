@@ -12,7 +12,6 @@ test('usersSchema must inherit sharedSchema fields', t => {
     .forEach(([ key, value ]) => t.deepEqual(usersSchemaFields[key], value));
 });
 
-
 test('(transform) must strip "__v", "_id" and "privateFields" from doc', t => {
   const fieldsNotToBeStripped = {
     id: '123',

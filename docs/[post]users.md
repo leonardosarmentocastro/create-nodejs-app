@@ -14,7 +14,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -55,11 +55,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-16T22:27:33.069Z",
-  "updatedAt": "2019-06-16T22:27:33.069Z",
+  "createdAt": "2019-06-17T14:44:00.452Z",
+  "updatedAt": "2019-06-17T14:44:00.452Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d06c25521502a77295bea86"
+  "id": "5d07a73056776f2e70ab77ab"
 }
 ```
 
@@ -67,7 +67,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -108,7 +108,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_FIELD_IS_REQUIRED",
+  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
   "field": "email",
   "message": "O campo \"email\" é mandatório."
 }
@@ -118,7 +118,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -159,7 +159,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_FIELD_IS_REQUIRED",
+  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
   "field": "username",
   "message": "O campo \"username\" é mandatório."
 }
@@ -169,7 +169,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
@@ -210,7 +210,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_EMAIL_INVALID",
+  "code": "SHARED_ERROR_EMAIL_INVALID",
   "field": "email",
   "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
@@ -220,7 +220,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "username123"
@@ -261,7 +261,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
   "field": "email",
   "message": "Este email já está em uso."
 }
@@ -271,7 +271,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -312,7 +312,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_USERNAME_TOO_LONG",
+  "code": "SHARED_ERROR_FIELD_IS_TOO_LONG",
   "field": "username",
   "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é undefined)."
 }
@@ -322,7 +322,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:54644/users \
+http://localhost:55906/users \
 -d '{
   "email": "email@not-being-used.com",
   "username": "already-being-used"
@@ -363,7 +363,7 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
   "field": "username",
   "message": "Este username já está em uso."
 }

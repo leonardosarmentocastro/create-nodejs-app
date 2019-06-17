@@ -3,14 +3,12 @@ const mongoose = require('mongoose');
 
 const { sharedSchema } = require('../../shared');
 const {
-  isAlreadyInUse,
-  isEmailAlreadyInUse,
-  isEmailValid,
-  isRequired,
-  isUsernameAlreadyInUse,
-  isUsernameTooLong,
+  isAlreadyInUseValidator,
+  isValidEmailValidator,
+  isRequiredValidator,
+  isTooLongValidator,
   validate,
-} = require('./validators');
+} = require('../../shared');
 
 const usersSchema = new mongoose.Schema({
   email: String,
@@ -24,14 +22,15 @@ const usersSchema = new mongoose.Schema({
 });
 
 // Middlewares
+const USERS_USERNAME_MAX_LENGTH = 24;
 const validationsMiddleware = async (userDoc, next) => {
   const constraints = [
-    isRequired('email'),
-    isRequired('username'),
-    isEmailValid,
-    isAlreadyInUse('email'),
-    isUsernameTooLong,
-    isAlreadyInUse('username'),
+    isRequiredValidator('email'),
+    isRequiredValidator('username'),
+    isValidEmailValidator,
+    isAlreadyInUseValidator('email'),
+    isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH),
+    isAlreadyInUseValidator('username'),
   ];
   const error = await validate(constraints, userDoc);
 
@@ -61,8 +60,9 @@ usersSchema.set('toObject', {
 const UsersModel = mongoose.model('User', usersSchema);
 
 module.exports = {
-  validationsMiddleware,
   transform,
   usersSchema,
-  UsersModel
+  UsersModel,
+  USERS_USERNAME_MAX_LENGTH,
+  validationsMiddleware,
 };

@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const { isAlreadyInUse } = require('../../validators');
+const { isAlreadyInUseValidator } = require('../../is-already-in-use-validator');
 
 // Fixtures
 const id = 'user1-already-in-database';
@@ -24,10 +24,10 @@ test('validator must return "false" when "field" is already in use by another us
 
   // Assert
   t.false(
-    await isAlreadyInUse(field)(userDoc).validator()
+    await isAlreadyInUseValidator(field)(userDoc).validator()
   );
   t.true(
-    await isAlreadyInUse(`not_${field}`)(userDoc).validator()
+    await isAlreadyInUseValidator(`not_${field}`)(userDoc).validator()
   );
 });
 
@@ -41,6 +41,6 @@ test('validator must return "true" when "field" is not in use by another user bu
 
   // Assert
   t.true(
-    await isAlreadyInUse(field)(userDoc).validator()
+    await isAlreadyInUseValidator(field)(userDoc).validator()
   );
 });

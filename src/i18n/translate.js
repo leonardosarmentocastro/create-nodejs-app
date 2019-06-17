@@ -15,14 +15,20 @@ class Translate {
 
   error(err, locale, args) {
     const errorArgs = { ...err, ...args };
+    const translation = this.get(err.code, locale, errorArgs);
+
     return {
       ...err,
-      message: this.translate[locale][err.code](errorArgs),
+      message: translation,
     };
   }
 
   get(key, locale, args) {
-    return this.translate[locale][key](args);
+    const getTranslation = this.translate[locale][key];
+    if (!getTranslation) throw new Error(`Translation not found for key: "${key}".`);
+
+    const translation = getTranslation(args);
+    return translation;
   };
 }
 

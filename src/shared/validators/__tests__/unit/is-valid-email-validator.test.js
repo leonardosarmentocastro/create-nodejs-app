@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const { isEmailValid } = require('../../validators');
+const { isValidEmailValidator } = require('../../is-valid-email-validator');
 
 test('validator must return "false" if email is not valid', t => {
   [
@@ -10,7 +10,7 @@ test('validator must return "false" if email is not valid', t => {
   ].forEach(email => {
     const userDoc = { email };
     t.false(
-      isEmailValid(userDoc).validator()
+      isValidEmailValidator(userDoc).validator()
     );
   });
 });

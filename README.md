@@ -5,13 +5,15 @@ https://messageformat.github.io/messageformat/page-build#toc3__anchor
 https://github.com/nodeca/js-yaml#safeload-string---options-
 https://yaml-multiline.info/
 
-0. ci
-  - create documentation explaining step by step (jeez, so many things to configure)
-1. Prompt user to select witch kind of tempalte he wants: https://github.com/enquirer/enquirer
-2. record gifs with "Gifox": https://gifox.io/
-3. add signup, signin and login
-  * try to split it into a module so I can plug in wherever I want
-* try on frontend (which is to come): https://github.com/sindresorhus/ky
+0. documentation
+  - create a decent README.md explaining CI/architecture decisions step by step (jeez, so many things to configure)
+  - record gifs with "Gifox": https://gifox.io/
+1. wizard
+  - Prompt user to select witch kind of tempalte he wants: https://github.com/enquirer/enquirer
+3. modules to add
+  - add signup, signin and login(try to split it into a module so I can plug in wherever I want)
+4. try libs
+  - try on frontend (which is to come): https://github.com/sindresorhus/ky
 
 ## Templates
 

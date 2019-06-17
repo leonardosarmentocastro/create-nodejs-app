@@ -1,6 +1,6 @@
+SHARED_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
+SHARED_ERROR_FIELD_ALREADY_IN_USE: This {field} is already in use.
+SHARED_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.
+SHARED_ERROR_FIELD_IS_TOO_LONG: The username "{username}" is too long (max length is {USERNAME_MAX_LENGTH}).
 SHARED_ERROR_UNEXPECTED: Sorry, an unexpected error has occurred.
-USERS_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
-USERS_ERROR_FIELD_ALREADY_IN_USE: This {field} is already in use.
-USERS_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.
 USERS_ERROR_USER_NOT_FOUND: User "{userId}" was not found.
-USERS_ERROR_USERNAME_TOO_LONG: The username "{username}" is too long (max length is {USERNAME_MAX_LENGTH}).

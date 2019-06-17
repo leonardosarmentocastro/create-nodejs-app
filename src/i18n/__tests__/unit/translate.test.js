@@ -1,18 +1,18 @@
 const test = require('ava');
 
-const { isRequired } = require('../../../modules/users/validators');
+const { isRequiredValidator } = require('../../../shared/validators');
 const { translate } = require('../../translate');
 
 const LOCALE_PRIMARY = 'en-us';
 const LOCALE_SECONDARY = 'pt-br';
 const LOCALES = [ LOCALE_PRIMARY, LOCALE_SECONDARY ];
 const TRANSLATION_KEYS = [
+  'SHARED_ERROR_EMAIL_INVALID',
+  'SHARED_ERROR_FIELD_ALREADY_IN_USE',
+  'SHARED_ERROR_FIELD_IS_REQUIRED',
+  'SHARED_ERROR_FIELD_IS_TOO_LONG',
   'SHARED_ERROR_UNEXPECTED',
-  'USERS_ERROR_EMAIL_INVALID',
-  'USERS_ERROR_FIELD_ALREADY_IN_USE',
-  'USERS_ERROR_FIELD_IS_REQUIRED',
   'USERS_ERROR_USER_NOT_FOUND',
-  'USERS_ERROR_USERNAME_TOO_LONG',
 ];
 
 TRANSLATION_KEYS.forEach(translationKey => {
@@ -34,7 +34,7 @@ TRANSLATION_KEYS.forEach(translationKey => {
 test('must return a validator error containing an translated message', t => {
   const field = 'email';
   const userDoc = { username: 'aaa' };
-  const { validator, ...error } = isRequired(field)(userDoc);
+  const { validator, ...error } = isRequiredValidator(field)(userDoc);
 
   const translation1 = translate.error(error, LOCALE_PRIMARY, userDoc);
   const translation2 = translate.error(error, LOCALE_SECONDARY, userDoc);

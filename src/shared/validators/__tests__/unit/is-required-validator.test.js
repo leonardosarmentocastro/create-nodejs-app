@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const { isRequired } = require('../../validators');
+const { isRequiredValidator } = require('../../is-required-validator');
 
 test('validator must return "false" if specified field is empty', t => {
   const userDoc = {
@@ -9,9 +9,9 @@ test('validator must return "false" if specified field is empty', t => {
   };
 
   t.false(
-    isRequired('email')(userDoc).validator()
+    isRequiredValidator('email')(userDoc).validator()
   );
   t.true(
-    isRequired('username')(userDoc).validator()
+    isRequiredValidator('username')(userDoc).validator()
   );
 });
