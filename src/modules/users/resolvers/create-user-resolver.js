@@ -1,9 +1,10 @@
 const { userTranslatedValidationError } = require('../errors');
 const { UsersModel } = require('../model');
+const { sharedSanitizer } = require('../../../shared');
 
 exports.createUserResolver = async (req, res) => {
-  // TODO: use "sharedSanitizer" / add tests
-  const userDoc = new UsersModel(req.body);
+  const userPayload = sharedSanitizer(req.body);
+  const userDoc = new UsersModel(userPayload);
 
   try {
     const savedUser = await userDoc.save();

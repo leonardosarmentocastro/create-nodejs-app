@@ -10,7 +10,7 @@ const {
   LOCALE,
   startApiOnRandomPort,
 } = require('../../../__helpers__');
-const { validUserFixture } = require('../__fixtures__');
+const { validUserFixture, validPrefixedUserFixture } = require('../__fixtures__');
 const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { translate } = require('../../../../i18n');
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
@@ -21,13 +21,13 @@ const {
   isRequiredValidator,
   isTooLongValidator,
 } = require('../../../../shared');
-
-// Utility
-const getUrl = (t, userId = t.context.user.id) => t.context.url.replace(':id', userId);
+const { emptyEmailTestcase } = require('./testcases/empty-email-testcase');
 
 // Setup
 test.before('start api / connect to database', async t => {
+  t.context.endpointMethod = 'put';
   t.context.endpointOriginalPath = '/users/:id';
+  t.context.getUrl = (t, userId = t.context.user.id) => t.context.url.replace(':id', userId); // TODO: refactor other tests.
 
   await startApiOnRandomPort(t);
   await database.connect();
@@ -52,7 +52,7 @@ test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
     const userPayload = { [field]: value };
 
     // Execute
-    const response = await got.put(getUrl(t), {
+    const response = await got.put(t.context.getUrl(t), {
       ...getRequestOptions(t),
       body: userPayload,
     });
@@ -76,7 +76,7 @@ test('(200) must be idempotent when updating without setting new values to field
   const userPayload = { email, username };
 
   // Execute
-  const response = await got.put(getUrl(t), {
+  const response = await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -87,6 +87,7 @@ test('(200) must be idempotent when updating without setting new values to field
   t.not(updatedUser.updatedAt, t.context.user.updatedAt); // "updatedAt" must have a new value
 });
 
+// TODO: replace with model testcases.
 test(`(200) The fields "${SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be updatable`, async t => {
   // Prepare
   const notSettableFields = SCHEMA_NOT_SETTABLE_FIELDS
@@ -94,7 +95,7 @@ test(`(200) The fields "${SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be up
   const userPayload = { ...notSettableFields };
 
   // Execute
-  const response = await got.put(getUrl(t), {
+  const response = await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -113,7 +114,7 @@ test('(500) must return an error if the user doesn\'t exists', async t => {
   const userId = mongoose.Types.ObjectId();
 
   // Execute
-  await got.put(getUrl(t, userId), getRequestOptions(t))
+  await got.put(t.context.getUrl(t, userId), getRequestOptions(t))
     // Assert
     .catch(error => {
       const err = USERS_ERROR_USER_NOT_FOUND;
@@ -124,30 +125,18 @@ test('(500) must return an error if the user doesn\'t exists', async t => {
     });
 });
 
-test('(500) must return an error when providing an empty email', async t => {
-  // Prepare
+test(emptyEmailTestcase.title, t => {
   const userPayload = { email: '' };
-
-  // Execute
-  await got.put(getUrl(t), {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isRequiredValidator('email')(userPayload);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
+  return emptyEmailTestcase.test(t, { userPayload });
 });
 
+// TODO: replace with model testcases.
 test('(500) must return an error when providing an invalid email', async t => {
   // Prepare
   const userPayload = { email: 'invalid@123!!!!.com.br' };
 
   // Execute
-  await got.put(getUrl(t), {
+  await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   })
@@ -160,34 +149,35 @@ test('(500) must return an error when providing an invalid email', async t => {
   });
 });
 
+// TODO: replace with model testcases.
 test('(500) must return an error when providing an email that is already being used', async t => {
   // Prepare
   const email = 'email@already-being-used.com';
-  const createdUser = { email, username: 'random_username' };
-  await UsersModel.create(createdUser);
-
-  const userPayload = { email };
+  const user1 = { ...validPrefixedUserFixture('user1'), email };
+  const user2 = { ...validPrefixedUserFixture('user2'), email };
+  await new UsersModel(user1).save();
 
   // Execute
-  await got.put(getUrl(t), {
+  await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
-    body: userPayload,
+    body: user2,
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isAlreadyInUseValidator('email')(userPayload);
+    const { validator, ...err } = isAlreadyInUseValidator('email')(user2);
 
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });
 });
 
+// TODO: replace with model testcases.
 test('(500) must return an error when providing an empty username', async t => {
   // Prepare
   const userPayload = { username: '' };
 
   // Execute
-  await got.put(getUrl(t), {
+  await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   })
@@ -200,12 +190,13 @@ test('(500) must return an error when providing an empty username', async t => {
   });
 });
 
+// TODO: replace with model testcases.
 test(`(500) must return an error when providing an username that exceeds "${USERS_USERNAME_MAX_LENGTH}" characters`, async t => {
   // Prepare
   const userPayload = { username: 'a'.repeat(USERS_USERNAME_MAX_LENGTH + 1) };
 
   // Execute
-  await got.put(getUrl(t), {
+  await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   })
@@ -218,24 +209,24 @@ test(`(500) must return an error when providing an username that exceeds "${USER
   });
 });
 
+// TODO: replace with model testcases.
 test('(500) must return an error when providing an username that is already being used', async t => {
   // Prepare
-  const username = `username_being_used`;
-  const createdUser = { email: 'email@not-being-used.com', username };
-  await UsersModel.create(createdUser);
-
-  const userPayload = { username };
+  const username = 'already-being-used';
+  const user1 = { ...validPrefixedUserFixture('user1'), username };
+  const user2 = { ...validPrefixedUserFixture('user2'), username };
+  await new UsersModel(user1).save();
 
   // Execute
-  await got.put(getUrl(t), {
+  await got.put(t.context.getUrl(t), {
     ...getRequestOptions(t),
-    body: userPayload,
+    body: user2,
   })
   // Assert
   .catch(error => {
-    const { validator, ...err } = isAlreadyInUseValidator('username')(userPayload);
+    const { validator, ...err } = isAlreadyInUseValidator('username')(user2);
 
     t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });
 });
