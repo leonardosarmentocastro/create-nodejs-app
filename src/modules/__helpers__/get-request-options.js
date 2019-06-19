@@ -8,5 +8,6 @@ exports.getRequestOptions = (t) => ({
     ...theOwl.buildHeaders(t.title, t.context.endpointOriginalPath) // Generate API docs based on functional test results.
   },
   json: true, // Automatically parses "response.body": https://github.com/sindresorhus/got/issues/174#issuecomment-298292987
+  method: t.context.endpointMethod || 'get',
   timeout: TIMEOUT,
 });

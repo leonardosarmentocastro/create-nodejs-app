@@ -3,6 +3,11 @@ const got = require('got');
 const theOwl = require('the-owl');
 
 const database = require('../../../../database');
+const {
+  fieldIsAlreadyInUseTestcase,
+  fieldIsEmptyTestcase,
+  fieldIsTooLongTestcase,
+} = require('./testcases');
 const { validUserFixture, validPrefixedUserFixture } = require('../__fixtures__');
 const {
   LOCALE,
@@ -22,6 +27,7 @@ const {
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {
+  t.context.endpointMethod = 'post';
   t.context.endpointOriginalPath = '/users';
 
   await startApiOnRandomPort(t);
@@ -37,7 +43,7 @@ test('(200) must return the newly created user', async t => {
   const userPayload = { ...validUserFixture };
 
   // Execute
-  const response = await got.post(t.context.url, {
+  const response = await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -58,7 +64,7 @@ test(`(200) must ignore the fields "${SCHEMA_NOT_SETTABLE_FIELDS}" when creating
   const userPayload = { ...validUserFixture, ...notSettableFields };
 
   // Execute
-  const response = await got.post(t.context.url, {
+  const response = await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -71,45 +77,35 @@ test(`(200) must ignore the fields "${SCHEMA_NOT_SETTABLE_FIELDS}" when creating
     );
 });
 
-// TODO: replace with model testcases.
-test('(500) must return an error when not providing an email', async t => {
-  // Prepare
-  const userPayload = {
-    ...validUserFixture,
-    email: ''
-  };
+[
+  { field: 'email', value: 'email@already-being-used.com' },
+  { field: 'username', value: 'already-being-used' },
+].forEach(({ field, value }) => {
+  const testcase = fieldIsAlreadyInUseTestcase(field, value);
 
-  // Execute
-  await got.post(t.context.url, {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isRequiredValidator('email')(userPayload);
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+  test(testcase.title, t => {
+    t.context.testcaseUrl = t.context.endpointBaseUrl;
+    return testcase.test(t);
   });
 });
 
-// TODO: replace with model testcases.
-test('(500) must return an error when not providing an username', async t => {
-  // Prepare
-  const userPayload = {
-    ...validUserFixture,
-    username: ''
-  };
+[ 'email', 'username' ].forEach(field => {
+  const testcase = fieldIsEmptyTestcase(field);
 
-  // Execute
-  await got.post(t.context.url, {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(async error => {
-    const { validator, ...err } = isRequiredValidator('username')(userPayload);
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
+  test(testcase.title, t => {
+    t.context.testcaseUrl = t.context.endpointBaseUrl;
+    return testcase.test(t);
+  });
+});
+
+[
+  { field: 'username', maxLength: USERS_USERNAME_MAX_LENGTH },
+].forEach(({ field, maxLength }) => {
+  const testcase = fieldIsTooLongTestcase(field, maxLength);
+
+  test(testcase.title, t => {
+    t.context.testcaseUrl = t.context.endpointBaseUrl;
+    return testcase.test(t);
   });
 });
 
@@ -122,7 +118,7 @@ test('(500) must return an error when providing an invalid email', async t => {
   };
 
   // Execute
-  await got.post(t.context.url, {
+  await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),
     body: userPayload,
   })
@@ -131,68 +127,5 @@ test('(500) must return an error when providing an invalid email', async t => {
     const { validator, ...err } = isValidEmailValidator(userPayload);
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
-});
-
-// TODO: replace with model testcases.
-test('(500) must return an error when providing an email that is already being used', async t => {
-  // Prepare
-  const email = 'email@already-being-used.com';
-  const user1 = { ...validPrefixedUserFixture('user1'), email };
-  const user2 = { ...validPrefixedUserFixture('user2'), email };
-  await new UsersModel(user1).save();
-
-  // Execute
-  await got.post(t.context.url, {
-    ...getRequestOptions(t),
-    body: user2,
-  })
-  // Assert
-  .catch(async error => {
-    const { validator, ...err } = isAlreadyInUseValidator('email')(user2);
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
-  });
-});
-
-// TODO: replace with model testcases.
-test(`(500) must return an error when providing an username that exceeds "${USERS_USERNAME_MAX_LENGTH}" characters`, async t => {
-  // Prepare
-  const userPayload = {
-    ...validUserFixture,
-    username: 'a'.repeat(USERS_USERNAME_MAX_LENGTH + 1)
-  };
-
-  // Execute
-  await got.post(t.context.url, {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH)(userPayload);
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
-});
-
-// TODO: replace with model testcases.
-test('(500) must return an error when providing an username that is already being used', async t => {
-  // Prepare
-  const username = 'already-being-used';
-  const user1 = { ...validPrefixedUserFixture('user1'), username };
-  const user2 = { ...validPrefixedUserFixture('user2'), username };
-  await new UsersModel(user1).save();
-
-  // Execute
-  await got.post(t.context.url, {
-    ...getRequestOptions(t),
-    body: user2,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isAlreadyInUseValidator('username')(user2);
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });
 });

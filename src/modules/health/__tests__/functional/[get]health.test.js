@@ -19,7 +19,7 @@ test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 // Tests
 test('(200) must return the application healthy check status', async t => {
   // Execute
-  const response = await got(t.context.url, getRequestOptions(t));
+  const response = await got(t.context.endpointBaseUrl, getRequestOptions(t));
 
   // Assert
   t.deepEqual(response.body, {

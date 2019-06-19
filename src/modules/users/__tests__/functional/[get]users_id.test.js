@@ -16,7 +16,7 @@ const { UsersModel } = require('../../model');
 const { translate } = require('../../../../i18n');
 
 // Utility
-const getUrl = (t, userId) => t.context.url.replace(':id', userId);
+const getUrl = (t, userId) => t.context.endpointBaseUrl.replace(':id', userId);
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {

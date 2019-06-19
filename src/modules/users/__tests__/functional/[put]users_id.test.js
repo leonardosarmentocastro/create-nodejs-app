@@ -5,6 +5,11 @@ const theOwl = require('the-owl');
 
 const database = require('../../../../database');
 const {
+  fieldIsAlreadyInUseTestcase,
+  fieldIsEmptyTestcase,
+  fieldIsTooLongTestcase,
+} = require('./testcases');
+const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   LOCALE,
@@ -21,13 +26,14 @@ const {
   isRequiredValidator,
   isTooLongValidator,
 } = require('../../../../shared');
-const { emptyEmailTestcase } = require('./testcases/empty-email-testcase');
+
+// Utils
+const getUrl = (t, userId = t.context.user.id) => t.context.endpointBaseUrl.replace(':id', userId);
 
 // Setup
 test.before('start api / connect to database', async t => {
   t.context.endpointMethod = 'put';
   t.context.endpointOriginalPath = '/users/:id';
-  t.context.getUrl = (t, userId = t.context.user.id) => t.context.url.replace(':id', userId); // TODO: refactor other tests.
 
   await startApiOnRandomPort(t);
   await database.connect();
@@ -52,7 +58,7 @@ test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
     const userPayload = { [field]: value };
 
     // Execute
-    const response = await got.put(t.context.getUrl(t), {
+    const response = await got.put(getUrl(t), {
       ...getRequestOptions(t),
       body: userPayload,
     });
@@ -76,7 +82,7 @@ test('(200) must be idempotent when updating without setting new values to field
   const userPayload = { email, username };
 
   // Execute
-  const response = await got.put(t.context.getUrl(t), {
+  const response = await got.put(getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -95,7 +101,7 @@ test(`(200) The fields "${SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must not be up
   const userPayload = { ...notSettableFields };
 
   // Execute
-  const response = await got.put(t.context.getUrl(t), {
+  const response = await got.put(getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   });
@@ -114,7 +120,7 @@ test('(500) must return an error if the user doesn\'t exists', async t => {
   const userId = mongoose.Types.ObjectId();
 
   // Execute
-  await got.put(t.context.getUrl(t, userId), getRequestOptions(t))
+  await got.put(getUrl(t, userId), getRequestOptions(t))
     // Assert
     .catch(error => {
       const err = USERS_ERROR_USER_NOT_FOUND;
@@ -125,9 +131,36 @@ test('(500) must return an error if the user doesn\'t exists', async t => {
     });
 });
 
-test(emptyEmailTestcase.title, t => {
-  const userPayload = { email: '' };
-  return emptyEmailTestcase.test(t, { userPayload });
+[ 'email', 'username' ].forEach(field => {
+  const testcase = fieldIsEmptyTestcase(field);
+
+  test(testcase.title, t => {
+    t.context.testcaseUrl = getUrl(t);
+    return testcase.test(t);
+  });
+});
+
+[
+  { field: 'email', value: 'email@already-being-used.com' },
+  { field: 'username', value: 'already-being-used' },
+].forEach(({ field, value }) => {
+  const testcase = fieldIsAlreadyInUseTestcase(field, value);
+
+  test(testcase.title, t => {
+    t.context.testcaseUrl = getUrl(t);
+    return testcase.test(t);
+  });
+});
+
+[
+  { field: 'username', maxLength: USERS_USERNAME_MAX_LENGTH },
+].forEach(({ field, maxLength }) => {
+  const testcase = fieldIsTooLongTestcase(field, maxLength);
+
+  test(testcase.title, t => {
+    t.context.testcaseUrl = getUrl(t);
+    return testcase.test(t);
+  });
 });
 
 // TODO: replace with model testcases.
@@ -136,7 +169,7 @@ test('(500) must return an error when providing an invalid email', async t => {
   const userPayload = { email: 'invalid@123!!!!.com.br' };
 
   // Execute
-  await got.put(t.context.getUrl(t), {
+  await got.put(getUrl(t), {
     ...getRequestOptions(t),
     body: userPayload,
   })
@@ -146,87 +179,5 @@ test('(500) must return an error when providing an invalid email', async t => {
 
     t.assert(error.response.statusCode == 500);
     t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
-});
-
-// TODO: replace with model testcases.
-test('(500) must return an error when providing an email that is already being used', async t => {
-  // Prepare
-  const email = 'email@already-being-used.com';
-  const user1 = { ...validPrefixedUserFixture('user1'), email };
-  const user2 = { ...validPrefixedUserFixture('user2'), email };
-  await new UsersModel(user1).save();
-
-  // Execute
-  await got.put(t.context.getUrl(t), {
-    ...getRequestOptions(t),
-    body: user2,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isAlreadyInUseValidator('email')(user2);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
-  });
-});
-
-// TODO: replace with model testcases.
-test('(500) must return an error when providing an empty username', async t => {
-  // Prepare
-  const userPayload = { username: '' };
-
-  // Execute
-  await got.put(t.context.getUrl(t), {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isRequiredValidator('username')(userPayload);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
-});
-
-// TODO: replace with model testcases.
-test(`(500) must return an error when providing an username that exceeds "${USERS_USERNAME_MAX_LENGTH}" characters`, async t => {
-  // Prepare
-  const userPayload = { username: 'a'.repeat(USERS_USERNAME_MAX_LENGTH + 1) };
-
-  // Execute
-  await got.put(t.context.getUrl(t), {
-    ...getRequestOptions(t),
-    body: userPayload,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isTooLongValidator('username', )(userPayload);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-  });
-});
-
-// TODO: replace with model testcases.
-test('(500) must return an error when providing an username that is already being used', async t => {
-  // Prepare
-  const username = 'already-being-used';
-  const user1 = { ...validPrefixedUserFixture('user1'), username };
-  const user2 = { ...validPrefixedUserFixture('user2'), username };
-  await new UsersModel(user1).save();
-
-  // Execute
-  await got.put(t.context.getUrl(t), {
-    ...getRequestOptions(t),
-    body: user2,
-  })
-  // Assert
-  .catch(error => {
-    const { validator, ...err } = isAlreadyInUseValidator('username')(user2);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(error.response.body, translate.error(err, LOCALE, user2));
   });
 });

@@ -1,12 +1,13 @@
 # [post] /users
 
 * [(200) must return the newly created user](#be46148abf)
-* [(500) must return an error when not providing an email](#a479c2529e)
-* [(500) must return an error when not providing an username](#0249616b45)
+* [(200) must ignore the fields "id,_id,createdAt,updatedAt" when creating an user](#a62d13c530)
+* [(500) must return a translated error when "email" is already in use by another user](#59c6d3141d)
+* [(500) must return a translated error when "username" is already in use by another user](#c0b1520597)
+* [(500) must return a translated error when providing an empty "email"](#0632164d55)
+* [(500) must return a translated error when providing an empty "username"](#1d4ea77b64)
+* [(500) must return a translated error when providing a "username" that exceeds "24" characters](#448eebd1de)
 * [(500) must return an error when providing an invalid email](#02005a1fc1)
-* [(500) must return an error when providing an email that is already being used](#4b751e77e4)
-* [(500) must return an error when providing an username that exceeds "24" characters](#21dd7b5207)
-* [(500) must return an error when providing an username that is already being used](#dda89a6cde)
 
 ---
 
@@ -14,7 +15,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:55906/users \
+http://localhost:57766/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -55,19 +56,182 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-17T14:44:00.452Z",
-  "updatedAt": "2019-06-17T14:44:00.452Z",
+  "createdAt": "2019-06-19T13:44:21.411Z",
+  "updatedAt": "2019-06-19T13:44:21.411Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d07a73056776f2e70ab77ab"
+  "id": "5d0a3c354144f46b810d9b94"
 }
 ```
 
-### :chicken: `(500) must return an error when not providing an email` <a name="a479c2529e"></a>
+### :chicken: `(200) must ignore the fields "id,_id,createdAt,updatedAt" when creating an user` <a name="a62d13c530"></a>
 
 ```sh
 curl -X POST \
-http://localhost:55906/users \
+http://localhost:57766/users \
+-d '{
+  "email": "email@domain.com",
+  "username": "username123",
+  "id": "value",
+  "_id": "value",
+  "createdAt": "value",
+  "updatedAt": "value"
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": "email@domain.com",
+  "username": "username123",
+  "id": "value",
+  "_id": "value",
+  "createdAt": "value",
+  "updatedAt": "value"
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 200
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "createdAt": "2019-06-19T13:44:21.411Z",
+  "updatedAt": "2019-06-19T13:44:21.411Z",
+  "email": "email@domain.com",
+  "username": "username123",
+  "id": "5d0a3c354144f46b810d9b95"
+}
+```
+
+### :chicken: `(500) must return a translated error when "email" is already in use by another user` <a name="59c6d3141d"></a>
+
+```sh
+curl -X POST \
+http://localhost:57766/users \
+-d '{
+  "email": "email@already-being-used.com",
+  "username": "user2_username123"
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": "email@already-being-used.com",
+  "username": "user2_username123"
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "field": "email",
+  "message": "Este email já está em uso."
+}
+```
+
+### :chicken: `(500) must return a translated error when "username" is already in use by another user` <a name="c0b1520597"></a>
+
+```sh
+curl -X POST \
+http://localhost:57766/users \
+-d '{
+  "email": "user2_email@domain.com",
+  "username": "already-being-used"
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": "user2_email@domain.com",
+  "username": "already-being-used"
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "field": "username",
+  "message": "Este username já está em uso."
+}
+```
+
+### :chicken: `(500) must return a translated error when providing an empty "email"` <a name="0632164d55"></a>
+
+```sh
+curl -X POST \
+http://localhost:57766/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -114,11 +278,11 @@ Body:
 }
 ```
 
-### :chicken: `(500) must return an error when not providing an username` <a name="0249616b45"></a>
+### :chicken: `(500) must return a translated error when providing an empty "username"` <a name="1d4ea77b64"></a>
 
 ```sh
 curl -X POST \
-http://localhost:55906/users \
+http://localhost:57766/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -165,11 +329,63 @@ Body:
 }
 ```
 
+### :chicken: `(500) must return a translated error when providing a "username" that exceeds "24" characters` <a name="448eebd1de"></a>
+
+```sh
+curl -X POST \
+http://localhost:57766/users \
+-d '{
+  "email": "email@domain.com",
+  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": "email@domain.com",
+  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_FIELD_IS_TOO_LONG",
+  "field": "username",
+  "maxLength": 24,
+  "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é 24)."
+}
+```
+
 ### :chicken: `(500) must return an error when providing an invalid email` <a name="02005a1fc1"></a>
 
 ```sh
 curl -X POST \
-http://localhost:55906/users \
+http://localhost:57766/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
@@ -213,158 +429,5 @@ Body:
   "code": "SHARED_ERROR_EMAIL_INVALID",
   "field": "email",
   "message": "O email \"invalid@123!!!!.com.br\" é inválido."
-}
-```
-
-### :chicken: `(500) must return an error when providing an email that is already being used` <a name="4b751e77e4"></a>
-
-```sh
-curl -X POST \
-http://localhost:55906/users \
--d '{
-  "email": "email@already-being-used.com",
-  "username": "username123"
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "email": "email@already-being-used.com",
-  "username": "username123"
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
-  "field": "email",
-  "message": "Este email já está em uso."
-}
-```
-
-### :chicken: `(500) must return an error when providing an username that exceeds "24" characters` <a name="21dd7b5207"></a>
-
-```sh
-curl -X POST \
-http://localhost:55906/users \
--d '{
-  "email": "email@domain.com",
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_FIELD_IS_TOO_LONG",
-  "field": "username",
-  "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é undefined)."
-}
-```
-
-### :chicken: `(500) must return an error when providing an username that is already being used` <a name="dda89a6cde"></a>
-
-```sh
-curl -X POST \
-http://localhost:55906/users \
--d '{
-  "email": "email@not-being-used.com",
-  "username": "already-being-used"
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "email": "email@not-being-used.com",
-  "username": "already-being-used"
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
-  "field": "username",
-  "message": "Este username já está em uso."
 }
 ```
