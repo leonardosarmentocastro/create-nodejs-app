@@ -9,13 +9,13 @@
 
 ```sh
 curl -X GET \
-http://localhost:57781/users/5d0a3c368e48876b827b33e0 \
+http://localhost:60270/users/5d0b7c3e0dc50b99beb5d78f \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d0a3c368e48876b827b33e0`
+Path: `/users/5d0b7c3e0dc50b99beb5d78f`
 
 Query parameters: _empty_
 
@@ -37,11 +37,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:44:22.273Z",
-  "updatedAt": "2019-06-19T13:44:22.273Z",
+  "createdAt": "2019-06-20T12:29:50.518Z",
+  "updatedAt": "2019-06-20T12:29:50.518Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0a3c368e48876b827b33e0"
+  "id": "5d0b7c3e0dc50b99beb5d78f"
 }
 ```
 
@@ -49,13 +49,13 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:57781/users/5d0a3c368e48876b827b33e1 \
+http://localhost:60270/users/5d0b7c3e0dc50b99beb5d790 \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d0a3c368e48876b827b33e1`
+Path: `/users/5d0b7c3e0dc50b99beb5d790`
 
 Query parameters: _empty_
 
@@ -79,6 +79,6 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d0a3c368e48876b827b33e1\" não encontrado."
+  "message": "Usuário \"5d0b7c3e0dc50b99beb5d790\" não encontrado."
 }
 ```

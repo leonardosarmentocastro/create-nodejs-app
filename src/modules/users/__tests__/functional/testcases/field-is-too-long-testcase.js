@@ -1,21 +1,19 @@
 const got = require('got');
 
-const { validUserFixture } = require('../../__fixtures__');
+const { validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
 const { translate } = require('../../../../../i18n');
 const { isTooLongValidator } = require('../../../../../shared');
 
 exports.fieldIsTooLongTestcase = (field, maxLength) => ({
   title: `(500) must return a translated error when providing a "${field}" that exceeds "${maxLength}" characters`,
-  test: async (t) => {
-    // Must include all user's properties when creating, to isolate the field emptyness validation.
-    const isCreatingAnUser = (t.context.endpointMethod.toLowerCase() === 'post');
+  test: (t) => {
     const userPayload = {
-      ...(isCreatingAnUser ? validUserFixture : {}),
+      ...validUserFixtureForTestcases(t),
       [field]: 'a'.repeat(maxLength + 1)
     };
 
-    await got(t.context.testcaseUrl, {
+    return got(t.context.testcaseUrl, {
       ...getRequestOptions(t),
       body: userPayload,
     })

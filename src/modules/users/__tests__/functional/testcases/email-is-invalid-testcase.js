@@ -1,16 +1,16 @@
 const got = require('got');
 
-const { validUserFixtureForTestcases } = require('../../__fixtures__');
+const { invalidUserFixture, validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
 const { translate } = require('../../../../../i18n');
-const { isRequiredValidator } = require('../../../../../shared');
+const { isValidEmailValidator } = require('../../../../../shared');
 
-exports.fieldIsEmptyTestcase = (field) => ({
-  title: `(500) must return a translated error when providing an empty "${field}"`,
+exports.emailIsInvalidTestcase = {
+  title: `(500) must return an error when providing an invalid email`,
   test: (t) => {
     const userPayload = {
       ...validUserFixtureForTestcases(t),
-      [field]: '',
+      email: invalidUserFixture.email,
     };
 
     return got(t.context.testcaseUrl, {
@@ -18,9 +18,9 @@ exports.fieldIsEmptyTestcase = (field) => ({
       body: userPayload,
     })
     .catch(error => {
-      const { validator, ...err } = isRequiredValidator(field)(userPayload);
+      const { validator, ...err } = isValidEmailValidator(userPayload);
       t.assert(error.response.statusCode == 500);
       t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
     })
   },
-});
+};

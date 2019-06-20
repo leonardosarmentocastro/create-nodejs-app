@@ -3,14 +3,14 @@
 * [(200) must succeed on updating the field "email" and always return the full updated document](#1608c79266)
 * [(200) must succeed on updating the field "username" and always return the full updated document](#3c0ed153b0)
 * [(200) must be idempotent when updating without setting new values to fields](#ed1fa1ce58)
-* [(200) The fields "id,_id,createdAt,updatedAt" must not be updatable](#f9c84d3fd9)
+* [(200) The fields "id,_id,createdAt,updatedAt" must be ignored when creating or updating an user](#b10df52f4e)
 * [(500) must return an error if the user doesn't exists](#5c25a2eaa2)
-* [(500) must return a translated error when providing an empty "email"](#0632164d55)
-* [(500) must return a translated error when providing an empty "username"](#1d4ea77b64)
+* [(500) must return an error when providing an invalid email](#02005a1fc1)
 * [(500) must return a translated error when "email" is already in use by another user](#59c6d3141d)
 * [(500) must return a translated error when "username" is already in use by another user](#c0b1520597)
+* [(500) must return a translated error when providing an empty "email"](#0632164d55)
+* [(500) must return a translated error when providing an empty "username"](#1d4ea77b64)
 * [(500) must return a translated error when providing a "username" that exceeds "24" characters](#448eebd1de)
-* [(500) must return an error when providing an invalid email](#02005a1fc1)
 
 ---
 
@@ -18,7 +18,7 @@
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb00 \
+http://localhost:60133/users/5d0b7c27f9051f999e785acc \
 -d '{
   "email": "new-email@domain.com"
 }' \
@@ -28,7 +28,7 @@ http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb00 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c1eb5a2726b65c0bb00`
+Path: `/users/5d0b7c27f9051f999e785acc`
 
 Query parameters: _empty_
 
@@ -57,11 +57,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:43:58.247Z",
-  "updatedAt": "2019-06-19T13:43:58.407Z",
+  "createdAt": "2019-06-20T12:29:27.000Z",
+  "updatedAt": "2019-06-20T12:29:27.151Z",
   "email": "new-email@domain.com",
   "username": "username123",
-  "id": "5d0a3c1eb5a2726b65c0bb00"
+  "id": "5d0b7c27f9051f999e785acc"
 }
 ```
 
@@ -69,7 +69,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb01 \
+http://localhost:60133/users/5d0b7c27f9051f999e785acd \
 -d '{
   "username": "new-username"
 }' \
@@ -79,7 +79,7 @@ http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb01 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c1eb5a2726b65c0bb01`
+Path: `/users/5d0b7c27f9051f999e785acd`
 
 Query parameters: _empty_
 
@@ -108,11 +108,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:43:58.247Z",
-  "updatedAt": "2019-06-19T13:43:58.438Z",
+  "createdAt": "2019-06-20T12:29:27.000Z",
+  "updatedAt": "2019-06-20T12:29:27.180Z",
   "email": "email@domain.com",
   "username": "new-username",
-  "id": "5d0a3c1eb5a2726b65c0bb01"
+  "id": "5d0b7c27f9051f999e785acd"
 }
 ```
 
@@ -120,7 +120,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb02 \
+http://localhost:60133/users/5d0b7c27f9051f999e785ace \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -131,7 +131,7 @@ http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb02 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c1eb5a2726b65c0bb02`
+Path: `/users/5d0b7c27f9051f999e785ace`
 
 Query parameters: _empty_
 
@@ -161,19 +161,19 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:43:58.247Z",
-  "updatedAt": "2019-06-19T13:43:58.466Z",
+  "createdAt": "2019-06-20T12:29:27.000Z",
+  "updatedAt": "2019-06-20T12:29:27.201Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0a3c1eb5a2726b65c0bb02"
+  "id": "5d0b7c27f9051f999e785ace"
 }
 ```
 
-### :chicken: `(200) The fields "id,_id,createdAt,updatedAt" must not be updatable` <a name="f9c84d3fd9"></a>
+### :chicken: `(200) The fields "id,_id,createdAt,updatedAt" must be ignored when creating or updating an user` <a name="b10df52f4e"></a>
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb03 \
+http://localhost:60133/users/5d0b7c27f9051f999e785acf \
 -d '{
   "id": "value",
   "_id": "value",
@@ -186,7 +186,7 @@ http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb03 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c1eb5a2726b65c0bb03`
+Path: `/users/5d0b7c27f9051f999e785acf`
 
 Query parameters: _empty_
 
@@ -218,11 +218,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:43:58.247Z",
-  "updatedAt": "2019-06-19T13:43:58.490Z",
+  "createdAt": "2019-06-20T12:29:27.000Z",
+  "updatedAt": "2019-06-20T12:29:27.219Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0a3c1eb5a2726b65c0bb03"
+  "id": "5d0b7c27f9051f999e785acf"
 }
 ```
 
@@ -230,13 +230,13 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c1eb5a2726b65c0bb05 \
+http://localhost:60133/users/5d0b7c27f9051f999e785ad1 \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d0a3c1eb5a2726b65c0bb05`
+Path: `/users/5d0b7c27f9051f999e785ad1`
 
 Query parameters: _empty_
 
@@ -260,17 +260,17 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d0a3c1eb5a2726b65c0bb05\" não encontrado."
+  "message": "Usuário \"5d0b7c27f9051f999e785ad1\" não encontrado."
 }
 ```
 
-### :chicken: `(500) must return a translated error when providing an empty "email"` <a name="0632164d55"></a>
+### :chicken: `(500) must return an error when providing an invalid email` <a name="02005a1fc1"></a>
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c21b5a2726b65c0bb06 \
+http://localhost:60133/users/5d0b7c2af9051f999e785ad2 \
 -d '{
-  "email": ""
+  "email": "invalid@123!!!!.com.br"
 }' \
 -H 'accept-language: pt-br'
 -H 'content-type: application/json'
@@ -278,7 +278,7 @@ http://localhost:57641/users/5d0a3c21b5a2726b65c0bb06 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c21b5a2726b65c0bb06`
+Path: `/users/5d0b7c2af9051f999e785ad2`
 
 Query parameters: _empty_
 
@@ -293,7 +293,7 @@ Body:
 
 ```
 {
-  "email": ""
+  "email": "invalid@123!!!!.com.br"
 }
 ```
 
@@ -307,58 +307,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "SHARED_ERROR_EMAIL_INVALID",
   "field": "email",
-  "message": "O campo \"email\" é mandatório."
-}
-```
-
-### :chicken: `(500) must return a translated error when providing an empty "username"` <a name="1d4ea77b64"></a>
-
-```sh
-curl -X PUT \
-http://localhost:57641/users/5d0a3c24b5a2726b65c0bb07 \
--d '{
-  "username": ""
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users/5d0a3c24b5a2726b65c0bb07`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "username": ""
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
-  "field": "username",
-  "message": "O campo \"username\" é mandatório."
+  "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
 ```
 
@@ -366,7 +317,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c27b5a2726b65c0bb08 \
+http://localhost:60133/users/5d0b7c2df9051f999e785ad3 \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123"
@@ -377,7 +328,7 @@ http://localhost:57641/users/5d0a3c27b5a2726b65c0bb08 \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c27b5a2726b65c0bb08`
+Path: `/users/5d0b7c2df9051f999e785ad3`
 
 Query parameters: _empty_
 
@@ -417,7 +368,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c2bb5a2726b65c0bb0a \
+http://localhost:60133/users/5d0b7c30f9051f999e785ad5 \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used"
@@ -428,7 +379,7 @@ http://localhost:57641/users/5d0a3c2bb5a2726b65c0bb0a \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c2bb5a2726b65c0bb0a`
+Path: `/users/5d0b7c30f9051f999e785ad5`
 
 Query parameters: _empty_
 
@@ -464,11 +415,109 @@ Body:
 }
 ```
 
+### :chicken: `(500) must return a translated error when providing an empty "email"` <a name="0632164d55"></a>
+
+```sh
+curl -X PUT \
+http://localhost:60133/users/5d0b7c33f9051f999e785ad7 \
+-d '{
+  "email": ""
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users/5d0b7c33f9051f999e785ad7`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": ""
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "field": "email",
+  "message": "O campo \"email\" é mandatório."
+}
+```
+
+### :chicken: `(500) must return a translated error when providing an empty "username"` <a name="1d4ea77b64"></a>
+
+```sh
+curl -X PUT \
+http://localhost:60133/users/5d0b7c36f9051f999e785ad8 \
+-d '{
+  "username": ""
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users/5d0b7c36f9051f999e785ad8`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "username": ""
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "field": "username",
+  "message": "O campo \"username\" é mandatório."
+}
+```
+
 ### :chicken: `(500) must return a translated error when providing a "username" that exceeds "24" characters` <a name="448eebd1de"></a>
 
 ```sh
 curl -X PUT \
-http://localhost:57641/users/5d0a3c2eb5a2726b65c0bb0c \
+http://localhost:60133/users/5d0b7c39f9051f999e785ad9 \
 -d '{
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
 }' \
@@ -478,7 +527,7 @@ http://localhost:57641/users/5d0a3c2eb5a2726b65c0bb0c \
 
 **Request** :egg:
 
-Path: `/users/5d0a3c2eb5a2726b65c0bb0c`
+Path: `/users/5d0b7c39f9051f999e785ad9`
 
 Query parameters: _empty_
 
@@ -511,54 +560,5 @@ Body:
   "field": "username",
   "maxLength": 24,
   "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é 24)."
-}
-```
-
-### :chicken: `(500) must return an error when providing an invalid email` <a name="02005a1fc1"></a>
-
-```sh
-curl -X PUT \
-http://localhost:57641/users/5d0a3c31b5a2726b65c0bb0d \
--d '{
-  "email": "invalid@123!!!!.com.br"
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users/5d0a3c31b5a2726b65c0bb0d`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "email": "invalid@123!!!!.com.br"
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_EMAIL_INVALID",
-  "field": "email",
-  "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
 ```

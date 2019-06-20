@@ -1,21 +1,21 @@
 # [post] /users
 
-* [(200) must return the newly created user](#be46148abf)
-* [(200) must ignore the fields "id,_id,createdAt,updatedAt" when creating an user](#a62d13c530)
+* [(200) must succeed on creating the user and return the newly created doc](#1ebdbf6888)
+* [(200) The fields "id,_id,createdAt,updatedAt" must be ignored when creating or updating an user](#b10df52f4e)
+* [(500) must return an error when providing an invalid email](#02005a1fc1)
 * [(500) must return a translated error when "email" is already in use by another user](#59c6d3141d)
 * [(500) must return a translated error when "username" is already in use by another user](#c0b1520597)
 * [(500) must return a translated error when providing an empty "email"](#0632164d55)
 * [(500) must return a translated error when providing an empty "username"](#1d4ea77b64)
 * [(500) must return a translated error when providing a "username" that exceeds "24" characters](#448eebd1de)
-* [(500) must return an error when providing an invalid email](#02005a1fc1)
 
 ---
 
-### :chicken: `(200) must return the newly created user` <a name="be46148abf"></a>
+### :chicken: `(200) must succeed on creating the user and return the newly created doc` <a name="1ebdbf6888"></a>
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -56,19 +56,19 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:44:21.411Z",
-  "updatedAt": "2019-06-19T13:44:21.411Z",
+  "createdAt": "2019-06-20T12:29:49.711Z",
+  "updatedAt": "2019-06-20T12:29:49.711Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0a3c354144f46b810d9b94"
+  "id": "5d0b7c3dae4d9c99bdc8a960"
 }
 ```
 
-### :chicken: `(200) must ignore the fields "id,_id,createdAt,updatedAt" when creating an user` <a name="a62d13c530"></a>
+### :chicken: `(200) The fields "id,_id,createdAt,updatedAt" must be ignored when creating or updating an user` <a name="b10df52f4e"></a>
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -117,11 +117,62 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-19T13:44:21.411Z",
-  "updatedAt": "2019-06-19T13:44:21.411Z",
+  "createdAt": "2019-06-20T12:29:49.711Z",
+  "updatedAt": "2019-06-20T12:29:49.711Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0a3c354144f46b810d9b95"
+  "id": "5d0b7c3dae4d9c99bdc8a961"
+}
+```
+
+### :chicken: `(500) must return an error when providing an invalid email` <a name="02005a1fc1"></a>
+
+```sh
+curl -X POST \
+http://localhost:60258/users \
+-d '{
+  "email": "invalid@123!!!!.com.br",
+  "username": "username123"
+}' \
+-H 'accept-language: pt-br'
+-H 'content-type: application/json'
+```
+
+**Request** :egg:
+
+Path: `/users`
+
+Query parameters: _empty_
+
+Headers: 
+
+| Key | Value |
+| :--- | :--- |
+| accept-language | pt-br |
+| content-type | application/json |
+
+Body: 
+
+```
+{
+  "email": "invalid@123!!!!.com.br",
+  "username": "username123"
+}
+```
+
+**Response** :hatching_chick:
+
+Status: 500
+
+Headers: _empty_
+
+Body: 
+
+```
+{
+  "code": "SHARED_ERROR_EMAIL_INVALID",
+  "field": "email",
+  "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
 ```
 
@@ -129,7 +180,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123"
@@ -180,7 +231,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used"
@@ -231,7 +282,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -282,7 +333,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -333,7 +384,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57766/users \
+http://localhost:60258/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -378,56 +429,5 @@ Body:
   "field": "username",
   "maxLength": 24,
   "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é 24)."
-}
-```
-
-### :chicken: `(500) must return an error when providing an invalid email` <a name="02005a1fc1"></a>
-
-```sh
-curl -X POST \
-http://localhost:57766/users \
--d '{
-  "email": "invalid@123!!!!.com.br",
-  "username": "username123"
-}' \
--H 'accept-language: pt-br'
--H 'content-type: application/json'
-```
-
-**Request** :egg:
-
-Path: `/users`
-
-Query parameters: _empty_
-
-Headers: 
-
-| Key | Value |
-| :--- | :--- |
-| accept-language | pt-br |
-| content-type | application/json |
-
-Body: 
-
-```
-{
-  "email": "invalid@123!!!!.com.br",
-  "username": "username123"
-}
-```
-
-**Response** :hatching_chick:
-
-Status: 500
-
-Headers: _empty_
-
-Body: 
-
-```
-{
-  "code": "SHARED_ERROR_EMAIL_INVALID",
-  "field": "email",
-  "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
 ```
