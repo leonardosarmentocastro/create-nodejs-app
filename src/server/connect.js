@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const modules = require('../modules');
 const i18n = require('../i18n');
 
-const middlewares = (app) => ({
+const $middlewares = (app) => ({
   connect() {
     // Executes all functions except "connect".
     Object.keys(this)
@@ -39,7 +39,7 @@ const middlewares = (app) => ({
   }
 });
 
-const routes = (app) => ({
+const $routes = (app) => ({
   connect() {
     // CONVENTION: Each module exports its "connect" function.
     Object.values(modules)
@@ -48,6 +48,6 @@ const routes = (app) => ({
 });
 
 exports.connect = (app) => {
-  middlewares(app).connect();
-  routes(app).connect();
+  $middlewares(app).connect();
+  $routes(app).connect();
 };
