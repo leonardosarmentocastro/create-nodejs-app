@@ -15,6 +15,7 @@ https://yaml-multiline.info/
 4. try libs
   - try on frontend (which is to come): https://github.com/sindresorhus/ky
 
+
 ## Templates
 
 1. simple:
@@ -89,3 +90,7 @@ MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 
 How do I correctly clone a JavaScript object?
 https://stackoverflow.com/a/10869248/6655011
+
+## Draft
+
+Explicando nomenclaturas: Resolvers e o exemplo do "fazer visita a um consultório".

@@ -13,6 +13,7 @@ exports.getErrorMessageForDatabaseConnection = (err) => {
   const message = [
     [ // line 1
       errorBg.white('  ERROR  '),
+      // TODO: Don't show "connection string" on production environment.
       `${textPrimary('Failed to connect to database on URI:')} "${textSecondary(CONNECTION_STRING)}"`,
     ].join(' '),
     [ // line 2
@@ -26,7 +27,7 @@ exports.getErrorMessageForDatabaseConnection = (err) => {
 
 exports.getInfoMessageForRetryingToConnect = (retries, retryCount, retryInSeconds) => {
   const message = [
-    bgPurple.white('  DATABASE NOT READY '),
+    bgPurple.white('  DATABASE NOT READY  '),
       `${textPrimary('Failed to connect to database. Retry')} ${textSecondary(`${retryCount} of ${retries}`)}.`,
       `${textPrimary('Retrying in')} ${textSecondary(retryInSeconds)} seconds.`,
     ].join(' ');
