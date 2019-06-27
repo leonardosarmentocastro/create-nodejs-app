@@ -8,7 +8,7 @@
 
 ```sh
 curl -X GET \
-http://localhost:60126/health \
+http://localhost:54854/health \
 -H 'accept-language: pt-br'
 ```
 

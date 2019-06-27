@@ -10,7 +10,12 @@ const {
   fieldIsEmptyTestcase,
   fieldIsTooLongTestcase,
   notSettableFieldsAreIgnoredTestcase,
+  userNotFoundTestcase,
 } = require('./testcases');
+const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
+const { translate } = require('../../../../i18n');
+const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
+const { getUrl } = require('./__helpers__');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
@@ -18,12 +23,6 @@ const {
   startApiOnRandomPort,
 } = require('../../../__helpers__');
 const { validUserFixture } = require('../__fixtures__');
-const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
-const { translate } = require('../../../../i18n');
-const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
-
-// Utils
-const getUrl = (t, userId = t.context.user.id) => t.context.endpointBaseUrl.replace(':id', userId);
 
 // Setup
 test.before('start api / connect to database', async t => {
@@ -88,17 +87,11 @@ test(notSettableFieldsAreIgnoredTestcase.title, t => {
 });
 
 // Unhappy path tests
-test('(500) must return an error if the user doesn\'t exists', t => {
+test(userNotFoundTestcase.title, t => {
   const userId = mongoose.Types.ObjectId();
+  t.context.testcaseUrl = getUrl(t, userId);
 
-  return got.put(getUrl(t, userId), getRequestOptions(t))
-    .catch(error => {
-      const err = USERS_ERROR_USER_NOT_FOUND;
-      const args = { userId };
-
-      t.assert(error.response.statusCode === 500);
-      t.deepEqual(error.response.body, translate.error(err, LOCALE, args));
-    });
+  return userNotFoundTestcase.test(t, userId);
 });
 
 test(emailIsInvalidTestcase.title, t => {

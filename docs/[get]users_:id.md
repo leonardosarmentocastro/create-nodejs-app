@@ -1,7 +1,7 @@
 # [get] /users/:id
 
 * [(200) must return the user saved on database if it exists](#64277522ed)
-* [(500) must return an error if the user doesn't exist](#37d1ba6bf3)
+* [(500) must return a translated error if the user was not found](#bdaf8f2098)
 
 ---
 
@@ -9,13 +9,13 @@
 
 ```sh
 curl -X GET \
-http://localhost:60270/users/5d0b7c3e0dc50b99beb5d78f \
+http://localhost:54898/users/5d14f1b88f06cae370eda09c \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d0b7c3e0dc50b99beb5d78f`
+Path: `/users/5d14f1b88f06cae370eda09c`
 
 Query parameters: _empty_
 
@@ -37,25 +37,25 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-20T12:29:50.518Z",
-  "updatedAt": "2019-06-20T12:29:50.518Z",
+  "createdAt": "2019-06-27T16:41:28.029Z",
+  "updatedAt": "2019-06-27T16:41:28.029Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d0b7c3e0dc50b99beb5d78f"
+  "id": "5d14f1b88f06cae370eda09c"
 }
 ```
 
-### :chicken: `(500) must return an error if the user doesn't exist` <a name="37d1ba6bf3"></a>
+### :chicken: `(500) must return a translated error if the user was not found` <a name="bdaf8f2098"></a>
 
 ```sh
 curl -X GET \
-http://localhost:60270/users/5d0b7c3e0dc50b99beb5d790 \
+http://localhost:54898/users/5d14f1b88f06cae370eda09d \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d0b7c3e0dc50b99beb5d790`
+Path: `/users/5d14f1b88f06cae370eda09d`
 
 Query parameters: _empty_
 
@@ -79,6 +79,6 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d0b7c3e0dc50b99beb5d790\" não encontrado."
+  "message": "Usuário \"5d14f1b88f06cae370eda09d\" não encontrado."
 }
 ```

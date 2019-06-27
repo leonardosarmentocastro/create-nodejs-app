@@ -4,4 +4,5 @@ module.exports = {
   ...require('./field-is-empty-testcase'),
   ...require('./field-is-too-long-testcase'),
   ...require('./not-settable-fields-are-ignored-testcase'),
+  ...require('./user-not-found-testcase'),
 };

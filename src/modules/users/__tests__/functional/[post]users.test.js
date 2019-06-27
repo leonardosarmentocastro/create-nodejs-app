@@ -10,6 +10,7 @@ const {
   fieldIsTooLongTestcase,
   notSettableFieldsAreIgnoredTestcase,
 } = require('./testcases');
+const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 const { validUserFixture } = require('../__fixtures__');
 const {
   LOCALE,
@@ -17,7 +18,6 @@ const {
   getRequestOptions,
   startApiOnRandomPort,
 } = require('../../../__helpers__');
-const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {
