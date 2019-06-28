@@ -9,5 +9,8 @@ exports.getRequestOptions = (t) => ({
   },
   json: true, // Automatically parses "response.body": https://github.com/sindresorhus/got/issues/174#issuecomment-298292987
   method: t.context.endpointMethod || 'get',
+  retry: {
+    retries: 0,
+  },
   timeout: TIMEOUT,
 });

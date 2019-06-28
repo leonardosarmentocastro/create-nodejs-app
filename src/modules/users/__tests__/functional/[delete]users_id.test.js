@@ -6,8 +6,8 @@ const theOwl = require('the-owl');
 const database = require('../../../../database');
 const { UsersModel } = require('../../model');
 const { userNotFoundTestcase } = require('./testcases');
-const { getUrl } = require('./__helpers__');
 const { validUserFixture } = require('../__fixtures__');
+const { getUrl } = require('./__helpers__');
 const {
   getRequestOptions,
   startApiOnRandomPort,
@@ -22,6 +22,7 @@ test.before('prepare: start api / connect to database', async t => {
   await startApiOnRandomPort(t);
   await database.connect();
 });
+test.beforeEach('cleanup database', t => UsersModel.deleteMany());
 test.after('create api docs (if enabled)', t => theOwl.createDocs());
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
@@ -38,8 +39,7 @@ test('(200) must succeed on deleting the user, returning an empty body', async t
 });
 
 // Unhappy path tests
-// TODO: evaluate how to have 2 different titles for a test.
-test('(500) must return a translated error when searching for an user with an invalid "id"', t => {
+test(userNotFoundTestcase.title2, t => {
   const userId = '123';
   t.context.testcaseUrl = getUrl(t, userId);
 

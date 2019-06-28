@@ -87,7 +87,7 @@ test(notSettableFieldsAreIgnoredTestcase.title, t => {
 });
 
 // Unhappy path tests
-test(userNotFoundTestcase.title, t => {
+test(userNotFoundTestcase.title1, t => {
   const userId = mongoose.Types.ObjectId();
   t.context.testcaseUrl = getUrl(t, userId);
 
