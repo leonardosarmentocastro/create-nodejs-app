@@ -2,9 +2,9 @@ const express = require('express');
 
 const { connect } = require('./connect');
 const {
-  getErrorMessageForServerStatup,
+  getErrorMessageForServerStartup,
   getSuccessMessageForServerClose,
-  getSuccessMessageForServerStatup,
+  getSuccessMessageForServerStartup,
 } = require('./messages');
 
 exports.server = {
@@ -22,17 +22,18 @@ exports.server = {
   },
 
   listen(app, port) {
-    const options = { environment: process.env.NODE_ENV, port };
+    const environment = process.env.NODE_ENV;
+    const options = { environment, port };
 
     return new Promise((resolve, reject) => {
       app.listen(options, function() {
-        const successMessage = getSuccessMessageForServerStatup(options);
+        const successMessage = getSuccessMessageForServerStartup(options);
         console.info(successMessage);
 
         const api = this; // The context of the anonymous callback function is the node server instance.
         return resolve(api);
       }).on('error', (err) => {
-        const errorMessage = getErrorMessageForServerStatup(err, options);
+        const errorMessage = getErrorMessageForServerStartup(err, options);
         return reject(errorMessage);
       });
     });

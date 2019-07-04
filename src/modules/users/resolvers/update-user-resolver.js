@@ -20,7 +20,6 @@ exports.updateUserResolver = async (req, res) => {
 
     return res.status(200).json(transformedUser);
   } catch(err) {
-    // TODO: add a middleware that catches unknown errors (sharedUnexpectedError).
     return userTranslatedValidationError(req, res, { err, userDoc });
   }
 };

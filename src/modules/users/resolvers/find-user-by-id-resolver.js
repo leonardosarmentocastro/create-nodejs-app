@@ -15,7 +15,6 @@ exports.findUserByIdResolver = async (req, res) => {
     const transformedUser = dbUser.toObject();
     return res.status(200).json(transformedUser);
   } catch(err) {
-    // TODO: remove this when the middleware for catching unexpected errors is done.
     return sharedUnexpectedError(req, res, { err });
   }
 };
