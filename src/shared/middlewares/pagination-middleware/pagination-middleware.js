@@ -1,15 +1,10 @@
 const { isNumeric, isJSON } = require('validator');
 
-// const SORT = {
-//   '+': 'asc',
-//   '-': 'desc',
-// };
-
 const DEFAULT = {
-  c: {}, // onditions
-  l: 10, // imit
-  p: 1, // age
-  s: 'asc', // ort
+  c: '{}', // conditions
+  l: '10', // limit
+  p: '1', // oage
+  s: 'asc', // sort
 };
 
 const useDefaultValuesWhenNecessary = (queryParameters) =>
