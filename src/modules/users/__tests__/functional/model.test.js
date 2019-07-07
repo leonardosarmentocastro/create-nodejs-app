@@ -19,35 +19,10 @@ test('user creation must succeeds', async t => {
   t.assert((await getUsersSavedOnDatabase()).length === 1);
 });
 
-//  pagination
+// TODO:
+// 1. move this test to pagination plugin (create a new mongoose model on the test, don't use "users" its really uncoupled).
+// pagination
 // https://github.com/edwardhotchkiss/mongoose-paginate/blob/master/index.js
-
-// // how to compute "count" prop
-// // interface
-// docs: []
-// hasNextPage: Number
-// hasPreviousPage: Number
-// nextPage: Number // nullable
-// previousPage: Number // nullable
-// totalCount: !Number // https://mongoosejs.com/docs/api.html#model_Model.estimatedDocumentCount
-// totalPages: !Number
-
-
-// // params
-// amountPerPage=5 // @param (or "limit")
-// page=2 // @param (sempre >= 1)
-// sort=[ "+", "-" ] // @param
-// skip=(page - 1) * amountPerPage // @computed
-
-// // javascript
-// let docsQuery = this.find(query)
-//   .select(select)
-//   .sort(sort)
-//   .skip(skip)
-//   .limit(limit)
-//   .lean(lean);
-
-// TODO: move this test to pagination middleware, maybe?
 test('must be able to fetch data paginated', async t => {
   const createUsers = (prefixes) => Promise.all(
     prefixes.map(number => {
@@ -58,13 +33,6 @@ test('must be able to fetch data paginated', async t => {
 
   await createUsers([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]);
 
-  // username: '7_username123',
-  // username: { $eq: '7_username123' },
-  // $text: {
-  //   $search: 'username',
-  // },
-  // a, c, p, s
-  // c, l, p, s
   const conditions = { email: '@domain.com' }; // @param
   const limit = 3; // @param TODO: specify default value of 1
   const page = 1; // @param NOTE: important to reset page to 1 when querying with filters.
@@ -83,8 +51,8 @@ test('must be able to fetch data paginated', async t => {
     .skip(skip)
     .sort(sort);
 
-  console.log('### query', await query);
-  console.log('### count', await totalCount);
+  // console.log('### query', await query);
+  // console.log('### count', await totalCount);
   console.log({
     docs: await query,
     totalCount,
@@ -97,4 +65,5 @@ test('must be able to fetch data paginated', async t => {
   t.pass();
 });
 
+// TODO: this seems to be a valid model test.
 test.todo('index "$text" works for "email" and "username"');

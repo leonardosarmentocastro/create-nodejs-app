@@ -7,7 +7,7 @@ const {
   isValidEmailValidator,
   isRequiredValidator,
   isTooLongValidator,
-  validate,
+  sharedValidate,
 } = require('../../shared');
 
 const usersSchema = new mongoose.Schema({
@@ -21,6 +21,7 @@ const usersSchema = new mongoose.Schema({
   username: String,
 });
 
+// TODO: Test this inside users model test.
 // Full text search fields.
 usersSchema.index({
   email: 'text',
@@ -38,7 +39,7 @@ const validationsMiddleware = async (userDoc, next) => {
     isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH),
     isAlreadyInUseValidator('username'),
   ];
-  const error = await validate(constraints, userDoc);
+  const error = await sharedValidate(constraints, userDoc);
 
   return next(error);
 };

@@ -5,9 +5,10 @@ const {
   findUsersResolver,
   updateUserResolver,
 } = require('./resolvers');
+const { paginationMiddleware } = require('../../shared');
 
 exports.connect = (app) => {
-  app.get('/users', findUsersResolver); // TODO: connect with pagination middleware
+  app.get('/users', paginationMiddleware, findUsersResolver);
   app.post('/users', createUserResolver);
 
   app.delete('/users/:id', deleteUserResolver);

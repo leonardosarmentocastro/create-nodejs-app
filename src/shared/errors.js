@@ -8,7 +8,7 @@ const SHARED_ERROR_UNEXPECTED = {
 const sharedUnexpectedError = (req, res, { err }) =>
   res.status(500).json({
     ...translate.error(SHARED_ERROR_UNEXPECTED, req.locale, {}),
-    stacktrace: err.stack, // NOTE: Error interface contains "err.stack" prop.
+    stacktrace: err.stack, // NOTE: "Error" interface contains "err.stack" prop.
   });
 
 module.exports = {

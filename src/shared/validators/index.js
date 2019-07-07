@@ -3,5 +3,4 @@ module.exports = {
   ...require('./is-required-validator'),
   ...require('./is-too-long-validator'),
   ...require('./is-valid-email-validator'),
-  ...require('./validate'),
 };
