@@ -33,7 +33,7 @@ test('(mapSortingSuffix) must map "sort" query param to an key/value object', t 
 test('(paginationMiddleware) must return a translated pagination error on validation failure', t => {
   const req = {
     locale: 'en-us',
-    query: { c: 'string' },
+    query: { c: 'invalid value' },
   };
   const res = {
     status: () => ({
