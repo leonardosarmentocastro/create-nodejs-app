@@ -6,14 +6,11 @@ const mongoose = require('mongoose');
 const database = require('../../../../database');
 const { userNotFoundTestcase } = require('./testcases');
 const {
-  LOCALE,
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
 } = require('../../../__helpers__');
-const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
 const { UsersModel } = require('../../model');
-const { translate } = require('../../../../i18n');
 const { getUrl } = require('./__helpers__');
 const { validUserFixture } = require('../__fixtures__');
 

@@ -14,9 +14,9 @@ const { validate } = require('../../validate');
   // Both fields share same validation.
   ...[ 'l', 'p' ].reduce((testcases, field) => testcases.concat({
     field,
-    invalidTitle: (field) => `"${field}" is not an number above one`,
-    invalidValues: [ '{ "valid": "json" }', '{ #invalid: "json" }', 'string', 'true', '1' ],
-    validValues: [ '2' ],
+    invalidTitle: (field) => `"${field}" is not an number equal or greater than one`,
+    invalidValues: [ '{ "valid": "json" }', '{ #invalid: "json" }', 'string', 'true', '0', '-1' ],
+    validValues: [ '1', '2', '30' ],
   }), []),
   {
     field: 's',

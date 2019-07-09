@@ -12,14 +12,11 @@ const {
   notSettableFieldsAreIgnoredTestcase,
   userNotFoundTestcase,
 } = require('./testcases');
-const { USERS_ERROR_USER_NOT_FOUND } = require('../../errors');
-const { translate } = require('../../../../i18n');
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 const { getUrl } = require('./__helpers__');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
-  LOCALE,
   startApiOnRandomPort,
 } = require('../../../__helpers__');
 const { validUserFixture } = require('../__fixtures__');

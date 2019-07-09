@@ -1,4 +1,8 @@
-const paginationPlugin = function (pagination) {
+const DEFAULT = {
+  options: { toJson: false },
+};
+
+const plugin = async function (pagination, options = DEFAULT) {
   const model = this; // function context reffers to mongoose model instance.
   const { conditions, limit, page, sort } = pagination;
 
@@ -17,8 +21,9 @@ const paginationPlugin = function (pagination) {
     .skip(skip)
     .sort(sort);
 
-  return {
-    docs: await query,
+  const docs = options.toJson ? (await query).map(doc => doc.toObject()) : await query;
+  const results = {
+    docs,
     hasNextPage,
     hasPreviousPage,
     nextPage,
@@ -26,4 +31,10 @@ const paginationPlugin = function (pagination) {
     totalCount,
     totalPages,
   };
+
+  return results;
 };
+
+const paginationPlugin = (schema) => schema.statics.paginate = plugin;
+
+module.exports = { plugin, paginationPlugin };

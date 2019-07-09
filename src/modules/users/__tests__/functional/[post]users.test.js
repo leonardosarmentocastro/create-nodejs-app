@@ -13,7 +13,6 @@ const {
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 const { validUserFixture } = require('../__fixtures__');
 const {
-  LOCALE,
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,

@@ -1,6 +1,5 @@
 const test = require('ava');
 const got = require('got');
-const mongoose = require('mongoose');
 const theOwl = require('the-owl');
 
 const database = require('../../../../database');
