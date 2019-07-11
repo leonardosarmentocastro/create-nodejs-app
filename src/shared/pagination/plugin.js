@@ -1,8 +1,8 @@
 const DEFAULT = {
-  options: { toJson: false },
+  options: { toJson: true },
 };
 
-const plugin = async function (pagination, options = DEFAULT) {
+const plugin = async function (pagination, options = DEFAULT.options) {
   const model = this; // function context reffers to mongoose model instance.
   const { conditions, limit, page, sort } = pagination;
 
@@ -16,7 +16,7 @@ const plugin = async function (pagination, options = DEFAULT) {
   const previousPage = (hasPreviousPage ? page - 1 : null);
 
   const skip = (page - 1) * limit;
-  const query = model.find()
+  const query = model.find(conditions)
     .limit(limit)
     .skip(skip)
     .sort(sort);

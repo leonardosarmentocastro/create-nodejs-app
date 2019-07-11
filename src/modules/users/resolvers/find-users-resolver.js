@@ -4,7 +4,7 @@ exports.findUsersResolver = (req, res) => {
   console.log('# conditions', conditions);
   console.log('# limit', limit);
   console.log('# page', page);
-  console.log('# sort', typeof sort);
+  console.log('# sort', sort);
 
   return res.status(200).end();
 };
