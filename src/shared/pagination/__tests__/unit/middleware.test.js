@@ -46,7 +46,7 @@ test('(paginationMiddleware) must return a translated pagination error on valida
   t.deepEqual(error, translate.error(error, req.locale, {}));
 });
 
-test('(paginationMiddleware) must attach query parameters with whole names to "req.pagination"', t => {
+test('(paginationMiddleware) must attach query parameters with proper types and whole names to "req.pagination"', t => {
   const req = { query: DEFAULT };
   const res = {};
   const next = () => null;
@@ -54,9 +54,9 @@ test('(paginationMiddleware) must attach query parameters with whole names to "r
   paginationMiddleware(req, res, next);
   t.deepEqual(req, {
     pagination: {
-      conditions: DEFAULT.c,
-      limit: DEFAULT.l,
-      page: DEFAULT.p,
+      conditions: JSON.parse(DEFAULT.c),
+      limit: Number(DEFAULT.l),
+      page: Number(DEFAULT.p),
       sort: {},
     },
     query: DEFAULT,

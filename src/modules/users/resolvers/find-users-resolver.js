@@ -1,10 +1,11 @@
-// TODO: implement
-exports.findUsersResolver = (req, res) => {
-  let { c: conditions, l: limit, p: page, s: sort } = req.query;
-  console.log('# conditions', conditions);
-  console.log('# limit', limit);
-  console.log('# page', page);
-  console.log('# sort', sort);
+const { UsersModel } = require('../model');
+const { sharedUnexpectedError } = require('../../../shared');
 
-  return res.status(200).end();
+exports.findUsersResolver = async (req, res) => {
+  try {
+    const users = await UsersModel.paginate(req.pagination);
+    return res.status(200).json(users);
+  } catch(err) {
+    return sharedUnexpectedError(req, res, { err });
+  }
 };

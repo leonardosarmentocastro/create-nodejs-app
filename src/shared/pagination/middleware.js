@@ -34,12 +34,12 @@ const paginationMiddleware = (req, res, next) => {
   const err = validate(queryParameters);
   if (err) return paginationTranslatedValidationError(req, res, { err });
 
-  const { c: conditions, l: limit, p: page, s: sort } = queryParameters;
+  const { c, l, p, s } = queryParameters;
   req.pagination = {
-    conditions,
-    limit,
-    page,
-    sort: mapSortingSuffix(sort),
+    conditions: JSON.parse(c),
+    limit: Number(l),
+    page: Number(p),
+    sort: mapSortingSuffix(s),
   };
 
   next();

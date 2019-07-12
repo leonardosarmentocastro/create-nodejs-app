@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const { sharedSchema } = require('../../shared');
+const { paginationPlugin, sharedSchema } = require('../../shared');
 const {
   isAlreadyInUseValidator,
   isValidEmailValidator,
@@ -58,6 +58,7 @@ const transform = (doc, ret) => {
 
 // Setup
 usersSchema.add(sharedSchema);
+usersSchema.plugin(paginationPlugin);
 usersSchema.post('validate', validationsMiddleware);
 usersSchema.set('toObject', {
   transform,

@@ -4,5 +4,5 @@
 // is defined by us.
 module.exports = {
   ...require('./middleware'),
-  // ...require('./plugin'), // TODO
+  ...require('./plugin'),
 };
