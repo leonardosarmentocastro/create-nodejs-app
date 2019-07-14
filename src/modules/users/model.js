@@ -21,13 +21,6 @@ const usersSchema = new mongoose.Schema({
   username: String,
 });
 
-// TODO: Test this inside users model test.
-// Full text search fields.
-usersSchema.index({
-  email: 'text',
-  username: 'text',
-});
-
 // Middlewares
 const USERS_USERNAME_MAX_LENGTH = 24;
 const validationsMiddleware = async (userDoc, next) => {

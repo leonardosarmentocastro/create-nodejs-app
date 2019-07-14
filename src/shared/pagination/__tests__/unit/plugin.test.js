@@ -1,3 +1,10 @@
 const test = require('ava');
 
-test.todo('must plug a static function named "paginate" on schema');
+const { plugin, paginationPlugin } = require('../../plugin');
+
+test('(paginationPlugin) must plug a static function named "paginate" on schema', t => {
+  const schema = { statics: {} };
+  paginationPlugin(schema);
+
+  t.is(schema.statics.paginate, plugin);
+});

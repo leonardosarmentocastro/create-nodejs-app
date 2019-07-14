@@ -15,7 +15,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -56,11 +56,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:50.608Z",
-  "updatedAt": "2019-06-28T16:59:50.608Z",
+  "createdAt": "2019-07-13T19:08:38.061Z",
+  "updatedAt": "2019-07-13T19:08:38.061Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d164786bc4bc50e1766c746"
+  "id": "5d2a2c36cfb48a92c8a54b2f"
 }
 ```
 
@@ -68,7 +68,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -117,11 +117,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:50.608Z",
-  "updatedAt": "2019-06-28T16:59:50.608Z",
+  "createdAt": "2019-07-13T19:08:38.061Z",
+  "updatedAt": "2019-07-13T19:08:38.061Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d164786bc4bc50e1766c747"
+  "id": "5d2a2c36cfb48a92c8a54b30"
 }
 ```
 
@@ -129,7 +129,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123"
@@ -180,7 +180,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123"
@@ -231,7 +231,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used"
@@ -282,7 +282,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "",
   "username": "username123"
@@ -333,7 +333,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "email@domain.com",
   "username": ""
@@ -384,7 +384,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:49191/users \
+http://localhost:51170/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"

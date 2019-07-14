@@ -18,7 +18,7 @@
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b436 \
+http://localhost:51155/users/5d2a2c35bb32b192c744538e \
 -d '{
   "email": "new-email@domain.com"
 }' \
@@ -28,7 +28,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b436 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b436`
+Path: `/users/5d2a2c35bb32b192c744538e`
 
 Query parameters: _empty_
 
@@ -57,11 +57,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:49.646Z",
-  "updatedAt": "2019-06-28T16:59:49.818Z",
+  "createdAt": "2019-07-13T19:08:36.985Z",
+  "updatedAt": "2019-07-13T19:08:37.143Z",
   "email": "new-email@domain.com",
   "username": "username123",
-  "id": "5d16478589911a0e16d8b436"
+  "id": "5d2a2c35bb32b192c744538e"
 }
 ```
 
@@ -69,7 +69,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b437 \
+http://localhost:51155/users/5d2a2c35bb32b192c744538f \
 -d '{
   "username": "new-username"
 }' \
@@ -79,7 +79,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b437 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b437`
+Path: `/users/5d2a2c35bb32b192c744538f`
 
 Query parameters: _empty_
 
@@ -108,11 +108,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:49.646Z",
-  "updatedAt": "2019-06-28T16:59:49.849Z",
+  "createdAt": "2019-07-13T19:08:36.985Z",
+  "updatedAt": "2019-07-13T19:08:37.174Z",
   "email": "email@domain.com",
   "username": "new-username",
-  "id": "5d16478589911a0e16d8b437"
+  "id": "5d2a2c35bb32b192c744538f"
 }
 ```
 
@@ -120,7 +120,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b438 \
+http://localhost:51155/users/5d2a2c35bb32b192c7445390 \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -131,7 +131,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b438 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b438`
+Path: `/users/5d2a2c35bb32b192c7445390`
 
 Query parameters: _empty_
 
@@ -161,11 +161,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:49.646Z",
-  "updatedAt": "2019-06-28T16:59:49.869Z",
+  "createdAt": "2019-07-13T19:08:36.985Z",
+  "updatedAt": "2019-07-13T19:08:37.199Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d16478589911a0e16d8b438"
+  "id": "5d2a2c35bb32b192c7445390"
 }
 ```
 
@@ -173,7 +173,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b439 \
+http://localhost:51155/users/5d2a2c35bb32b192c7445391 \
 -d '{
   "id": "value",
   "_id": "value",
@@ -186,7 +186,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b439 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b439`
+Path: `/users/5d2a2c35bb32b192c7445391`
 
 Query parameters: _empty_
 
@@ -218,11 +218,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-06-28T16:59:49.646Z",
-  "updatedAt": "2019-06-28T16:59:49.890Z",
+  "createdAt": "2019-07-13T19:08:36.985Z",
+  "updatedAt": "2019-07-13T19:08:37.230Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d16478589911a0e16d8b439"
+  "id": "5d2a2c35bb32b192c7445391"
 }
 ```
 
@@ -230,13 +230,13 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b43b \
+http://localhost:51155/users/5d2a2c35bb32b192c7445393 \
 -H 'accept-language: pt-br'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b43b`
+Path: `/users/5d2a2c35bb32b192c7445393`
 
 Query parameters: _empty_
 
@@ -260,7 +260,7 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d16478589911a0e16d8b43b\" não encontrado."
+  "message": "Usuário \"5d2a2c35bb32b192c7445393\" não encontrado."
 }
 ```
 
@@ -268,7 +268,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b43c \
+http://localhost:51155/users/5d2a2c35bb32b192c7445394 \
 -d '{
   "email": "invalid@123!!!!.com.br"
 }' \
@@ -278,7 +278,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b43c \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b43c`
+Path: `/users/5d2a2c35bb32b192c7445394`
 
 Query parameters: _empty_
 
@@ -317,7 +317,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b43d \
+http://localhost:51155/users/5d2a2c35bb32b192c7445395 \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123"
@@ -328,7 +328,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b43d \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b43d`
+Path: `/users/5d2a2c35bb32b192c7445395`
 
 Query parameters: _empty_
 
@@ -368,7 +368,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b43f \
+http://localhost:51155/users/5d2a2c35bb32b192c7445397 \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used"
@@ -379,7 +379,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b43f \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b43f`
+Path: `/users/5d2a2c35bb32b192c7445397`
 
 Query parameters: _empty_
 
@@ -419,7 +419,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b441 \
+http://localhost:51155/users/5d2a2c35bb32b192c7445399 \
 -d '{
   "email": ""
 }' \
@@ -429,7 +429,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b441 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b441`
+Path: `/users/5d2a2c35bb32b192c7445399`
 
 Query parameters: _empty_
 
@@ -468,7 +468,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478589911a0e16d8b442 \
+http://localhost:51155/users/5d2a2c35bb32b192c744539a \
 -d '{
   "username": ""
 }' \
@@ -478,7 +478,7 @@ http://localhost:49174/users/5d16478589911a0e16d8b442 \
 
 **Request** :egg:
 
-Path: `/users/5d16478589911a0e16d8b442`
+Path: `/users/5d2a2c35bb32b192c744539a`
 
 Query parameters: _empty_
 
@@ -517,7 +517,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:49174/users/5d16478689911a0e16d8b443 \
+http://localhost:51155/users/5d2a2c35bb32b192c744539b \
 -d '{
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
 }' \
@@ -527,7 +527,7 @@ http://localhost:49174/users/5d16478689911a0e16d8b443 \
 
 **Request** :egg:
 
-Path: `/users/5d16478689911a0e16d8b443`
+Path: `/users/5d2a2c35bb32b192c744539b`
 
 Query parameters: _empty_
 

@@ -208,7 +208,7 @@ test('(results::nextPage) must be an integer number when there is a next page, a
   t.assert(results4.nextPage === null);
 });
 
-test('(results::previousPage) must be an integer number when there is a next page, and null when doesn\'t', async t => {
+test('(results::previousPage) must be an integer number when there is a previous page, and null when doesn\'t', async t => {
   const pagination = { conditions: {},  limit: 3,  page: 1, sort: '' };
 
   const results1 = await t.context.model.paginate(pagination);

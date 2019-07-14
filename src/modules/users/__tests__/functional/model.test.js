@@ -17,6 +17,3 @@ test('user creation must succeeds', async t => {
 
   t.assert((await getUsersSavedOnDatabase()).length === 1);
 });
-
-// TODO: this seems to be a valid model test.
-test.todo('index "$text" works for "email" and "username"');
