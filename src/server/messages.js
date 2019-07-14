@@ -7,12 +7,12 @@ const {
   textSecondary
 } = require('../misc/terminal');
 
-exports.getErrorMessageForServerStatup = (err, options) => {
+exports.getErrorMessageForServerStartup = (err, options) => {
   const { port, environment } = options;
   const message = [
     [ // line 1
       errorBg.white('  ERROR  '),
-      `${textPrimary('Failed to start server')} ${textSecondary(port)}`,
+      `${textPrimary('Failed to start server on port')} ${textSecondary(port)}`,
       `${textPrimary('in')} ${textSecondary(environment)} ${textPrimary('mode.')}`,
     ].join(' '),
     [ // line 2
@@ -33,7 +33,7 @@ exports.getSuccessMessageForServerClose = () => {
   return message;
 }
 
-exports.getSuccessMessageForServerStatup = (options) => {
+exports.getSuccessMessageForServerStartup = (options) => {
   const { port, environment } = options;
   const message = [
     `${successBg.white('  STARTED  ')}`,

@@ -1,13 +1,13 @@
 
 const mongoose = require('mongoose');
 
-const { sharedSchema } = require('../../shared');
+const { paginationPlugin, sharedSchema } = require('../../shared');
 const {
   isAlreadyInUseValidator,
   isValidEmailValidator,
   isRequiredValidator,
   isTooLongValidator,
-  validate,
+  sharedValidate,
 } = require('../../shared');
 
 const usersSchema = new mongoose.Schema({
@@ -32,7 +32,7 @@ const validationsMiddleware = async (userDoc, next) => {
     isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH),
     isAlreadyInUseValidator('username'),
   ];
-  const error = await validate(constraints, userDoc);
+  const error = await sharedValidate(constraints, userDoc);
 
   return next(error);
 };
@@ -51,6 +51,7 @@ const transform = (doc, ret) => {
 
 // Setup
 usersSchema.add(sharedSchema);
+usersSchema.plugin(paginationPlugin);
 usersSchema.post('validate', validationsMiddleware);
 usersSchema.set('toObject', {
   transform,

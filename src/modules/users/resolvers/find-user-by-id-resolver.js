@@ -4,7 +4,7 @@ const { userNotFoundError } = require('../errors');
 const { UsersModel } = require('../model');
 const { sharedUnexpectedError } = require('../../../shared');
 
-exports.findByIdResolver = async (req, res) => {
+exports.findUserByIdResolver = async (req, res) => {
   try {
     const userId = req.params.id;
     if (!isMongoId(userId)) return userNotFoundError(req, res);
@@ -15,7 +15,6 @@ exports.findByIdResolver = async (req, res) => {
     const transformedUser = dbUser.toObject();
     return res.status(200).json(transformedUser);
   } catch(err) {
-    // TODO: remove this when the middleware for catching unexpected errors is done.
     return sharedUnexpectedError(req, res, { err });
   }
 };
