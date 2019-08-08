@@ -2,9 +2,9 @@ const { isJSON, isNumeric } = require('validator');
 
 const { SHARED_PAGINATION_ERROR_QUERY_PARAMETER_INVALID } = require('./errors');
 
-const includesSortingSuffix = (string) =>
+const includesSortingSuffix = (field) =>
   ['+', '-'].some(sortingSuffix => {
-    const lastCharacter = string.slice(-1);
+    const lastCharacter = field.slice(-1);
     return lastCharacter === sortingSuffix;
   });
 
