@@ -11,7 +11,7 @@ const validate = (req) => {
     publicRoute.url === req.url
   );
 
-  const [ type, token ] = req.header('Authorization').trim().split(' '); // "Bearer 123456"
+  const token = req.header('Authorization'); // "Bearer 123456"
   const isValidAuthorizationToken = (token === process.env.AUTHORIZATION_TOKEN && process.env.NODE_ENV !== 'production');
 
   switch(true) {
@@ -22,4 +22,4 @@ const validate = (req) => {
   }
 };
 
-module.exports = { validate, PUBLIC_RESOURCES };
+module.exports = { validate, PUBLIC_ROUTES };
