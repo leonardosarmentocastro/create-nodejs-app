@@ -14,6 +14,7 @@ https://yaml-multiline.info/
   - add signup, signin and login(try to split it into a module so I can plug in wherever I want)
 4. try libs
   - try on frontend (which is to come): https://github.com/sindresorhus/ky
+5. create fronte-end consumer application
 
 
 ## Templates
