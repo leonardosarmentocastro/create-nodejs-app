@@ -3,8 +3,9 @@ const cors = require('cors');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 
-const modules = require('../modules');
 const i18n = require('../i18n');
+const modules = require('../modules');
+const { authorizationMiddleware } = require('../shared');
 
 const $middlewares = (app) => ({
   connect() {
@@ -14,6 +15,9 @@ const $middlewares = (app) => ({
       .forEach(method => this[method]());
   },
 
+  authorization() {
+    if (process.env.NODE_ENV === 'production') app.use(authorizationMiddleware);
+  },
   bodyParser() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));

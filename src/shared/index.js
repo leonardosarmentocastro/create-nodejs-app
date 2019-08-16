@@ -1,4 +1,5 @@
 module.exports = {
+  ...require('./authorization'),
   ...require('./errors'),
   ...require('./pagination'),
   ...require('./sanitizer'),

@@ -12,6 +12,7 @@ const PRIVATE_ROUTES = [
   { method: 'POST', url: '/users/:id' },
 ];
 
+// Setup
 test.before('load "authorization token" from environment variables', t => {
   require('dotenv').config(); // Load environment variables from ".env".
 
@@ -20,6 +21,7 @@ test.before('load "authorization token" from environment variables', t => {
   t.context.TOKENS = [ t.context.VALID_TOKEN, ...t.context.INVALID_TOKENS ];
 });
 
+// Tests
 test('must authorize when accessing "public routes" with/without a "valid authorization token"', t => {
   PUBLIC_ROUTES.forEach(({ method, url }) => {
     t.context.TOKENS.forEach(token => {

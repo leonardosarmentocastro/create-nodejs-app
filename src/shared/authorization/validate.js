@@ -1,18 +1,20 @@
 const { AUTHORIZATION_INVALID_TOKEN_ERROR } = require('./errors');
 
-const PUBLIC_ROUTES = [
-  { method: 'OPTIONS' }, // CORS verification
-  { method: 'GET', url: '/health' },
-];
+const DEFAULT = {
+  publicRoutes: [
+    { method: 'OPTIONS' }, // CORS verification
+    { method: 'GET', url: '/health' },
+  ],
+};
 
-const validate = (req) => {
-  const isAccessingPublicRoute = PUBLIC_ROUTES.some(publicRoute =>
+const validate = (req, { publicRoutes = DEFAULT.publicRoutes }) => {
+  const isAccessingPublicRoute = publicRoutes.some(publicRoute =>
     publicRoute.method === req.method &&
     publicRoute.url === req.url
   );
 
   const token = req.header('Authorization'); // "Bearer 123456"
-  const isValidAuthorizationToken = (token === process.env.AUTHORIZATION_TOKEN && process.env.NODE_ENV !== 'production');
+  const isValidAuthorizationToken = (!!token && token === process.env.AUTHORIZATION_TOKEN);
 
   switch(true) {
     case isAccessingPublicRoute: return null;
@@ -22,4 +24,4 @@ const validate = (req) => {
   }
 };
 
-module.exports = { validate, PUBLIC_ROUTES };
+module.exports = { validate, DEFAULT };
