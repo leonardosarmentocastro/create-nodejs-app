@@ -5,6 +5,7 @@ const { LOCALE, TIMEOUT } = require('./constants');
 exports.getRequestOptions = (t) => ({
   headers: {
     'accept-language': LOCALE, // Language which the application will serve content.
+    'Authorization': process.env.AUTHORIZATION_TOKEN, // Authorize requests to private routes.
     ...theOwl.buildHeaders(t.title, t.context.endpointOriginalPath) // Generate API docs based on functional test results.
   },
   json: true, // Automatically parses "response.body": https://github.com/sindresorhus/got/issues/174#issuecomment-298292987

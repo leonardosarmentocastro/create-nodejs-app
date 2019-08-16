@@ -1,40 +1,72 @@
 const test = require('ava');
-const detectPort = require('detect-port');
-const express = require('express');
 const got = require('got');
 
-const { authorizationMiddleware } = require('../../middleware');
+const database = require('../../../../database');
+const { PUBLIC_ROUTES } = require('../../constants');
+const { AUTHORIZATION_INVALID_TOKEN_ERROR } = require('../../errors');
+const { translate } = require('../../../../i18n');
+const {
+  closeApiOpenedOnRandomPort,
+  getRequestOptions,
+  startApiOnRandomPort,
+  LOCALE,
+} = require('../../../../__helpers__');
 
-// TODO: move the functional test helpers a folder up, and make it flexible enough to handle
-// functional tests outside the "modules" folder.
-test.before('setup a test server', async t => {
-  const publicRoutes = [{ method: 'get', url: '/public-route' }];
-  const app = express();
-  app.use(authorizationMiddleware(publicRoutes));
-  app.use((req, res, next) => {
-    req.locale = 'pt-br';
-    next();
-  });
-  app.get('/private-route', (req, res) => res.status(200).end());
-  app.get('/public-route', (req, res) => res.status(200).end());
+// Setup
+test.before('prepare: start api / connect to database', async t => {
+  await startApiOnRandomPort(t);
+  await database.connect();
+});
+test.before('setup fixtures', t => {
+  t.context.VALID_TOKEN = process.env.AUTHORIZATION_TOKEN;
+  const INVALID_TOKENS = [ 'invalid-token', 'Bearer 123', 'Bearer', '123', '' ];
+  const TOKENS = [ t.context.VALID_TOKEN, ...INVALID_TOKENS ];
 
-  const availablePort = await detectPort();
-  t.context.baseUrl = `http://localhost:${availablePort}`;
-  t.context.api = await new Promise(resolve => {
-    app.listen({ port: availablePort }, function() {
-      resolve(this);
-    });
-  });
+  // Map all combinations of "routes x tokens".
+  t.context.PRIVATE_ROUTES = [{ method: 'get', url: '/users' }];
+  t.context.PRIVATE_ROUTES_WITH_INVALID_TOKENS = t.context.PRIVATE_ROUTES
+    .reduce((accumulator, privateRoute) => {
+      const privateRoutes = INVALID_TOKENS.map(token => ({ ...privateRoute, token }));
+      return [ ...accumulator, ...privateRoutes ];
+    }, []);
+  t.context.PUBLIC_ROUTES_WITH_VALID_TOKENS = PUBLIC_ROUTES
+    .filter(({ url }) => !!url) // Removes CORS check
+    .reduce((accumulator, publicRoute) => {
+      const publicRoutes = TOKENS.map(token => ({ ...publicRoute, token }));
+      return [ ...accumulator, ...publicRoutes ];
+    }, []);
+});
+test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
+
+test('must authorize when accessing "public routes" with/without a "valid authorization token"', async t => {
+  const options = getRequestOptions(t);
+  for (const { method, url, token } of t.context.PUBLIC_ROUTES_WITH_VALID_TOKENS) {
+    options.headers['Authorization'] = token;
+
+    const response = await got[method](`${t.context.endpointBaseUrl}${url}`, options);
+    t.assert(response.statusCode === 200);
+  }
 });
 
-test.after('close test server', t => {
-  return new Promise(resolve => t.context.api.close(resolve));
+test('must authorize when accessing "private routes" with a "valid authorization token"', async t => {
+  const options = getRequestOptions(t);
+  for (const { method, url } of t.context.PRIVATE_ROUTES) {
+    options.headers['Authorization'] = t.context.VALID_TOKEN;
+
+    const response = await got[method](`${t.context.endpointBaseUrl}${url}`, options);
+    t.assert(response.statusCode === 200);
+  }
 });
 
-test('must unauthorize the request, returning a translated error on validation failure', t => {
-  return got(`${t.context.baseUrl}/private-route`)
-    .catch(error => {
-      t.assert(error.response.statusCode === 500);
-      // t.deepEqual(error.response.body, translate.error(err, LOCALE, args));
-    });
+test('must unauthorize when accessing "private routes" with an "invalid authorization token"', async t => {
+  const options = getRequestOptions(t);
+  for (const { method, url, token } of t.context.PRIVATE_ROUTES_WITH_INVALID_TOKENS) {
+    options.headers['Authorization'] = token;
+
+    await got[method](`${t.context.endpointBaseUrl}${url}`, options)
+      .catch(err => {
+        t.assert(err.response.statusCode === 401);
+        t.deepEqual(err.response.body, translate.error(AUTHORIZATION_INVALID_TOKEN_ERROR, LOCALE, {}));
+      });
+  }
 });

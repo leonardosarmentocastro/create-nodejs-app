@@ -9,7 +9,7 @@ const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { UsersModel } = require('../../model');
 const { getUrl } = require('./__helpers__');
 const { validUserFixture } = require('../__fixtures__');

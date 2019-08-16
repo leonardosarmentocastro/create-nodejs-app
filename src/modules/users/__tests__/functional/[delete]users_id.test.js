@@ -11,7 +11,7 @@ const {
   getRequestOptions,
   startApiOnRandomPort,
   closeApiOpenedOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {

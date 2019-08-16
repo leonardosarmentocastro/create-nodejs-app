@@ -7,7 +7,7 @@ const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { UsersModel } = require('../../model');
 const { validPrefixedUserFixture } = require('../__fixtures__');
 

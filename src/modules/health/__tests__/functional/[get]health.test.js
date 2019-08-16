@@ -6,7 +6,7 @@ const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 
 // Setup
 test.before('setup: start api', t => {
@@ -18,10 +18,8 @@ test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
 // Tests
 test('(200) must return the application healthy check status', async t => {
-  // Execute
   const response = await got(t.context.endpointBaseUrl, getRequestOptions(t));
 
-  // Assert
   t.deepEqual(response.body, {
     application: 'up',
   });

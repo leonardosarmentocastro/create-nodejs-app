@@ -1,16 +1,10 @@
 const { AUTHORIZATION_INVALID_TOKEN_ERROR } = require('./errors');
+const { PUBLIC_ROUTES } = require('./constants');
 
-const DEFAULT = {
-  publicRoutes: [
-    { method: 'OPTIONS' }, // CORS verification
-    { method: 'GET', url: '/health' },
-  ],
-};
-
-const validate = (req, { publicRoutes = DEFAULT.publicRoutes }) => {
-  const isAccessingPublicRoute = publicRoutes.some(publicRoute =>
-    publicRoute.method === req.method &&
-    publicRoute.url === req.url
+exports.validate = (req) => {
+  const isAccessingPublicRoute = PUBLIC_ROUTES.some(publicRoute =>
+    publicRoute.method === req.method.toLowerCase() &&
+    publicRoute.url === req.url.toLowerCase()
   );
 
   const token = req.header('Authorization'); // "Bearer 123456"
@@ -23,5 +17,3 @@ const validate = (req, { publicRoutes = DEFAULT.publicRoutes }) => {
     default: return null;
   }
 };
-
-module.exports = { validate, DEFAULT };

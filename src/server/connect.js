@@ -15,8 +15,12 @@ const $middlewares = (app) => ({
       .forEach(method => this[method]());
   },
 
+  i18n() {
+    // NOTE: must come first to fill "req.locale" for all subsequent middlewares.
+    i18n.connect(app);
+  },
   authorization() {
-    if (process.env.NODE_ENV === 'production') app.use(authorizationMiddleware);
+    app.use(authorizationMiddleware);
   },
   bodyParser() {
     app.use(bodyParser.json());
@@ -24,9 +28,6 @@ const $middlewares = (app) => ({
   },
   cors() {
     app.use(cors());
-  },
-  i18n() {
-    i18n.connect(app);
   },
   generateApiDocs() {
     if (process.env.NODE_ENV === 'test') require('the-owl').connect(app);

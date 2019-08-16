@@ -18,7 +18,7 @@ const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { validUserFixture } = require('../__fixtures__');
 
 // Setup

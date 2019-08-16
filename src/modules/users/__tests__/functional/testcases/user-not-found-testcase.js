@@ -1,6 +1,6 @@
 const got = require('got');
 
-const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
+const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
 const { USERS_ERROR_USER_NOT_FOUND } = require('../../../errors');
 const { translate } = require('../../../../../i18n');
 
