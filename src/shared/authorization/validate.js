@@ -8,7 +8,11 @@ exports.validate = (req) => {
   );
 
   const token = req.header('Authorization'); // "Bearer 123456"
-  const isValidAuthorizationToken = (!!token && token === process.env.AUTHORIZATION_TOKEN);
+  const isValidAuthorizationToken = (
+    process.env.NODE_ENV !== 'production' &&
+    !!token &&
+    token === process.env.AUTHORIZATION_TOKEN
+  );
 
   switch(true) {
     case isAccessingPublicRoute: return null;
