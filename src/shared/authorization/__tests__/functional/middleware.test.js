@@ -3,7 +3,7 @@ const got = require('got');
 
 const database = require('../../../../database');
 const { PUBLIC_ROUTES } = require('../../constants');
-const { AUTHORIZATION_INVALID_TOKEN_ERROR } = require('../../errors');
+const { AUTHORIZATION_ERROR_INVALID_TOKEN } = require('../../errors');
 const { translate } = require('../../../../i18n');
 const {
   closeApiOpenedOnRandomPort,
@@ -66,7 +66,7 @@ test('must unauthorize when accessing "private routes" with an "invalid authoriz
     await got[method](`${t.context.endpointBaseUrl}${url}`, options)
       .catch(err => {
         t.assert(err.response.statusCode === 401);
-        t.deepEqual(err.response.body, translate.error(AUTHORIZATION_INVALID_TOKEN_ERROR, LOCALE, {}));
+        t.deepEqual(err.response.body, translate.error(AUTHORIZATION_ERROR_INVALID_TOKEN, LOCALE, {}));
       });
   }
 });

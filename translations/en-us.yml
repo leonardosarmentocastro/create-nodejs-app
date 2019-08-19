@@ -1,4 +1,7 @@
-AUTHORIZATION_INVALID_TOKEN_ERROR: You are not allowed to access private routes with an invalid authorization token
+AUTHENTICATION_ERROR_TOKEN_EXPIRED: Authentication failed as token is expired.
+AUTHENTICATION_ERROR_TOKEN_INVALID: Authentication failed as token is invalid.
+AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE: Authentication failed as token is still not allowed to be used.
+AUTHORIZATION_ERROR_INVALID_TOKEN: You are not allowed to access private routes with an invalid authorization token.
 SHARED_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
 SHARED_ERROR_FIELD_ALREADY_IN_USE: This {field} is already in use.
 SHARED_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.

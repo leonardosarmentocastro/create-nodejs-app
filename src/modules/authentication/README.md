@@ -1,8 +1,9 @@
 authentication
-  . middleware
-    - has authorization token
+  . middleware (verificar jwt)
     - is authorization token valid
+      - is not empty
       - does token without bearer keyword matches against jwt secret
+        * "Bearer" is the encryption strategy
       - is expired
   . resolvers
     - sign-in
@@ -18,3 +19,18 @@ authentication
         - save: encrypt password, save it as private field
       2. create/serve authorization header
         - as shrinked as possible
+
+
+jwt
+  exp (expiration time): ISOString
+  iss (issuer): CREATE_NODEJS_APP/AUTHENTICATION
+  iat (issued at): Number
+  sub (subject): { id: ObjectId }
+
+**** to sign
+jwt
+  expiresIn (env/AUTHENTICATION_TOKEN_EXPIRES_IN): 7d
+  issuer: CREATE_NODEJS_APP/AUTHENTICATION
+  subject: { id: ObjectId }
+
+

@@ -1,4 +1,7 @@
-AUTHORIZATION_INVALID_TOKEN_ERROR: Você não tem permissão para acessar rotas privadas com um token de autorização inválido
+AUTHENTICATION_ERROR_TOKEN_EXPIRED: Autenticação falhou pois o token está expirado.
+AUTHENTICATION_ERROR_TOKEN_INVALID: Autenticação falhou pois o token é inválido.
+AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE: Autenticação falhou pois o token ainda não pode ser usado.
+AUTHORIZATION_ERROR_INVALID_TOKEN: Você não tem permissão para acessar rotas privadas com um token de autorização inválido.
 SHARED_ERROR_EMAIL_INVALID: O email "{email}" é inválido.
 SHARED_ERROR_FIELD_ALREADY_IN_USE: Este {field} já está em uso.
 SHARED_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.

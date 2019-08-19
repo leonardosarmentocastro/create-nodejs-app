@@ -1,4 +1,4 @@
-const { AUTHORIZATION_INVALID_TOKEN_ERROR } = require('./errors');
+const { AUTHORIZATION_ERROR_INVALID_TOKEN } = require('./errors');
 const { PUBLIC_ROUTES } = require('./constants');
 
 exports.validate = (req) => {
@@ -17,7 +17,7 @@ exports.validate = (req) => {
   switch(true) {
     case isAccessingPublicRoute: return null;
     case !isAccessingPublicRoute && isValidAuthorizationToken: return null;
-    case !isAccessingPublicRoute && !isValidAuthorizationToken: return AUTHORIZATION_INVALID_TOKEN_ERROR;
+    case !isAccessingPublicRoute && !isValidAuthorizationToken: return AUTHORIZATION_ERROR_INVALID_TOKEN;
     default: return null;
   }
 };

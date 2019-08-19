@@ -1,7 +1,7 @@
 const { translate } = require('../../i18n');
 
-exports.AUTHORIZATION_INVALID_TOKEN_ERROR = {
-  code: 'AUTHORIZATION_INVALID_TOKEN_ERROR',
+exports.AUTHORIZATION_ERROR_INVALID_TOKEN = {
+  code: 'AUTHORIZATION_ERROR_INVALID_TOKEN',
 };
 
 exports.authorizationTranslatedError = (req, res, { err }) =>
