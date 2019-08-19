@@ -31,6 +31,7 @@ test.before('setup fixtures', t => {
     }, []);
   t.context.PUBLIC_ROUTES_WITH_VALID_TOKENS = PUBLIC_ROUTES
     .filter(({ url }) => !!url) // Removes CORS check
+    .filter(({ url }) => url.indexOf('authentication') !== 1) // Remove authentication routes
     .reduce((accumulator, publicRoute) => {
       const publicRoutes = TOKENS.map(token => ({ ...publicRoute, token }));
       return [ ...accumulator, ...publicRoutes ];

@@ -19,7 +19,8 @@ exports.authenticationErrorTokenNotBefore = (err) => ({
   date: err.date, // "2018-10-04T16:10:44.000Z"
 });
 
-exports.authenticationTranslatedError = (req, res, { err }) =>
-  res.status(401).json(
+// TODO: Make sure we are asserting the right "statusCodes" on tests.
+exports.authenticationTranslatedError = (req, res, { err, statusCode = 401 }) =>
+  res.status(statusCode).json(
     translate.error(err, req.locale, {})
   );

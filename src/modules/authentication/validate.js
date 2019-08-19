@@ -8,6 +8,7 @@ const {
 } = require('./errors');
 
 const verify = util.promisify(jwt.verify);
+
 exports.validate = async (authorizationToken) => {
   try {
     await verify(authorizationToken, process.env.AUTHENTICATION_SECRET);

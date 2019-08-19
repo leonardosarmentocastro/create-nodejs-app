@@ -24,6 +24,10 @@ const usersSchema = new mongoose.Schema({
 // Middlewares
 const USERS_USERNAME_MAX_LENGTH = 24;
 const validationsMiddleware = async (userDoc, next) => {
+  // TODO: Add validation for "privateFields.password" (?)
+  // - This will maybe affect other tests...
+  //  - [+] But will ensure that all user creation pass through the same validation constraints
+  //  - [?] But what about "createUsersResolver" which is expecting "privateFields.password" to come from another resolver request's mutation?
   const constraints = [
     isRequiredValidator('email'),
     isRequiredValidator('username'),
