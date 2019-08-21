@@ -1,17 +1,22 @@
 const upash = require('upash');
 upash.install('pbkdf2', require('@phc/pbkdf2'));
 
-const DEFAULT = { __upash: upash };
-
-// TODO: Unit test?
 // Reference: https://github.com/simonepri/phc-pbkdf2
-exports.authenticationEncrypter = ({ __upash } = DEFAULT) => ({
+exports.authenticationEncrypter = ({
   hash: async (password) => {
-    const phcstr = await __upash.hash(password);
-    return phcstr;
+    const hashedPassword = await upash.hash(password);
+    return hashedPassword;
   },
-  verify: async (phcstr, password) => {
-    const hasMatched = await __upash.verify(phcstr, password);
+  isHashed: (hashedPassword) => {
+    try {
+      const hashAlgorithm = upash.which(hashedPassword);
+      return !!hashAlgorithm;
+    } catch(err) {
+      return false;
+    }
+  },
+  verify: async (hashedPassword, password) => {
+    const hasMatched = await upash.verify(hashedPassword, password);
     return hasMatched;
   },
 });
