@@ -1,5 +1,6 @@
-const { translate } = require('../../i18n');
 const dayjs = require('dayjs');
+
+const { translate } = require('../../i18n');
 
 // https://github.com/auth0/node-jsonwebtoken#tokenexpirederror
 exports.authenticationErrorTokenExpired = (err) => ({
