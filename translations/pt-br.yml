@@ -1,3 +1,4 @@
+AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG: Autenticação falhou pois a senha não é forte o bastante.
 AUTHENTICATION_ERROR_TOKEN_EXPIRED: Autenticação falhou pois o token está expirado.
 AUTHENTICATION_ERROR_TOKEN_INVALID: Autenticação falhou pois o token é inválido.
 AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE: Autenticação falhou pois o token ainda não pode ser usado.

@@ -10,6 +10,7 @@ const {
   fieldIsEmptyTestcase,
   fieldIsTooLongTestcase,
   notSettableFieldsAreIgnoredTestcase,
+  passwordIsStrongTestcase,
   userNotFoundTestcase,
 } = require('./testcases');
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
@@ -64,6 +65,19 @@ test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
   });
 });
 
+test('(200) must succeed on updating "password", while not sending it on payload', async t => {
+  const notUpdatedUser = await UsersModel.findById(t.context.user.id); // NOTE: Necessary to have access to "password".
+  const response = await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: { password: 'abc123def!@#' }, // score 3
+  });
+  t.assert(response.statusCode === 200);
+  t.falsy(response.body.password); // must not be on returned payload
+
+  const updatedUser = await UsersModel.findById(t.context.user.id);
+  t.assert(notUpdatedUser.password !== updatedUser.password);
+});
+
 test('(200) must be idempotent when updating without setting new values to fields', async t => {
   const { email, username } = t.context.user;
   const userPayload = { email, username };
@@ -84,16 +98,18 @@ test(notSettableFieldsAreIgnoredTestcase.title, t => {
 });
 
 // Unhappy path tests
+[ emailIsInvalidTestcase, passwordIsStrongTestcase ].forEach(testcase => {
+  test(testcase.title, t => {
+    t.context.testcaseUrl = getUrl(t);
+    return testcase.test(t);
+  });
+});
+
 test(userNotFoundTestcase.title1, t => {
   const userId = mongoose.Types.ObjectId();
   t.context.testcaseUrl = getUrl(t, userId);
 
   return userNotFoundTestcase.test(t, userId);
-});
-
-test(emailIsInvalidTestcase.title, t => {
-  t.context.testcaseUrl = getUrl(t);
-  return emailIsInvalidTestcase.test(t);
 });
 
 [
@@ -108,7 +124,7 @@ test(emailIsInvalidTestcase.title, t => {
   });
 });
 
-[ 'email', 'username' ].forEach(field => {
+[ 'email', 'username', 'password' ].forEach(field => {
   const testcase = fieldIsEmptyTestcase(field);
 
   test(testcase.title, t => {

@@ -4,4 +4,5 @@ module.exports = {
   ...require('./middleware'),
   ...require('./schema'),
   ...require('./validate'),
+  ...require('./validators'),
 };

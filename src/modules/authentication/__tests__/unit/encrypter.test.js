@@ -10,7 +10,18 @@ test('must be able to encrypt a string and validate against the corresponding un
     const hashedPassword = await authenticationEncrypter.hash(password);
 
     t.assert(hashedPassword !== password);
-    t.assert(authenticationEncrypter.verify(hashedPassword, password));
+    t.truthy(await authenticationEncrypter.verify(hashedPassword, password));
+  }
+});
+
+test('every new encryption must generate a different hashed output, while still matching the uncrypted value', async t => {
+  for (const password in PASSWORDS) {
+    const hashedPassword1 = await authenticationEncrypter.hash(password);
+    const hashedPassword2 = await authenticationEncrypter.hash(password);
+
+    t.assert(hashedPassword1 !== hashedPassword2);
+    t.truthy(await authenticationEncrypter.verify(hashedPassword1, password));
+    t.truthy(await authenticationEncrypter.verify(hashedPassword2, password));
   }
 });
 

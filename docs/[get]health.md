@@ -8,8 +8,9 @@
 
 ```sh
 curl -X GET \
-http://localhost:51148/health \
+http://localhost:55999/health \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
@@ -23,6 +24,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 

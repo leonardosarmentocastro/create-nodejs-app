@@ -13,6 +13,7 @@ test('user creation must succeeds', async t => {
   await new UsersModel({
     email: 'email@domain.com',
     username: 'username-123',
+    password: 'abc123def!@#' // score 3
   }).save();
 
   t.assert((await getUsersSavedOnDatabase()).length === 1);

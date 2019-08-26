@@ -9,6 +9,7 @@ const {
   fieldIsEmptyTestcase,
   fieldIsTooLongTestcase,
   notSettableFieldsAreIgnoredTestcase,
+  passwordIsStrongTestcase,
 } = require('./testcases');
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
 const { validUserFixture } = require('../__fixtures__');
@@ -42,7 +43,9 @@ test('(200) must succeed on creating the user and return the newly created doc',
   const createdUser = response.body;
   t.assert(response.statusCode == 200);
   t.truthy(createdUser.id);
+  t.falsy(createdUser.password);
   Object.keys(userPayload)
+    .filter(key => key !== 'password')
     .forEach(key => t.assert(createdUser[key] === userPayload[key]));
 });
 
@@ -52,9 +55,11 @@ test(notSettableFieldsAreIgnoredTestcase.title, t => {
 });
 
 // Unhappy path tests
-test(emailIsInvalidTestcase.title, t => {
-  t.context.testcaseUrl = t.context.endpointBaseUrl;
-  return emailIsInvalidTestcase.test(t);
+[ emailIsInvalidTestcase, passwordIsStrongTestcase ].forEach(testcase => {
+  test(testcase.title, t => {
+    t.context.testcaseUrl = t.context.endpointBaseUrl;
+    return testcase.test(t);
+  });
 });
 
 [
@@ -69,7 +74,7 @@ test(emailIsInvalidTestcase.title, t => {
   });
 });
 
-[ 'email', 'username' ].forEach(field => {
+[ 'email', 'username', 'password' ].forEach(field => {
   const testcase = fieldIsEmptyTestcase(field);
 
   test(testcase.title, t => {

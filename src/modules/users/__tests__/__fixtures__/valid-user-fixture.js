@@ -1,6 +1,7 @@
 const validUserFixture = {
   email: 'email@domain.com',
-  username: 'username123'
+  username: 'username123',
+  password: 'abc123def!@#' // score 3
 };
 
 // Must not include user's properties when updating, to properly isolate fields emptyness validations;

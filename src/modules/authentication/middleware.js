@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { authenticationTranslatedError } = require('./errors');
 const { validate } = require('./validate');
 
+// TODO: functional test it.
 exports.authenticationMiddleware = async (req, res, next) => {
   const [ type, authorizationToken ] = req.header('Authorization').trim().split(' ');
 
@@ -19,7 +20,7 @@ exports.authenticationMiddleware = async (req, res, next) => {
     issuer: decodedToken.iss, // String ("CREATE_NODEJS_APP/AUTHENTICATION")
     issuedAt: dayjs(decodedToken.iat).toISOString(), // NumericDate (1408621000 -> "1970-01-17T07:17:01.000Z")
     subject: decodedToken.sub, // ObjectId (which refers to "userId")
-    payload: decodedToken.payload // TODO: to be defined.
+    payload: decodedToken.payload // Anything serializable.
   };
 
   next();

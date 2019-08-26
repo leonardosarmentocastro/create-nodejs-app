@@ -1,15 +1,14 @@
 const zxcvbn = require('zxcvbn');
 
-// TODO: Unit test
-exports.isPasswordStrongValidator = (user) => {
-  const analysis = zxcvbn(user.password);
+exports.isPasswordStrongValidator = (authorizationDoc) => {
+  const analysis = zxcvbn(authorizationDoc.password);
 
   return {
     // NOTE: Still not translated as library don't have explicit mapping for errors.
     // https://github.com/dropbox/zxcvbn/blob/master/src/feedback.coffee
     analysis: {
-      score: analysis.score,
       feedback: analysis.feedback,
+      score: analysis.score,
     },
     code: 'AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG',
     field: 'password',

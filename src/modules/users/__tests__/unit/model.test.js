@@ -1,18 +1,24 @@
 const test = require('ava');
 
+const { authenticationSchema } = require('../../../authentication');
 const { transform, usersSchema } = require('../../model');
 const { sharedSchema } = require('../../../../shared');
 
 const deepClone = (object) => JSON.parse(JSON.stringify(object));
-test('usersSchema must inherit sharedSchema fields', t => {
-  const usersSchemaFields = deepClone(usersSchema.tree);
-  const sharedSchemaFields = deepClone(sharedSchema.tree);
+const usersSchemaFields = deepClone(usersSchema.tree);
 
-  Object.entries(sharedSchemaFields)
-    .forEach(([ key, value ]) => t.deepEqual(usersSchemaFields[key], value));
+test('"usersSchema" must inherit some fields from other schemas', t => {
+  [ authenticationSchema, sharedSchema ].forEach(inheritedSchema => {
+    const inheritedSchemaFields = deepClone(inheritedSchema.tree); // NOTE: Only works with schema fields defined as "{}" (e.g. "{ type: String }").
+
+    Object.entries(inheritedSchemaFields)
+      .forEach(([ key, value ]) =>
+        t.deepEqual(usersSchemaFields[key], value, `Field "${key}" should be inherited by "usersSchema".`)
+      );
+  });
 });
 
-test('(transform) must strip "__v", "_id" and "privateFields" from doc', t => {
+test('(transform) must strip "__v", "_id" and "password" from doc', t => {
   const fieldsNotToBeStripped = {
     id: '123',
     email: 'email@domain.com',
@@ -25,7 +31,7 @@ test('(transform) must strip "__v", "_id" and "privateFields" from doc', t => {
 
     __v: 0,
     _id: 'must be stripped',
-    privateFields: { password: 'must be stripped' },
+    password: '123',
   };
 
   t.deepEqual(transform(doc, ret), fieldsNotToBeStripped);

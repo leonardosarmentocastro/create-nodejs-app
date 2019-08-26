@@ -1,3 +1,4 @@
+AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG: Authentication failed as password is not strong enough.
 AUTHENTICATION_ERROR_TOKEN_EXPIRED: Authentication failed as token is expired.
 AUTHENTICATION_ERROR_TOKEN_INVALID: Authentication failed as token is invalid.
 AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE: Authentication failed as token is still not allowed to be used.

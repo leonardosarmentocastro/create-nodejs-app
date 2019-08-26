@@ -35,6 +35,7 @@ test('(200) must return the user saved on database if it exists', async t => {
   t.assert(response.statusCode === 200);
   t.assert(response.body.id === savedUser.id);
   Object.keys(user)
+    .filter(key => key !== 'password')
     .forEach(key => t.assert(response.body[key] === user[key]));
 });
 
