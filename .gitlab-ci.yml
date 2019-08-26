@@ -6,6 +6,7 @@ stages:
 variables:
   APP_NAME: create-nodejs-app
   APP_PROCESS_TYPE: web
+  AUTHENTICATION_SECRET: authentication-secret-test
   AUTHORIZATION_TOKEN: authorization-token-test
   DOCKER_IMAGE_NAME: leonardosarmentocastro/$APP_NAME:$CI_COMMIT_SHORT_SHA
   HEROKU_DOCKER_IMAGE_NAME: registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
