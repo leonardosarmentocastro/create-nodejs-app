@@ -16,6 +16,7 @@ env:
     - DOCKER_IMAGE_NAME=leonardosarmentocastro/$APP_NAME:$TRAVIS_COMMIT
     - HEROKU_API_KEY=$SECRET_HEROKU_AUTHORIZATION_TOKEN # Needed for Heroku CLI image release.
     - HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/$APP_NAME/$APP_PROCESS_TYPE
+    # - LANGUAGE=en-us # Not necessary to set, as default values are already set in code.
     - NODE_ENV=test
     - MONGODB_DATABASE_NAME=db-ci
     - MONGODB_HOST=0.0.0.0

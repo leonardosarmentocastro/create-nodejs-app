@@ -18,8 +18,6 @@ exports.fieldIsTooLongTestcase = (field, maxLength) => ({
       body: userPayload,
     })
     .catch(error => {
-      console.log('@@@ DEBUGGING: error', error);
-
       const { validator, ...err } = isTooLongValidator(field, maxLength)(userPayload);
       t.assert(error.response.statusCode == 500);
       t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
