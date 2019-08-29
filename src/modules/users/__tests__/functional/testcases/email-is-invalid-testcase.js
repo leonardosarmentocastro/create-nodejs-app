@@ -18,6 +18,7 @@ exports.emailIsInvalidTestcase = {
       body: userPayload,
     })
     .catch(error => {
+      console.log('@@@ DEBUGGING: error', error);
       const { validator, ...err } = isValidEmailValidator(userPayload);
       t.assert(error.response.statusCode == 500);
       t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
