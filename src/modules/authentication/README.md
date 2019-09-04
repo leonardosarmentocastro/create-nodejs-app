@@ -1,36 +1,36 @@
-authentication
-  . middleware (verificar jwt)
-    - is authorization token valid
-      - is not empty
-      - does token without bearer keyword matches against jwt secret
-        * "Bearer" is the encryption strategy
-      - is expired
-  . resolvers
-    - sign-in
-    - sign-up
-      * v1 (validate, transform, persist, authorize)
-      - validate: ...
-      - transform: encrypt password and store it as private field
-      - persist: ...
-      - authorize: create/serve authorization header
-      * v2 (validate/authorize):
-      1. validate/save user
-        - validation: do it on model? don't think so, authorization must be uncoupled from "user" model;
-        - save: encrypt password, save it as private field
-      2. create/serve authorization header
-        - as shrinked as possible
+> criar usuário
+  > digita usuário/senha
+  > confirma formulario
+    - usuário é criado
+    - assino um token pra ele
+    - retorno token no header
+    * usuário autenticado *
 
+> logar
+  > digita usuário/senha
+  > confirma formulario
+    - query no banco pra ver se existe esse usuário
+    > usuário existe
+      - assino um token pra ele
+      - retorno token no header
+      * usuário autenticado *
 
-jwt
-  exp (expiration time): ISOString
-  iss (issuer): CREATE_NODEJS_APP/AUTHENTICATION
-  iat (issued at): Number
-  sub (subject): { id: ObjectId }
+> /me
+  > decodifico o token
+  - uso "subject" do token que refere-se ao "id" para buscar pelo usuário no banco
+  - assino um novo token
+  - retorno informações mais recentes do usuário no body e o token no header
 
-**** to sign
-jwt
-  expiresIn (env/AUTHENTICATION_TOKEN_EXPIRES_IN): 7d
-  issuer: CREATE_NODEJS_APP/AUTHENTICATION
-  subject: { id: ObjectId }
-
+> alterar dados do usuário
+  > checo a "role" do usuário
+    > se usuário é "admin"
+      - permitir alterar dados
+      - assino um token novo pra ele
+      - retorno o usuário alterado no body e o token no header
+    > se usuário é "basic"
+      - checo se o "id" do usuário que ele tá tentando alterar é o mesmo que o "id" usado no token dele
+        > se os "ids" forem iguais
+          - permitir alterar dados
+          - assino um token pra ele
+          - retorno o usuário alterado no body e o token no header
 

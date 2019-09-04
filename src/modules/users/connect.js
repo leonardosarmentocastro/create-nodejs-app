@@ -3,15 +3,18 @@ const {
   deleteUserResolver,
   findUserByIdResolver,
   findUsersResolver,
+  serveCreatedUserResolver,
   updateUserResolver,
 } = require('./resolvers');
 const { paginationMiddleware } = require('../../shared');
 
 exports.connect = (app) => {
-  app.get('/users', paginationMiddleware, findUsersResolver);
-  app.post('/users', createUserResolver);
+  app.route('/users')
+    .get(paginationMiddleware, findUsersResolver)
+    .post(createUserResolver, serveCreatedUserResolver);
 
-  app.delete('/users/:id', deleteUserResolver);
-  app.get('/users/:id', findUserByIdResolver);
-  app.put('/users/:id', updateUserResolver);
+  app.route('/users/:id')
+    .delete(deleteUserResolver)
+    .get(findUserByIdResolver)
+    .put(updateUserResolver);
 };

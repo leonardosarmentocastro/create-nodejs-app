@@ -1,3 +1,3 @@
 module.exports = {
-  ...require('./sign-up-resolver'),
+  ...require('./sign-token-resolver'),
 };

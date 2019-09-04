@@ -9,7 +9,7 @@ test.before('setup necessary environment variables', t => {
 });
 
 test('must attach decoded data from authorization token to "req.authentication"', async t => {
-  const authorizationToken = jwt.sign({
+  const authenticationToken = jwt.sign({
     payload: { role: 'admin' },
   },
   process.env.AUTHENTICATION_SECRET, {
@@ -17,11 +17,11 @@ test('must attach decoded data from authorization token to "req.authentication"'
     issuer: 'authentication-middleware',
     subject: 'userId.123456',
   });
-  const req = { header: () => `Bearer ${authorizationToken}` };
+  const req = { header: () => `Bearer ${authenticationToken}` };
 
   await authenticationMiddleware(req, () => null, () => null);
 
-  const decodedToken = jwt.decode(authorizationToken, { json: true });
+  const decodedToken = jwt.decode(authenticationToken, { json: true });
   t.deepEqual(req.authentication, {
     expirationTime: dayjs(decodedToken.exp).toISOString(),
     issuer: 'authentication-middleware',

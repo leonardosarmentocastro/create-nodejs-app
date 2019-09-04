@@ -9,9 +9,9 @@ const {
 
 const verify = util.promisify(jwt.verify);
 
-exports.validate = async (authorizationToken) => {
+exports.validate = async (authenticationToken) => {
   try {
-    await verify(authorizationToken, process.env.AUTHENTICATION_SECRET);
+    await verify(authenticationToken, process.env.AUTHENTICATION_SECRET);
     return null;
   } catch(err) {
     switch(err.name) {
