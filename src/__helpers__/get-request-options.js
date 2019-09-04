@@ -2,6 +2,7 @@ const theOwl = require('the-owl');
 
 const { LOCALE, TIMEOUT } = require('./constants');
 
+// TODO: Doesn't include "Authorization" header if not necessary.
 exports.getRequestOptions = (t) => ({
   headers: {
     'accept-language': LOCALE, // Language which the application will serve content.

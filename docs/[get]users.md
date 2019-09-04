@@ -9,7 +9,7 @@
 
 ```sh
 curl -X GET \
-http://localhost:55982/users?l=2&p=2 \
+http://localhost:57188/users?l=2&p=2 \
 -H 'accept-language: pt-br'
 -H 'authorization: authorization-token-dev'
 ```
@@ -46,18 +46,18 @@ Body:
 {
   "docs": [
     {
-      "createdAt": "2019-08-26T18:34:56.300Z",
-      "updatedAt": "2019-08-26T18:34:56.300Z",
+      "createdAt": "2019-09-04T20:29:50.350Z",
+      "updatedAt": "2019-09-04T20:29:50.350Z",
       "email": "user3_email@domain.com",
       "username": "user3_username123",
-      "id": "5d642650a214e71a9cd07625"
+      "id": "5d701ebefb4415e60b30cb9c"
     },
     {
-      "createdAt": "2019-08-26T18:34:56.300Z",
-      "updatedAt": "2019-08-26T18:34:56.300Z",
+      "createdAt": "2019-09-04T20:29:50.350Z",
+      "updatedAt": "2019-09-04T20:29:50.350Z",
       "email": "user4_email@domain.com",
       "username": "user4_username123",
-      "id": "5d642650a214e71a9cd07626"
+      "id": "5d701ebefb4415e60b30cb9d"
     }
   ],
   "hasNextPage": false,
@@ -73,7 +73,7 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:55982/users \
+http://localhost:57188/users \
 -H 'accept-language: pt-br'
 -H 'authorization: authorization-token-dev'
 ```
