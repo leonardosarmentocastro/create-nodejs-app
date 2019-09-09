@@ -1,3 +1,5 @@
+AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND: Autenticação falhou pois não há nenhum usuário registrado com este email.
+AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH: Autenticação falhou pois a senha fornecida não corresponde a senha do usuário.
 AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG: Autenticação falhou pois a senha não é forte o bastante.
 AUTHENTICATION_ERROR_TOKEN_EXPIRED: Autenticação falhou pois o token está expirado.
 AUTHENTICATION_ERROR_TOKEN_INVALID: Autenticação falhou pois o token é inválido.

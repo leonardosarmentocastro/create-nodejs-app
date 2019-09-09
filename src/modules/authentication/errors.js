@@ -2,21 +2,29 @@ const dayjs = require('dayjs');
 
 const { translate } = require('../../i18n');
 
+exports.AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND = {
+  code: 'AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND',
+};
+
+exports.AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH = {
+  code: 'AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH',
+};
+
 // https://github.com/auth0/node-jsonwebtoken#tokenexpirederror
 exports.authenticationErrorTokenExpired = (err) => ({
-  name: 'AUTHENTICATION_ERROR_TOKEN_EXPIRED',
+  code: 'AUTHENTICATION_ERROR_TOKEN_EXPIRED',
   expiredAt: dayjs(err.expiredAt).toISOString() , // 1408621000 -> "1970-01-17T07:17:01.000Z"
 });
 
 // https://github.com/auth0/node-jsonwebtoken#jsonwebtokenerror
 exports.authenticationErrorTokenInvalid = (err) => ({
-  name: 'AUTHENTICATION_ERROR_TOKEN_INVALID',
+  code: 'AUTHENTICATION_ERROR_TOKEN_INVALID',
   jwtMessage: err.message, // NOTE: Not using prop "message" as it's used to serve translated messages.
 });
 
 // https://github.com/auth0/node-jsonwebtoken#notbeforeerror
 exports.authenticationErrorTokenNotBefore = (err) => ({
-  name: 'AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE',
+  code: 'AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE',
   date: err.date, // "2018-10-04T16:10:44.000Z"
 });
 

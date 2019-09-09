@@ -10,6 +10,7 @@ const userNotFoundError = (req, res) =>
     translate.error(USERS_ERROR_USER_NOT_FOUND, req.locale, { userId: req.params.id })
   );
 
+// TODO: serve proper "statusCode" as done in "authorization.signInResolver".
 const userTranslatedValidationError = (req, res, { err, userDoc }) => {
   const transformedUser = userDoc.toObject();
   const error = translate.error(err, req.locale, transformedUser);

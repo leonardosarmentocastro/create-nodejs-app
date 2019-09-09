@@ -21,7 +21,7 @@
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eb70651c3e5f2900c0f \
+http://localhost:52532/users/5d76cd1be4057d3b514048f8 \
 -d '{
   "email": "new-email@domain.com"
 }' \
@@ -32,7 +32,7 @@ http://localhost:57153/users/5d701eb70651c3e5f2900c0f \
 
 **Request** :egg:
 
-Path: `/users/5d701eb70651c3e5f2900c0f`
+Path: `/users/5d76cd1be4057d3b514048f8`
 
 Query parameters: _empty_
 
@@ -62,11 +62,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:43.594Z",
-  "updatedAt": "2019-09-04T20:29:44.340Z",
+  "createdAt": "2019-09-09T22:07:23.209Z",
+  "updatedAt": "2019-09-09T22:07:23.857Z",
   "email": "new-email@domain.com",
   "username": "username123",
-  "id": "5d701eb70651c3e5f2900c0f"
+  "id": "5d76cd1be4057d3b514048f8"
 }
 ```
 
@@ -74,7 +74,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eb80651c3e5f2900c10 \
+http://localhost:52532/users/5d76cd1be4057d3b514048f9 \
 -d '{
   "username": "new-username"
 }' \
@@ -85,7 +85,7 @@ http://localhost:57153/users/5d701eb80651c3e5f2900c10 \
 
 **Request** :egg:
 
-Path: `/users/5d701eb80651c3e5f2900c10`
+Path: `/users/5d76cd1be4057d3b514048f9`
 
 Query parameters: _empty_
 
@@ -115,11 +115,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:43.594Z",
-  "updatedAt": "2019-09-04T20:29:45.168Z",
+  "createdAt": "2019-09-09T22:07:23.209Z",
+  "updatedAt": "2019-09-09T22:07:24.286Z",
   "email": "email@domain.com",
   "username": "new-username",
-  "id": "5d701eb80651c3e5f2900c10"
+  "id": "5d76cd1be4057d3b514048f9"
 }
 ```
 
@@ -127,7 +127,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eb90651c3e5f2900c11 \
+http://localhost:52532/users/5d76cd1ce4057d3b514048fa \
 -d '{
   "password": "abc123def!@#"
 }' \
@@ -138,7 +138,7 @@ http://localhost:57153/users/5d701eb90651c3e5f2900c11 \
 
 **Request** :egg:
 
-Path: `/users/5d701eb90651c3e5f2900c11`
+Path: `/users/5d76cd1ce4057d3b514048fa`
 
 Query parameters: _empty_
 
@@ -168,11 +168,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:43.594Z",
-  "updatedAt": "2019-09-04T20:29:45.242Z",
+  "createdAt": "2019-09-09T22:07:23.209Z",
+  "updatedAt": "2019-09-09T22:07:24.331Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d701eb90651c3e5f2900c11"
+  "id": "5d76cd1ce4057d3b514048fa"
 }
 ```
 
@@ -180,7 +180,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eb90651c3e5f2900c12 \
+http://localhost:52532/users/5d76cd1ce4057d3b514048fb \
 -d '{
   "email": "email@domain.com",
   "username": "username123"
@@ -192,7 +192,7 @@ http://localhost:57153/users/5d701eb90651c3e5f2900c12 \
 
 **Request** :egg:
 
-Path: `/users/5d701eb90651c3e5f2900c12`
+Path: `/users/5d76cd1ce4057d3b514048fb`
 
 Query parameters: _empty_
 
@@ -223,11 +223,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:43.594Z",
-  "updatedAt": "2019-09-04T20:29:45.919Z",
+  "createdAt": "2019-09-09T22:07:23.209Z",
+  "updatedAt": "2019-09-09T22:07:24.666Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d701eb90651c3e5f2900c12"
+  "id": "5d76cd1ce4057d3b514048fb"
 }
 ```
 
@@ -235,7 +235,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eb90651c3e5f2900c13 \
+http://localhost:52532/users/5d76cd1ce4057d3b514048fc \
 -d '{
   "id": "value",
   "_id": "value",
@@ -249,7 +249,7 @@ http://localhost:57153/users/5d701eb90651c3e5f2900c13 \
 
 **Request** :egg:
 
-Path: `/users/5d701eb90651c3e5f2900c13`
+Path: `/users/5d76cd1ce4057d3b514048fc`
 
 Query parameters: _empty_
 
@@ -282,11 +282,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:43.594Z",
-  "updatedAt": "2019-09-04T20:29:46.633Z",
+  "createdAt": "2019-09-09T22:07:23.209Z",
+  "updatedAt": "2019-09-09T22:07:24.960Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d701eb90651c3e5f2900c13"
+  "id": "5d76cd1ce4057d3b514048fc"
 }
 ```
 
@@ -294,7 +294,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701eba0651c3e5f2900c14 \
+http://localhost:52532/users/5d76cd1ce4057d3b514048fd \
 -d '{
   "email": "invalid@123!!!!.com.br"
 }' \
@@ -305,7 +305,7 @@ http://localhost:57153/users/5d701eba0651c3e5f2900c14 \
 
 **Request** :egg:
 
-Path: `/users/5d701eba0651c3e5f2900c14`
+Path: `/users/5d76cd1ce4057d3b514048fd`
 
 Query parameters: _empty_
 
@@ -345,7 +345,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c15 \
+http://localhost:52532/users/5d76cd1de4057d3b514048fe \
 -d '{
   "password": "123456789"
 }' \
@@ -356,7 +356,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c15 \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c15`
+Path: `/users/5d76cd1de4057d3b514048fe`
 
 Query parameters: _empty_
 
@@ -405,14 +405,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c17 \
+http://localhost:52532/users/5d76cd1de4057d3b51404900 \
 -H 'accept-language: pt-br'
 -H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c17`
+Path: `/users/5d76cd1de4057d3b51404900`
 
 Query parameters: _empty_
 
@@ -437,7 +437,7 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d701ebb0651c3e5f2900c17\" não encontrado."
+  "message": "Usuário \"5d76cd1de4057d3b51404900\" não encontrado."
 }
 ```
 
@@ -445,7 +445,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c18 \
+http://localhost:52532/users/5d76cd1de4057d3b51404901 \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123",
@@ -458,7 +458,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c18 \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c18`
+Path: `/users/5d76cd1de4057d3b51404901`
 
 Query parameters: _empty_
 
@@ -500,7 +500,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c1a \
+http://localhost:52532/users/5d76cd1de4057d3b51404903 \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used",
@@ -513,7 +513,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c1a \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c1a`
+Path: `/users/5d76cd1de4057d3b51404903`
 
 Query parameters: _empty_
 
@@ -555,7 +555,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c1c \
+http://localhost:52532/users/5d76cd1de4057d3b51404905 \
 -d '{
   "email": ""
 }' \
@@ -566,7 +566,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c1c \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c1c`
+Path: `/users/5d76cd1de4057d3b51404905`
 
 Query parameters: _empty_
 
@@ -606,7 +606,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c1d \
+http://localhost:52532/users/5d76cd1ee4057d3b51404906 \
 -d '{
   "username": ""
 }' \
@@ -617,7 +617,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c1d \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c1d`
+Path: `/users/5d76cd1ee4057d3b51404906`
 
 Query parameters: _empty_
 
@@ -657,7 +657,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c1e \
+http://localhost:52532/users/5d76cd1ee4057d3b51404907 \
 -d '{
   "password": ""
 }' \
@@ -668,7 +668,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c1e \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c1e`
+Path: `/users/5d76cd1ee4057d3b51404907`
 
 Query parameters: _empty_
 
@@ -708,7 +708,7 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:57153/users/5d701ebb0651c3e5f2900c1f \
+http://localhost:52532/users/5d76cd1ee4057d3b51404908 \
 -d '{
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
 }' \
@@ -719,7 +719,7 @@ http://localhost:57153/users/5d701ebb0651c3e5f2900c1f \
 
 **Request** :egg:
 
-Path: `/users/5d701ebb0651c3e5f2900c1f`
+Path: `/users/5d76cd1ee4057d3b51404908`
 
 Query parameters: _empty_
 

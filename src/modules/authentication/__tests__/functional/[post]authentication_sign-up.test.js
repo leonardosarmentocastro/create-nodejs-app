@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const theOwl = require('the-owl');
 
 const database = require('../../../../database');
-const {} = require('../../');
 const { UsersModel } = require('../../../users/model');
 const { validUserFixture } = require('../../../users/__tests__/__fixtures__');
 const {
@@ -25,6 +24,7 @@ test.beforeEach('cleanup database', t => UsersModel.deleteMany());
 test.after('create api docs (if enabled)', t => theOwl.createDocs());
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
+// TODO: same test is repeated on "sign-in", DRY it.
 test('(200) must succeed on creating the user and signing a jwt token for it', async t => {
   const response = await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),

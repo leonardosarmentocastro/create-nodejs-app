@@ -21,6 +21,6 @@ exports.fieldIsEmptyTestcase = (field) => ({
       const { validator, ...err } = isRequiredValidator(field)(userPayload);
       t.assert(error.response.statusCode == 500);
       t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-    })
+    });
   },
 });

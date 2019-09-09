@@ -11,9 +11,10 @@
   > confirma formulario
     - query no banco pra ver se existe esse usuário
     > usuário existe
-      - assino um token pra ele
-      - retorno token no header
-      * usuário autenticado *
+      - senha coincide? 
+        - assino um token pra ele
+        - retorno token no header
+        * usuário autenticado *
 
 > /me
   > decodifico o token

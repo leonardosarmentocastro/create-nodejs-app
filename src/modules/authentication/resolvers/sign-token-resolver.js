@@ -1,7 +1,7 @@
 const { authenticationTokenIssuer } = require('../token-issuer');
 
 const signTokenResolver = async (req, res) => {
-  const user = req.createdUser || req.signedInUser; // TODO: may change "signedInUser" prop.
+  const user = req.createdUser || req.signedInUser;
   const authenticationToken = authenticationTokenIssuer.sign(user);
   res.set('Authorization', authenticationToken);
 

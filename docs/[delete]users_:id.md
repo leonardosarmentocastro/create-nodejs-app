@@ -9,14 +9,14 @@
 
 ```sh
 curl -X DELETE \
-http://localhost:57199/users/5d701ec0547670e60ee1957b \
+http://localhost:52605/users/5d76cd225ceebd3b6a74e74b \
 -H 'accept-language: pt-br'
 -H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d701ec0547670e60ee1957b`
+Path: `/users/5d76cd225ceebd3b6a74e74b`
 
 Query parameters: _empty_
 
@@ -41,7 +41,7 @@ Body: _empty_
 
 ```sh
 curl -X DELETE \
-http://localhost:57199/users/123 \
+http://localhost:52605/users/123 \
 -H 'accept-language: pt-br'
 -H 'authorization: authorization-token-dev'
 ```

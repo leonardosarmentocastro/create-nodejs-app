@@ -17,7 +17,7 @@
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -62,11 +62,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:49.285Z",
-  "updatedAt": "2019-09-04T20:29:49.285Z",
+  "createdAt": "2019-09-09T22:07:27.790Z",
+  "updatedAt": "2019-09-09T22:07:27.790Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d701ebd9db690e60a03049c"
+  "id": "5d76cd1f07f5b83b5fbf792c"
 }
 ```
 
@@ -74,7 +74,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -127,11 +127,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-04T20:29:49.285Z",
-  "updatedAt": "2019-09-04T20:29:49.285Z",
+  "createdAt": "2019-09-09T22:07:27.790Z",
+  "updatedAt": "2019-09-09T22:07:27.790Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d701ebd9db690e60a03049d"
+  "id": "5d76cd1f07f5b83b5fbf792d"
 }
 ```
 
@@ -139,7 +139,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "invalid@123!!!!.com.br",
   "username": "username123",
@@ -194,7 +194,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -258,7 +258,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@already-being-used.com",
   "username": "user2_username123",
@@ -313,7 +313,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "user2_email@domain.com",
   "username": "already-being-used",
@@ -368,7 +368,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "",
   "username": "username123",
@@ -423,7 +423,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "",
@@ -478,7 +478,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "username123",
@@ -533,7 +533,7 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:57175/users \
+http://localhost:52573/users \
 -d '{
   "email": "email@domain.com",
   "username": "aaaaaaaaaaaaaaaaaaaaaaaaa",

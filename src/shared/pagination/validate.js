@@ -18,7 +18,7 @@ const isInAgreementWithConvention = (string) => {
 
 const constraints = [
   {  field: 'c',  validator: (string) => isJSON(string) },
-  {  field: 'l',  validator: (string) => isNumeric(string) && (string >= 1)},
+  {  field: 'l',  validator: (string) => isNumeric(string) && (string >= 1) },
   {  field: 'p',  validator: (string) => isNumeric(string) && (string >= 1) },
   {  field: 's',  validator: (string) => isInAgreementWithConvention(string) },
 ].map(constraint => ({ ...constraint, ...SHARED_PAGINATION_ERROR_QUERY_PARAMETER_INVALID }));

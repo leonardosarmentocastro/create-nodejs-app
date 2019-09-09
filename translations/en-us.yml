@@ -1,3 +1,5 @@
+AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND: Authentication failed as no user is registered with the provided email.
+AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH: Authentication failed as the provided password mismatches user's password.
 AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG: Authentication failed as password is not strong enough.
 AUTHENTICATION_ERROR_TOKEN_EXPIRED: Authentication failed as token is expired.
 AUTHENTICATION_ERROR_TOKEN_INVALID: Authentication failed as token is invalid.
