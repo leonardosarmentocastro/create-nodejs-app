@@ -38,17 +38,20 @@ test.after('create api docs (if enabled)', t => theOwl.createDocs());
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
 // Happy path tests
-// TODO: same test is repeated on "sign-up", DRY it.
+const getUsersSavedOnDatabase = () => UsersModel.find({});
 test('(200) must succeed on authenticating the user and signing a jwt token for it', async t => {
-  const { email, password } = validUserFixture;
+  t.assert((await getUsersSavedOnDatabase()).length === 1);
 
+  const { email, password } = validUserFixture;
   const response = await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),
     body: { email, password },
   });
 
-  const authenticationToken = response.headers.authorization;
   t.assert(response.statusCode == 200);
+  t.assert((await getUsersSavedOnDatabase()).length === 1);
+
+  const authenticationToken = response.headers.authorization;
   t.truthy(authenticationToken);
   t.notThrows(() => jwt.verify(authenticationToken, process.env.AUTHENTICATION_SECRET));
 });
@@ -72,7 +75,7 @@ test('(200) must succeed on authenticating the user and signing a jwt token for 
 });
 
 test('(404) must return an error when providing an "email" that is not registered for any user', async t => {
-  const email = 'not-registered-email@domain.com';
+  const email = `not-${validUserFixture.email}`;
   const { password } = validUserFixture;
 
   await got.post(t.context.endpointBaseUrl, {

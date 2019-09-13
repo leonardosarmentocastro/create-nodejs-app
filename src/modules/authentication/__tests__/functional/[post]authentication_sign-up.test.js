@@ -24,15 +24,20 @@ test.beforeEach('cleanup database', t => UsersModel.deleteMany());
 test.after('create api docs (if enabled)', t => theOwl.createDocs());
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
-// TODO: same test is repeated on "sign-in", DRY it.
+// Happy path tests
+const getUsersSavedOnDatabase = () => UsersModel.find({});
 test('(200) must succeed on creating the user and signing a jwt token for it', async t => {
+  t.assert((await getUsersSavedOnDatabase()).length === 0);
+
   const response = await got.post(t.context.endpointBaseUrl, {
     ...getRequestOptions(t),
     body: { ...validUserFixture },
   });
 
-  const authenticationToken = response.headers.authorization;
   t.assert(response.statusCode == 200);
+  t.assert((await getUsersSavedOnDatabase()).length === 1);
+
+  const authenticationToken = response.headers.authorization;
   t.truthy(authenticationToken);
   t.notThrows(() => jwt.verify(authenticationToken, process.env.AUTHENTICATION_SECRET));
 });
