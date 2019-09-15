@@ -1,9 +1,21 @@
 const { validate } = require('./validate');
 const { authorizationTranslatedError } = require('./errors');
+const { authorizationSanitizer } = require('./sanitizer');
 
-exports.authorizationMiddleware = (req, res, next) => {
-  const err = validate(req);
-  if (err) return authorizationTranslatedError(req, res, { err });
+exports.authorizationMiddleware = (allowedRoutes, options) => {
+  const routesToAllow = authorizationSanitizer(allowedRoutes, options);
 
-  next();
+  return (req, res, next) => {
+    req.authorization = { // TODO: consume this information on "authentication" middleware.
+      isAccessingPublicRoute: routesToAllow.some(route =>
+        route.method === req.method.toLowerCase() &&
+        route.url === req.url.toLowerCase()
+      ),
+    };
+
+    const err = validate(req);
+    if (err) return authorizationTranslatedError(req, res, { err });
+
+    next();
+  };
 };

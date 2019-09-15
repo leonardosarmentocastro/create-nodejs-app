@@ -1,8 +1,30 @@
-// NOTE/TODO: this should be a parameter of authorizationMiddleware, in order to be a completely independent piece of software.
-exports.PUBLIC_ROUTES = [
-  { method: 'options' }, // CORS verification
-  { method: 'get', url: '/' },
-  { method: 'get', url: '/health' },
-  { method: 'post', url: '/authentication/sign-up' },
-  { method: 'post', url: '/authentication/sign-in' },
-];
+const ROUTE_AUTHENTICATION_SIGN_IN = { method: 'post', url: '/authentication/sign-in' };
+const ROUTE_AUTHENTICATION_SIGN_UP = { method: 'post', url: '/authentication/sign-up' };
+const ROUTE_CORS_VERIFICATION = { method: 'options' };
+const ROUTE_HEALTH_CHECK = { method: 'get', url: '/health' };
+const ROUTE_SERVER_ENTRYPOINT = { method: 'get', url: '/' };
+
+const DEFAULT_OPTIONS = {
+  allowAuthentication: false,
+  allowCORS: false,
+  allowHealthCheck: true,
+  allowServerEntrypoint: true,
+};
+
+// Dictionary to map `option:routes`
+const ROUTES_FOR_OPTION = {
+  allowAuthentication: [ ROUTE_AUTHENTICATION_SIGN_IN, ROUTE_AUTHENTICATION_SIGN_UP ],
+  allowCORS: [ ROUTE_CORS_VERIFICATION ],
+  allowHealthCheck: [ ROUTE_HEALTH_CHECK ],
+  allowServerEntrypoint: [ ROUTE_SERVER_ENTRYPOINT ],
+};
+
+module.exports = {
+  DEFAULT_OPTIONS,
+  ROUTE_AUTHENTICATION_SIGN_IN,
+  ROUTE_AUTHENTICATION_SIGN_UP,
+  ROUTE_CORS_VERIFICATION,
+  ROUTE_HEALTH_CHECK,
+  ROUTE_SERVER_ENTRYPOINT,
+  ROUTES_FOR_OPTION,
+};

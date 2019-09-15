@@ -2,7 +2,7 @@ const test = require('ava');
 const got = require('got');
 
 const database = require('../../../../database');
-const { PUBLIC_ROUTES } = require('../../constants');
+const { ROUTES_FOR_OPTION } = require('../../constants');
 const { AUTHORIZATION_ERROR_INVALID_TOKEN } = require('../../errors');
 const { translate } = require('../../../../i18n');
 const {
@@ -29,19 +29,21 @@ test.before('setup fixtures', t => {
       const privateRoutes = INVALID_TOKENS.map(token => ({ ...privateRoute, token }));
       return [ ...accumulator, ...privateRoutes ];
     }, []);
-  t.context.PUBLIC_ROUTES_WITH_VALID_TOKENS = PUBLIC_ROUTES
+  t.context.PUBLIC_ROUTES = Object.values(ROUTES_FOR_OPTION).flat();
+  t.context.PUBLIC_ROUTES_WITH_TOKENS = t.context.PUBLIC_ROUTES
     .filter(({ url }) => !!url) // Removes CORS check
     .filter(({ url }) => url.indexOf('authentication') !== 1) // Remove authentication routes
     .reduce((accumulator, publicRoute) => {
       const publicRoutes = TOKENS.map(token => ({ ...publicRoute, token }));
       return [ ...accumulator, ...publicRoutes ];
     }, []);
+
 });
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
 test('must authorize when accessing "public routes" with/without a "valid authorization token"', async t => {
   const options = getRequestOptions(t);
-  for (const { method, url, token } of t.context.PUBLIC_ROUTES_WITH_VALID_TOKENS) {
+  for (const { method, url, token } of t.context.PUBLIC_ROUTES_WITH_TOKENS) {
     options.headers['Authorization'] = token;
 
     const response = await got[method](`${t.context.endpointBaseUrl}${url}`, options);
