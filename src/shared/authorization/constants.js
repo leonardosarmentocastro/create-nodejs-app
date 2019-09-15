@@ -11,6 +11,7 @@ const DEFAULT_OPTIONS = {
   allowServerEntrypoint: true,
 };
 
+// TODO: maybe add a test to ensure that every key present here has a default value?
 // Dictionary to map `option:routes`
 const ROUTES_FOR_OPTION = {
   allowAuthentication: [ ROUTE_AUTHENTICATION_SIGN_IN, ROUTE_AUTHENTICATION_SIGN_UP ],
