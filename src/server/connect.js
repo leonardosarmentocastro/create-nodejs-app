@@ -20,8 +20,24 @@ const $middlewares = (app) => ({
     i18n.connect(app);
   },
   authorization() {
+    // [RFC #MONOREPO-AUTHORIZATION]
+    // TODO: when moving authorization to its own repo, we would aim to use it somehow as follows:
+    // const allowedRoutes = [
+    //   // { method: 'options' }, // NOTE: the `{ cors: true }` config purpose is to replace this line.
+    //   { method: 'get', url: '/' },
+    //   { method: 'get', url: '/health' },
+    //   { method: 'post', url: '/authentication/sign-up' },
+    //   { method: 'post', url: '/authentication/sign-in' },
+    // ];
+    // app.use(authorizationMiddleware(allowedRoutes, { cors: true }));
+
+    // NOTE: but for now, every necessary information is served internally
     app.use(authorizationMiddleware);
   },
+  // authentication() {
+  //   const { authenticationMiddleware } = modules.authentication;
+  //   app.use(authenticationMiddleware);
+  // },
   bodyParser() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));

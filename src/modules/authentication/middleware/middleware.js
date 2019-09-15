@@ -1,7 +1,7 @@
 const dayjs = require('dayjs');
 const jwt = require('jsonwebtoken');
 
-const { authenticationTranslatedError } = require('./errors');
+const { authenticationTranslatedError } = require('../errors');
 const { validate } = require('./validate');
 
 // TODO: functional test it.

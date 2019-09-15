@@ -1,6 +1,7 @@
 const {
   createUserResolver,
   deleteUserResolver,
+  findMyselfResolver,
   findUserByIdResolver,
   findUsersResolver,
   serveCreatedUserResolver,
@@ -12,6 +13,9 @@ exports.connect = (app) => {
   app.route('/users')
     .get(paginationMiddleware, findUsersResolver)
     .post(createUserResolver, serveCreatedUserResolver);
+
+  app.route('/users/me')
+    .get(findMyselfResolver);
 
   app.route('/users/:id')
     .delete(deleteUserResolver)
