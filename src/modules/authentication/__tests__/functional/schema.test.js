@@ -14,7 +14,7 @@ test.before('create sample "AuthenticationModel" model to work with on tests', t
 
 test('(validationsMiddleware) must throw an error if "password" is missing', async t => {
   const authenticationDoc = { password: '' };
-  const { validator, ...err } = isRequiredValidator('password')();
+  const { validator, ...err } = isRequiredValidator('password')(authenticationDoc);
 
   await new t.context.AuthenticationModel(authenticationDoc).save()
     .catch(error => t.deepEqual(error, err));
