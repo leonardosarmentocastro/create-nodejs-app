@@ -1,0 +1,56 @@
+{
+  "name": "create-nodejs-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "env:symlink": "ln -sf .env.example .env",
+    "start": "npm run env:symlink && nodemon index.js",
+    "start:database": "docker-compose up -d database",
+    "start:production": "node index.js",
+    "start:with-database": "npm run start:database && MONGODB_HOST=0.0.0.0 npm start",
+    "test": "npm run test:unit && npm run test:functional:local",
+    "test:ci": "nyc npm run test:unit && npm run test:functional",
+    "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
+    "test:functional:create-docs": "CREATE_DOCS=true npm run test:functional:local",
+    "test:functional:local": "npm run env:symlink && npm run start:database && MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME=db-test npm run test:functional",
+    "test:unit": "ava **/unit/**/*.test.js --verbose",
+    "test:with-coverage": "nyc npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "detect-port": "^1.3.0",
+    "got": "^9.6.0",
+    "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
+    "the-owl": "1.1.1"
+  },
+  "dependencies": {
+    "@phc/pbkdf2": "^1.1.14",
+    "async-retry": "^1.2.3",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cors": "^2.8.5",
+    "dayjs": "^1.8.14",
+    "dotenv": "^8.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "js-yaml": "^3.13.1",
+    "jsonwebtoken": "^8.5.1",
+    "locale": "^0.1.0",
+    "messageformat": "^2.2.1",
+    "mongoose": "^5.5.6",
+    "morgan": "^1.9.1",
+    "upash": "^1.0.2",
+    "validator": "^10.11.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }
+}
