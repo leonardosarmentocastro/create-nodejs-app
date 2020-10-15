@@ -1,61 +1,53 @@
-## ROADMAP
+# poc_nodejs_microservice
 
-http://userguide.icu-project.org/formatparse/messages
-https://messageformat.github.io/messageformat/page-build#toc3__anchor
-https://github.com/nodeca/js-yaml#safeload-string---options-
-https://yaml-multiline.info/
+Using [Node.js](https://nodejs.org/en/) to develop micro-services.
 
-0. documentation
-  - create a decent README.md explaining CI/architecture decisions step by step (jeez, so many things to configure)
-  - record gifs with "Gifox": https://gifox.io/
-1. wizard
-  - Prompt user to select witch kind of tempalte he wants: https://github.com/enquirer/enquirer
-3. modules to add
-  - add signup, signin and login(try to split it into a module so I can plug in wherever I want)
-4. try libs
-  - try on frontend (which is to come): https://github.com/sindresorhus/ky
-5. create fronte-end consumer application
+### ROADMAP
 
+- [] remove "authentication" module
+- [] remove unused CI providers
+  - [] gitlab
+  - [] travis
+- [] deploy to heroku (write a how-to)
+  - [] write github action
+  - [] set github secrets
+  - [] create heroku account with "leonardo.castro@redealumni.com"
+- [] code coverage (nyc_output)
+- [] add mysql ("mongodb" must co-exist)
+  - [] docker-compose
+    - [] add "database_mysql" service
+    - [] rename "database" to "database_mongodb"
+  - [] create folders "/src/database/mysql" and "/src/database/mongodb"
+  - [] create modules "mysql/users" and "mongodb/users"
+    - [] update resolver routes (e.g. to `localhost:3000/mongodb/users` instead of `localhost:3000/users`)
+  - [] probably there is a token (as a github secret) which CI yml uses
+- [] fetch some data from `melhor_escola` new dashboard
+  - [] unit test it
+  - [] functional test it (and earn "docs/")
 
-## Templates
+## Developing locally
 
-1. simple:
-  * production ready dockerfile
-  * support internationalization
-  * example end points with functional tests/doc generation
-    * [get] /health returning static dumb data (like "{ status: 'ok' }")
-    * [get] /users/:id using fixtures
-    * [post] /users using fixtures
-  * deploy to heroku using travis.ci/gitlab ready
-2. standard:
-  * production ready dockerfile
-  * development ready docker-compose to tear up database/server
-  * database integration with retry strategy on code
-  * support to environment variables via .env
-  * support internationalization
-  * example endpoints
-    * [get] /health return server/database status (mongoose.connection.readyState)
-    * [get] /users/:id using database
-    * [post] /users using database
-  * deploy to heroku using travis.ci/gitlab ready
-3. prime
-  * production ready dockerfile
-  * development ready docker-compose to tear up database/server
-  * database integration with retry strategy on code
-  * support to environment variables via .env
-  * support internationalization
-  * example endpoints
-    * [get] /health return server/database status
-    * users module
-      * [me] /me
-    * authentication module
-      * [post] /sign-up
-      * [post] /sign-in
-      * [post] /sign-out
-  * authorization middleware
-  * deploy to heroku using travis.ci/gitlab ready
+There are two main dependencies: [Node.js](https://github.com/nvm-sh/nvm) and [Docker](https://docs.docker.com/get-docker/).
 
-## Working
+Once both are installed, land on the project folder and install it's packages:
+
+```sh
+cd ~/poc_nodejs_microservice
+npm install
+```
+
+Now, it's simply as that:
+
+> Database will be started usingand docker-compose, environment variables will be loaded
+> according to `.env.example`/`.env`, and the server will be running locally in live-reload in your terminal.
+
+```sh
+npm start
+```
+
+## Running locally
+
+Check out below another ways to run the micro-service locally, only using Docker:
 
 ```sh
 # Running everything from "docker-compose" and taking advantage from "container name resolution":
@@ -87,11 +79,7 @@ docker-compose up database
 MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 ```
 
-## Reference
+## Useful links
 
 How do I correctly clone a JavaScript object?
 https://stackoverflow.com/a/10869248/6655011
-
-## Draft
-
-Explicando nomenclaturas: Resolvers e o exemplo do "fazer visita a um consultório".

@@ -37,7 +37,6 @@ test.before('setup fixtures', t => {
       const publicRoutes = TOKENS.map(token => ({ ...publicRoute, token }));
       return [ ...accumulator, ...publicRoutes ];
     }, []);
-
 });
 test.after.always('teardown', t => closeApiOpenedOnRandomPort(t));
 
