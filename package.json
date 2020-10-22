@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "env:symlink": "ln -sf .env.example .env",
-    "start:server": "npm run env:symlink && nodemon index.js",
+    "start:server": "nodemon index.js",
     "start:database": "docker-compose up -d database",
     "start:production": "node index.js",
-    "start": "npm run start:database && MONGODB_HOST=0.0.0.0 npm run start:server",
+    "start": "npm run env:symlink && npm run start:database && MONGODB_HOST=0.0.0.0 npm run start:server",
     "test": "npm run test:unit && npm run test:functional:local",
     "test:ci": "nyc npm run test:unit && npm run test:functional",
     "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
