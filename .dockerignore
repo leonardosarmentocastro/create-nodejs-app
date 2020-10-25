@@ -11,5 +11,6 @@ README.md
 coverage/
 data/
 docs/
+docker/
 */**/__tests__
 */**/__helpers__

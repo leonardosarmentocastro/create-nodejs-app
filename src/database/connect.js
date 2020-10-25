@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mysql = require("mysql2");
 const retry = require('async-retry')
 
 const { CONNECTION_STRING } = require('./connection-string');
@@ -24,14 +24,21 @@ exports.connect = async () => {
     },
   };
 
-  // https://mongoosejs.com/docs/deprecations.html
-  const mongooseOptions = { useNewUrlParser: true, useFindAndModify: false };
-  await retry(() => mongoose.connect(CONNECTION_STRING, mongooseOptions), options)
+
+  await retry(() => mysql.createConnection({
+    host    : process.env.MYSQL_HOST,
+    port    : process.env.MYSQL_PORT,
+    user    : process.env.MYSQL_USER,
+    password: process.env.MYSQL_PWD,
+    database: process.env.MYSQL_DATABASE_NAME
+  }), options).then(function(){
+    const successMessage = getSuccessMessageForDatabaseConnection();
+    return console.info(successMessage);
+  })
     .catch(err => {
       const errorMessage = getErrorMessageForDatabaseConnection(err);
       return Promise.reject(errorMessage);
     });
-
-  const successMessage = getSuccessMessageForDatabaseConnection();
-  return console.info(successMessage);
 };
+
+ 

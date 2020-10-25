@@ -1,7 +1,7 @@
 .nyc_output/
 node_modules/
 coverage/
-
+docker/
 # Files
 .env
 .DS_Store

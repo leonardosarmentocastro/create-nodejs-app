@@ -40,7 +40,7 @@ exports.getInfoMessageForRetryingToConnect = (retries, retryCount, retryInSecond
 exports.getSuccessMessageForDatabaseConnection = () => {
   const message = [
     `${successBg.white('  CONNECTED  ')}`,
-    `${textPrimary('Connection to MongoDB was stablished.')} ${connectedOnURI}`.trim(),
+    `${textPrimary('Connection to Database was stablished.')} ${connectedOnURI}`.trim(),
   ].join(' ');
 
   return message;
