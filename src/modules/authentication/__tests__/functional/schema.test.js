@@ -7,7 +7,7 @@ const { isPasswordStrongValidator } = require('../../validators');
 const { isRequiredValidator } = require('../../../../shared');
 
 // Setup
-test.before('connect to database', t => database.connect());
+test.before('connect to database', t => database.mongodb.connect());
 test.before('create sample "AuthenticationModel" model to work with on tests', t => {
   t.context.AuthenticationModel = mongoose.model('Authorization', authenticationSchema);
 });

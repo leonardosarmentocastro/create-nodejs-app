@@ -12,7 +12,7 @@ const {
 } = require('../../__fixtures__');
 
 // Setup
-test.before('connect to database', t => database.connect());
+test.before('connect to database', t => database.mongodb.connect());
 test.before('create sample products model to work with on tests', t => {
   const schema = new mongoose.Schema({ name: String, price: Number });
   schema.plugin(paginationPlugin);

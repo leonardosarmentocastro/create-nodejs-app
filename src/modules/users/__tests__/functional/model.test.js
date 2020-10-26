@@ -3,7 +3,7 @@ const test = require('ava');
 const database = require('../../../../database');
 const { UsersModel } = require('../../model');
 
-test.before(t => database.connect());
+test.before(t => database.mongodb.connect());
 test.beforeEach(t => UsersModel.deleteMany({}))
 
 const getUsersSavedOnDatabase = () => UsersModel.find({});

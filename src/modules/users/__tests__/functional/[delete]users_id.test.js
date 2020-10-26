@@ -19,7 +19,7 @@ test.before('prepare: start api / connect to database', async t => {
   t.context.endpointOriginalPath = '/users/:id';
 
   await startApiOnRandomPort(t);
-  await database.connect();
+  await database.mongodb.connect();
 });
 test.beforeEach('cleanup database', t => UsersModel.deleteMany());
 test.after('create api docs (if enabled)', t => theOwl.createDocs());

@@ -25,7 +25,7 @@ test.before('prepare: start api / connect to database', async t => {
   t.context.endpointOriginalPath = '/authentication/sign-in';
 
   await startApiOnRandomPort(t);
-  await database.connect();
+  await database.mongodb.connect();
 });
 test.beforeEach('cleanup / prepopulate the database', async t => {
   await UsersModel.deleteMany();

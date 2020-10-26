@@ -1,13 +1,14 @@
 const chalk = require('chalk');
 
+const ctx = new chalk.Instance({ level: 3 }); // Override "--no-color" from AVA.
 const terminal = {
-  bgPurple: chalk.bgHex('#A359ED'),
-  errorBg: chalk.bgHex('#ba1912'),
-  infoBg: chalk.bgWhite,
-  successBg: chalk.bgHex('#046824'),
-  warningBg: chalk.bgHex('#F5A623'),
-  textPrimary: chalk.gray,
-  textSecondary: chalk.white,
+  bgPurple: ctx.bgHex('#A359ED'),
+  errorBg: ctx.bgHex('#ba1912'),
+  infoBg: ctx.bgWhite,
+  successBg: ctx.bgHex('#046824'),
+  warningBg: ctx.bgHex('#F5A623'),
+  textPrimary: ctx.gray,
+  textSecondary: ctx.white,
 };
 
 module.exports = terminal;

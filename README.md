@@ -83,3 +83,6 @@ MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 
 How do I correctly clone a JavaScript object?
 https://stackoverflow.com/a/10869248/6655011
+
+Knex cheatsheet
+https://devhints.io/knex

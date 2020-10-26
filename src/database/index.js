@@ -1,1 +1,4 @@
-module.exports = { ...require('./connect') };
+module.exports = {
+  mongodb: { ...require('./mongodb/connect') },
+  mysql: { ...require('./mysql/connect') },
+};

@@ -7,18 +7,17 @@ const {
   textSecondary
 } = require('../misc/terminal');
 
-const { CONNECTION_STRING } = require('./connection-string');
-
 const isProduction = (process.env.NODE_ENV === 'production');
-const connectedOnURI = isProduction ? '' : `URI: "${textSecondary(CONNECTION_STRING)}"`;
+const connectedOnURI = (database) => isProduction ? '' : `URI: "${textSecondary(database.CONNECTION_STRING)}"`;
 
-exports.getErrorMessageForDatabaseConnection = (err) => {
+exports.getErrorMessageForDatabaseConnection = (err, database) => {
   const message = [
-    [ // line 1
+    [ // line 1
       errorBg.white('  ERROR  '),
-      `${textPrimary('Failed to connect to database.')} ${connectedOnURI}`.trim(),
+      `${textPrimary(`Failed to connect to database:${database.name}: ${connectedOnURI(database)}`)}`.trim(),
+
     ].join(' '),
-    [ // line 2
+    [ // line 2
       `${infoBg.black('  STACKTRACE  ')}`,
       `${textPrimary(err)}`,
     ].join(' '),
@@ -35,13 +34,13 @@ exports.getInfoMessageForRetryingToConnect = (retries, retryCount, retryInSecond
     ].join(' ');
 
   return message;
-}
+};
 
-exports.getSuccessMessageForDatabaseConnection = () => {
+exports.getSuccessMessageForDatabaseConnection = (database) => {
   const message = [
     `${successBg.white('  CONNECTED  ')}`,
-    `${textPrimary('Connection to Database was stablished.')} ${connectedOnURI}`.trim(),
+    `${textPrimary(`Connection to "${database.name}" was stablished.`)}`.trim(),
   ].join(' ');
 
   return message;
-}
+};

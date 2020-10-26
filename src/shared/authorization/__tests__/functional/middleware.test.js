@@ -15,7 +15,7 @@ const {
 // Setup
 test.before('prepare: start api / connect to database', async t => {
   await startApiOnRandomPort(t);
-  await database.connect();
+  await database.mongodb.connect();
 });
 test.before('setup fixtures', t => {
   t.context.VALID_TOKEN = process.env.AUTHORIZATION_TOKEN;
