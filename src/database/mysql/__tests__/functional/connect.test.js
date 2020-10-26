@@ -2,7 +2,7 @@ const test = require('ava');
 
 const { connect } = require('../../connect');
 
-// Necessary
+// Necessary as `mysql.connect()` requires environment variables to connect.
 test.before('loading environment variables', t => require('dotenv').config());
 
 test.only('(database:mysql) connection can be stablished', async t => {
