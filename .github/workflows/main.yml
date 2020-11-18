@@ -39,18 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      # Due to a limitation where concating string on "env:" is not possible.
-      # - name: set docker environment variables
-      #   run:  |
-      #     echo  "DOCKER_IMAGE_NAME=leonardosarmentocastro/${{ env.APP_NAME }}:${{ github.sha }}" >> $GITHUB_ENV
-      #     echo  "HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/${{ env.APP_NAME }}/${{ env.APP_PROCESS_TYPE }}" >> $GITHUB_ENV
-      #     echo  "HEROKU_API_KEY=${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }}" >> $GITHUB_ENV
-
-      # - name: log into dockerhub/heroku registries to later push docker images to them
-      #   run: |
-      #     echo "${{ secrets.SECRET_DOCKER_PASSWORD }}" | docker login -u "${{ secrets.SECRET_DOCKER_USERNAME }}" --password-stdin
-      #     echo "${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }}" | docker login -u "_" --password-stdin registry.heroku.com
-
       - name: log into dockerhub to later push docker images
         uses: docker/login-action@v1
         with:

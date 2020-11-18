@@ -5,7 +5,6 @@ exports.validate = (req) => {
   const authorizationToken = req.header('Authorization'); // "Bearer 123456"
 
   const isValidAuthorizationToken = (
-    process.env.NODE_ENV !== 'production' &&
     !!authorizationToken &&
     authorizationToken === process.env.AUTHORIZATION_TOKEN
   );
