@@ -1,3 +1,5 @@
+# create-nodejs-app
+
 ## ROADMAP
 
 http://userguide.icu-project.org/formatparse/messages
@@ -55,7 +57,29 @@ https://yaml-multiline.info/
   * authorization middleware
   * deploy to heroku using travis.ci/gitlab ready
 
-## Working
+## Developing locally
+
+There are two main dependencies: [Node.js](https://github.com/nvm-sh/nvm) and [Docker](https://docs.docker.com/get-docker/).
+
+Once both are installed, land on the project folder and install it's packages:
+
+```sh
+cd ~/poc_nodejs_microservice
+npm install
+```
+
+Now, it's simply as that:
+
+> Database will be started usingand docker-compose, environment variables will be loaded
+> according to `.env.example`/`.env`, and the server will be running locally in live-reload in your terminal.
+
+```sh
+npm start
+```
+
+## Running locally
+
+Check out below another ways to run the micro-service locally, only using Docker:
 
 ```sh
 # Running everything from "docker-compose" and taking advantage from "container name resolution":
@@ -87,11 +111,7 @@ docker-compose up database
 MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 ```
 
-## Reference
+## Useful links
 
 How do I correctly clone a JavaScript object?
 https://stackoverflow.com/a/10869248/6655011
-
-## Draft
-
-Explicando nomenclaturas: Resolvers e o exemplo do "fazer visita a um consultório".
