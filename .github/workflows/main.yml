@@ -1,0 +1,90 @@
+on: push
+
+env:
+  APP_NAME: create-nodejs-app
+  APP_PROCESS_TYPE: web
+  AUTHENTICATION_SECRET: authentication-secret-test
+  AUTHORIZATION_TOKEN: authorization-token-test
+  LANGUAGE: pt-br # Not necessary to set, as default values are already set in code.
+  NODE_ENV: test
+  MONGODB_DATABASE_NAME: db-ci
+  MONGODB_HOST: 0.0.0.0 # localhost
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+    steps:
+      - name: checkout current branch
+        uses: actions/checkout@v2
+      - name: cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ./node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+      - name: install dependencies
+        run: npm ci # Clean/faster install of dependencies.
+      - name: run unit/functional tests using mongodb
+        run: npm run test:ci
+        env:
+          NODE_ENV: test
+      - name: collect code coverage
+        run: npx codecov --file=./coverage/lcov.info # Collect code coverage: https://codecov.io
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      # Due to a limitation where concating string on "env:" is not possible.
+      # - name: set docker environment variables
+      #   run:  |
+      #     echo  "DOCKER_IMAGE_NAME=leonardosarmentocastro/${{ env.APP_NAME }}:${{ github.sha }}" >> $GITHUB_ENV
+      #     echo  "HEROKU_DOCKER_IMAGE_NAME=registry.heroku.com/${{ env.APP_NAME }}/${{ env.APP_PROCESS_TYPE }}" >> $GITHUB_ENV
+      #     echo  "HEROKU_API_KEY=${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }}" >> $GITHUB_ENV
+
+      # - name: log into dockerhub/heroku registries to later push docker images to them
+      #   run: |
+      #     echo "${{ secrets.SECRET_DOCKER_PASSWORD }}" | docker login -u "${{ secrets.SECRET_DOCKER_USERNAME }}" --password-stdin
+      #     echo "${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }}" | docker login -u "_" --password-stdin registry.heroku.com
+
+      - name: log into dockerhub to later push docker images
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.SECRET_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.SECRET_DOCKERHUB_TOKEN }}
+
+      - name: log into heroku registry to later push docker images
+        uses: docker/login-action@v1
+        with:
+          registry: registry.heroku.com
+          username: _
+          password: ${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }}
+
+      - name: checkout current branch
+        uses: actions/checkout@v2
+
+      - name: build docker image, tag it following heroku convention and push to dockerhub/heroku registries
+        env:
+          DOCKER_IMAGE_NAME: 'leonardosarmentocastro/${{ env.APP_NAME }}:${{ github.sha }}'
+          HEROKU_DOCKER_IMAGE_NAME: 'registry.heroku.com/${{ env.APP_NAME }}/${{ env.APP_PROCESS_TYPE }}'
+        run: |
+          docker build -t $DOCKER_IMAGE_NAME .
+          docker tag $DOCKER_IMAGE_NAME $HEROKU_DOCKER_IMAGE_NAME
+          docker push $DOCKER_IMAGE_NAME
+          docker push $HEROKU_DOCKER_IMAGE_NAME
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      HEROKU_API_KEY: ${{ secrets.SECRET_HEROKU_AUTHORIZATION_TOKEN }} # Needed to be set for Heroku CLI image release.
+    steps:
+      - name: download heroku toolbelt
+        run: wget -qO- https://toolbelt.heroku.com/install.sh | sh
+
+      - name: release (deploy) the newly builded docker image
+        run: heroku container:release $APP_PROCESS_TYPE --app $APP_NAME

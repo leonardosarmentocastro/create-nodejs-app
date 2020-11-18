@@ -3,8 +3,6 @@ const detectPort = require('detect-port');
 const { server } = require('../server');
 
 exports.startApiOnRandomPort = async (t) => {
-  require('dotenv').config(); // Load environment variables from ".env".
-
   if (!t.context.endpointOriginalPath) {
     console.warn('[WARNING] The test context field "endpointOriginalPath" (e.g. "/users/:id") is not set - API documentation will not be generated.');
   }

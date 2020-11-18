@@ -17,6 +17,8 @@ services:
     # Receives variables from "docker-compose up" instruction and attach as nodejs "process.env" variables.
     # They will only be replaced if they are not empty, otherwise, values from ".env" file will be used.
     environment:
+      - AUTHENTICATION_SECRET=${AUTHENTICATION_SECRET}
+      - AUTHORIZATION_TOKEN=${AUTHORIZATION_TOKEN}
       - LANGUAGE=${LANGUAGE}
       - MONGODB_CONNECTION_STRING=${MONGODB_CONNECTION_STRING}
       - MONGODB_DATABASE_NAME=${MONGODB_DATABASE_NAME}
