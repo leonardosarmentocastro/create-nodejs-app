@@ -1,5 +1,9 @@
 # create-nodejs-app
 
+TODO:
+- add "isMatchinRegex" validator from 'hayashiteam/api'
+- grab changes for "isTooLongValidator" from 'hayashiteam/api'
+
 ## ROADMAP
 
 http://userguide.icu-project.org/formatparse/messages
