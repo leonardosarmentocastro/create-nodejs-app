@@ -43,8 +43,8 @@ exports.server = {
 
   async start(port = process.env.PORT, options = DEFAULT) {
     const app = express();
-    connect(app);
     options.connect(app);
+    connect(app);
 
     const api = await this.listen(app, port);
     return api;
