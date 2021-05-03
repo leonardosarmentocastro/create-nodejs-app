@@ -4,7 +4,9 @@
   "description": "minimal production server",
   "main": "index.js",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "npm run test:unit && npm run test:functional",
+    "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
+    "test:unit": "ava **/unit/**/*.test.js --verbose"
   },
   "keywords": [
     "minimal",
