@@ -1,3 +1,3 @@
 server
 
-minimal production server
+mps - minimal production server

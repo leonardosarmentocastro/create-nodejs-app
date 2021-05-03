@@ -5,6 +5,3 @@ coverage/
 # Files
 .env
 .DS_Store
-
-# Mongodb
-data/
