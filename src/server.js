@@ -1,11 +1,11 @@
 const express = require('express'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
-const cors = require('cors');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
+const server = require('@leonardosarmentocastro/server');
 
-const i18n = require('../i18n');
-const modules = require('../modules');
-const { authorizationMiddleware } = require('../shared');
+const i18n = require('./i18n');
+const modules = require('./modules');
+const { authorizationMiddleware } = require('./shared');
 
 const $middlewares = (app) => ({
   connect() {
@@ -40,9 +40,6 @@ const $middlewares = (app) => ({
     }));
   },
 
-  cors() {
-    app.use(cors());
-  },
   generateApiDocs() {
     if (process.env.NODE_ENV === 'test') require('the-owl').connect(app);
   },
@@ -63,7 +60,16 @@ const $routes = (app) => ({
   },
 });
 
-exports.connect = (app) => {
-  $middlewares(app).connect();
-  $routes(app).connect();
+exports.server = {
+  ...server,
+  async start(port) {
+    const api = await server.start(port, {
+      connect: (app) => {
+        $middlewares(app).connect();
+        $routes(app).connect();
+      },
+    });
+
+    return api;
+  },
 };
