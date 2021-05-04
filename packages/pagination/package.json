@@ -1,6 +1,6 @@
 {
   "name": "@leonardosarmentocastro/pagination",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "mongoose pagination",
   "main": "index.js",
   "publishConfig": {
@@ -12,7 +12,10 @@
     "test:unit": "ava **/unit/**/*.test.js --verbose",
     "test:functional": "npm run start:database && MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 ava **/functional/**/*.test.js --verbose --serial"
   },
-  "keywords": ["mongoose", "pagination"],
+  "keywords": [
+    "mongoose",
+    "pagination"
+  ],
   "author": "leonardosarmentocastro",
   "license": "ISC",
   "devDependencies": {
