@@ -44,6 +44,17 @@ test('server is customizable (middlewares can be added)', async t => {
   await server.close(api);
 });
 
+test('(server.start) param "port" must use "process.env.PORT" as default value', async t => {
+  process.env.PORT = 9999;
+  const api = await server.start();
+
+  const response = await got(`http://127.0.0.1:${process.env.PORT}`);
+  t.is(response.statusCode, 200);
+
+  await server.close(api);
+});
+
+
 test('(error) can not start two servers using the same port', async t => {
   const port = 8080;
   const api = await server.start(port);
