@@ -1,4 +1,4 @@
-const { translate } = require('../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 exports.SHARED_PAGINATION_ERROR_QUERY_PARAMETER_INVALID = {
   code: 'SHARED_PAGINATION_ERROR_QUERY_PARAMETER_INVALID',

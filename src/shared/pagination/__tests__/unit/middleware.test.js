@@ -6,7 +6,7 @@ const {
   mapSortingSuffix,
   paginationMiddleware,
 } = require('../../middleware');
-const { translate } = require('../../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 test('(convertSuffix) must convert "+" to "asc"', t => {
   t.assert(convertSuffix('+') === 'asc');

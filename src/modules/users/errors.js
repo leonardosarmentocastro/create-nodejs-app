@@ -1,4 +1,4 @@
-const { translate } = require('../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 const USERS_ERROR_USER_NOT_FOUND = {
   code: 'USERS_ERROR_USER_NOT_FOUND',

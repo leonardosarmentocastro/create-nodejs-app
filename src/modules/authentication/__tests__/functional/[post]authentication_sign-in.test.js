@@ -8,7 +8,7 @@ const {
   AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND,
   AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH,
 } = require('../../errors');
-const { translate } = require('../../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 const { UsersModel } = require('../../../users/model');
 const { isRequiredValidator } = require('../../../../shared');
 const { validUserFixture } = require('../../../users/__tests__/__fixtures__');

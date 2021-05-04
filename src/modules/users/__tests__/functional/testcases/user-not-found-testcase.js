@@ -2,7 +2,7 @@ const got = require('got');
 
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
 const { USERS_ERROR_USER_NOT_FOUND } = require('../../../errors');
-const { translate } = require('../../../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 exports.userNotFoundTestcase = {
   title1: "(500) must return a translated error if the user was not found",

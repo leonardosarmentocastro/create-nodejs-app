@@ -4,7 +4,7 @@ const got = require('got');
 const database = require('../../../../database');
 const { ROUTES_FOR_OPTION } = require('../../constants');
 const { AUTHORIZATION_ERROR_INVALID_TOKEN } = require('../../errors');
-const { translate } = require('../../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,

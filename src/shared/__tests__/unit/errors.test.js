@@ -1,7 +1,7 @@
 const test = require('ava');
 
 const { SHARED_ERROR_UNEXPECTED, sharedUnexpectedError } = require('../../errors');
-const { translate } = require('../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 test('[sharedUnexpectedError] must return a translated error message including stacktrace', t => {
   const req = { locale: 'en-us' }; // Simulates the "locale" middleware.

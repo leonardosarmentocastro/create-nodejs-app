@@ -1,4 +1,4 @@
-const { translate } = require('../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 exports.AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND = {
   code: 'AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND',

@@ -1,4 +1,4 @@
-const { translate } = require('../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 exports.AUTHORIZATION_ERROR_INVALID_TOKEN = {
   code: 'AUTHORIZATION_ERROR_INVALID_TOKEN',

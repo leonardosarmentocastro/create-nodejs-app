@@ -29,6 +29,7 @@
     "the-owl": "1.1.1"
   },
   "dependencies": {
+    "@leonardosarmentocastro/i18n": "0.0.1",
     "@leonardosarmentocastro/server": "0.0.1",
     "@phc/pbkdf2": "^1.1.14",
     "async-retry": "^1.2.3",

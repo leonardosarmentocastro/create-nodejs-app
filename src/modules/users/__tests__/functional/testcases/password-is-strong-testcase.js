@@ -2,7 +2,7 @@ const got = require('got');
 
 const { invalidUserFixture, validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
-const { translate } = require('../../../../../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 const { isPasswordStrongValidator } = require('../../../../authentication');
 
 exports.passwordIsStrongTestcase = {

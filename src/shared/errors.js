@@ -1,4 +1,4 @@
-const { translate } = require('../i18n');
+const { translate } = require('@leonardosarmentocastro/i18n');
 
 const SHARED_ERROR_UNEXPECTED = {
   code: 'SHARED_ERROR_UNEXPECTED',

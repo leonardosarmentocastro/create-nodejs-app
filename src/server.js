@@ -1,9 +1,9 @@
 const express = require('express'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
 const errorhandler = require('errorhandler');
+const i18n = require('@leonardosarmentocastro/i18n');
 const morgan = require('morgan');
 const server = require('@leonardosarmentocastro/server');
 
-const i18n = require('./i18n');
 const modules = require('./modules');
 const { authorizationMiddleware } = require('./shared');
 
