@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 // WARNING: Circular dependency prone: server startup > (bootstrap users module) "createUserResolver" requires "UsersModel" > requires "authentication barrel" > "connect" requires "createUserResolver"

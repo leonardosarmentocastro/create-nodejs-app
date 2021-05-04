@@ -1,6 +1,7 @@
 # create-nodejs-app
 
 TODO:
+- aceitar o PR e iniciar processo LERNA
 - add "isMatchinRegex" validator from 'hayashiteam/api'
 - grab changes for "isTooLongValidator" from 'hayashiteam/api'
 

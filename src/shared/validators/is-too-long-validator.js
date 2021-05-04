@@ -3,7 +3,8 @@ exports.isTooLongValidator = (field, maxLength) => (doc) => ({
   field,
   maxLength,
   validator: () => {
-    const isValid = (doc.username.length <= maxLength);
+    // TODO: unit test
+    const isValid = (doc[field].length <= maxLength);
     return isValid;
   },
 });

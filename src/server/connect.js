@@ -1,4 +1,4 @@
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
 const cors = require('cors');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
@@ -31,10 +31,15 @@ const $middlewares = (app) => ({
   //   const { authenticationMiddleware } = modules.authentication;
   //   app.use(authenticationMiddleware);
   // },
+
+  // TODO: REMOVE (https://stackoverflow.com/a/24344756)
   bodyParser() {
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use(express.urlencoded({
+      extended: true
+    }));
   },
+
   cors() {
     app.use(cors());
   },
@@ -48,9 +53,6 @@ const $middlewares = (app) => ({
     const logFormat = 'dev';
     app.use(morgan(logFormat));
   },
-  prettifyJsonOutput() {
-    app.set('json spaces', 2);
-  }
 });
 
 const $routes = (app) => ({

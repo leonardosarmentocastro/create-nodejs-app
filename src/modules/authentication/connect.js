@@ -5,3 +5,9 @@ exports.connect = (app) => {
   app.post('/authentication/sign-in', signInResolver, signTokenResolver);
   app.post('/authentication/sign-up', createUserResolver, signTokenResolver);
 };
+
+// TODO: remove/erase
+// exports.connect = (app) => {
+//   app.post('/authentication/sign-in', {}, signInResolver, signTokenResolver);
+//   app.post('/authentication/sign-up', createUserResolver, signTokenResolver);
+// };

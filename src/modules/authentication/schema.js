@@ -8,6 +8,7 @@ const { isRequiredValidator, sharedValidate } = require('../../shared');
 const authenticationSchema = new mongoose.Schema({
   _id: false,
   password: { type: String },
+  // TODO: tokens: [],
 });
 
 // Middlewares
