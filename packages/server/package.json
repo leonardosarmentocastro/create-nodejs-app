@@ -1,8 +1,11 @@
 {
-  "name": "server",
+  "name": "@leonardosarmentocastro/server",
   "version": "0.0.0",
   "description": "minimal production server",
   "main": "src/server.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "npm run test:unit && npm run test:functional",
     "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
