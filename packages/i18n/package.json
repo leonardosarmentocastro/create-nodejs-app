@@ -1,12 +1,21 @@
 {
   "name": "i18n",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "description": "support content translation using .yml",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:unit",
+    "test:unit": "ava **/unit/**/*.test.js --verbose"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": ["i18n", "internationalization", "translate", "yml"],
+  "author": "leonardosarmentocastro",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^3.15.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "locale": "^0.1.0",
+    "messageformat": "^2.3.0"
+  }
 }
