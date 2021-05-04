@@ -28,7 +28,7 @@ usage
   // index.js
   process.env.LOCALE = 'en-us.yml';
   const server = require('@leonardosarmentocastro/server');
-  const { i18n, translate } = require('@leonardosarmentocastro/i18n');
+  const i18n = require('@leonardosarmentocastro/i18n');
 
   (async () => {
     await server.start(8080, {
@@ -38,7 +38,7 @@ usage
         app.get('/translated', (req, res) => {
           const key = 'TRANSLATED_HELLO';
           const args = { name: 'Leonardo' };
-          const translation = translate.get(key, req.locale, args);
+          const translation = i18n.translate.get(key, req.locale, args);
 
           return res.status(200).send(translation);
         });
