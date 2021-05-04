@@ -1,7 +1,7 @@
 const test = require('ava');
 const got = require('got');
 
-const { server } = require('../../server');
+const server = require('../../server');
 
 test('server can start/close and is reachable', async t => {
   const port = 8080;

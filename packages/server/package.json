@@ -1,8 +1,8 @@
 {
   "name": "server",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "minimal production server",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "npm run test:unit && npm run test:functional",
     "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
@@ -16,11 +16,11 @@
   "author": "leonardo.sarmentocastro",
   "license": "ISC",
   "dependencies": {
-    "ava": "^3.15.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "ava": "^3.15.0",
     "got": "^11.8.2"
   }
 }

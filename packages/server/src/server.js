@@ -5,7 +5,7 @@ const DEFAULT = {
   connect: (app = express()) => {}, // Connect your custom middlewares (app.use()) and routes (app.get('/')).
 };
 
-exports.server = {
+const server = {
   close(api) {
     return new Promise((resolve) => {
       if (!api.listening) return resolve();
@@ -50,3 +50,5 @@ exports.server = {
     return api;
   },
 };
+
+module.exports = server;
