@@ -11,6 +11,7 @@ translations/
 
 # Files
 contributing.md
+docker-compose.yml
 package-lock.json
 .gitignore
 .np-config.json

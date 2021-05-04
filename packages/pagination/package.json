@@ -1,12 +1,31 @@
 {
-  "name": "pagination",
+  "name": "@leonardosarmentocastro/pagination",
   "version": "1.0.0",
-  "description": "",
+  "description": "mongoose pagination",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "publishConfig": {
+    "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "start:database": "docker-compose up -d database",
+    "test": "npm run test:unit && npm run test:functional",
+    "test:unit": "ava **/unit/**/*.test.js --verbose",
+    "test:functional": "npm run start:database && MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 ava **/functional/**/*.test.js --verbose --serial"
+  },
+  "keywords": ["mongoose", "pagination"],
+  "author": "leonardosarmentocastro",
+  "license": "ISC",
+  "devDependencies": {
+    "@leonardosarmentocastro/database": "0.0.2",
+    "@leonardosarmentocastro/i18n": "^0.0.1",
+    "ava": "^3.15.0",
+    "mongoose": "^5.12.7"
+  },
+  "peerDependencies": {
+    "@leonardosarmentocastro/i18n": "^0.0.1",
+    "mongoose": "^5.12.7"
+  },
+  "dependencies": {
+    "validator": "^13.6.0"
+  }
 }
