@@ -43,3 +43,14 @@ test('server is customizable (middlewares can be added)', async t => {
 
   await server.close(api);
 });
+
+test('(error) can not start two servers using the same port', async t => {
+  const port = 8080;
+  const api = await server.start(port);
+
+  await t.throwsAsync(async () => {
+    await server.start(port);
+  });
+
+  await api.close();
+});

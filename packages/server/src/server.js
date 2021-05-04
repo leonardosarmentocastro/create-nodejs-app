@@ -32,11 +32,11 @@ exports.server = {
         return resolve(api);
       }).on('error', (err) => {
         const errorMessage = [
-          `[ server::ERROR ] Failed to start server on port ${port} in ${environment} mode.`
+          `[ server::ERROR ] Failed to start server on port ${port} in ${environment} mode.`,
           `[ server::STACKTRACE ] ${err}`
         ].join('\r\n');
 
-        return reject(errorMessage);
+        return reject(new Error(errorMessage));
       });
     });
   },
