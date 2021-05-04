@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "connect to mongodb",
   "main": "src/database.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start:database": "docker-compose up -d database",
     "test": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
