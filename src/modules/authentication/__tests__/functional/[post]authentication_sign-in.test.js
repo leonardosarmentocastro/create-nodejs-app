@@ -3,7 +3,7 @@ const got = require('got');
 const jwt = require('jsonwebtoken');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const {
   AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND,
   AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH,

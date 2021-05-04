@@ -3,7 +3,7 @@ const got = require('got');
 const mongoose = require('mongoose');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const {
   emailIsInvalidTestcase,
   fieldIsAlreadyInUseTestcase,

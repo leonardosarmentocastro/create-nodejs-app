@@ -1,7 +1,7 @@
 const test = require('ava');
 const mongoose = require('mongoose');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const { paginationPlugin } = require('../../plugin');
 const {
   PRODUCTS,

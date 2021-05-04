@@ -2,7 +2,7 @@ const test = require('ava');
 const got = require('got');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const { UsersModel } = require('../../model');
 const { userNotFoundTestcase } = require('./testcases');
 const { validUserFixture } = require('../__fixtures__');

@@ -3,7 +3,7 @@ const got = require('got');
 const jwt = require('jsonwebtoken');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const { UsersModel } = require('../../../users/model');
 const { validUserFixture } = require('../../../users/__tests__/__fixtures__');
 const {

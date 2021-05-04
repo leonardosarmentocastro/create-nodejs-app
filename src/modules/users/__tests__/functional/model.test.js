@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const database = require('../../../../database');
+const database = require('@leonardosarmentocastro/database');
 const { UsersModel } = require('../../model');
 
 test.before(t => database.connect());
