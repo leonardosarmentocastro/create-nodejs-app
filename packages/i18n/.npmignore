@@ -13,3 +13,4 @@ translations/
 contributing.md
 package-lock.json
 .gitignore
+.np-config.json
