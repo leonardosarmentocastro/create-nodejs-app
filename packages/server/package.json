@@ -1,6 +1,6 @@
 {
   "name": "@leonardosarmentocastro/server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "minimal production server",
   "main": "src/server.js",
   "np": {
