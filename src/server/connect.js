@@ -1,4 +1,4 @@
-const bodyParser = require('body-parser'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
+const express = require('express'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
 const cors = require('cors');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
