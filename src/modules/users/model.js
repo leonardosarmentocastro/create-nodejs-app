@@ -7,10 +7,12 @@ const {
   isRequiredValidator,
   isTooLongValidator,
   isValidEmailValidator,
-  paginationPlugin,
+  // paginationPlugin,
   sharedSchema,
   sharedValidate,
 } = require('../../shared');
+
+const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const usersSchema = new mongoose.Schema({
   email: String,

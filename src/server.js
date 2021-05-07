@@ -1,7 +1,7 @@
 const express = require('express'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
 const errorhandler = require('errorhandler');
-const i18n = require('@leonardosarmentocastro/i18n');
 const morgan = require('morgan');
+const i18n = require('@leonardosarmentocastro/i18n');
 const server = require('@leonardosarmentocastro/server');
 
 const modules = require('./modules');

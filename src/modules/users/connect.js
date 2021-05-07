@@ -7,7 +7,7 @@ const {
   serveCreatedUserResolver,
   updateUserResolver,
 } = require('./resolvers');
-const { paginationMiddleware } = require('../../shared');
+const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
 
 exports.connect = (app) => {
   app.route('/users')
