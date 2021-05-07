@@ -5,7 +5,7 @@ const CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING || `mongodb://${
 const isProduction = (process.env.NODE_ENV === 'production');
 const connectedOnURI = isProduction ? '' : `URI: "${CONNECTION_STRING}"`;
 
-const database = {
+exports.database = {
   connect: async () => {
     let retryCount = 0;
     const retries = 5;
@@ -45,5 +45,3 @@ const database = {
     return console.info(successMessage);
   },
 };
-
-module.exports = database;

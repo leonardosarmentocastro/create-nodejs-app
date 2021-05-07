@@ -2,7 +2,7 @@
   "name": "@leonardosarmentocastro/database",
   "version": "0.0.2",
   "description": "connect to mongodb",
-  "main": "src/database.js",
+  "main": "src/index.js",
   "publishConfig": {
     "access": "public"
   },
