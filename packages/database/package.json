@@ -8,8 +8,9 @@
   },
   "scripts": {
     "start:database": "docker-compose up -d database",
-    "test": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
-    "test:functional": "npm run start:database && ava **/functional/**/*.test.js --verbose --serial"
+    "test": "npm run test:unit && MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
+    "test:functional": "npm run start:database && ava **/functional/**/*.test.js --verbose --serial",
+    "test:unit": "ava **/unit/**/*.test.js --verbose"
   },
   "keywords": [
     "database",
