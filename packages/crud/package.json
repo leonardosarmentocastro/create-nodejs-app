@@ -1,0 +1,21 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@leonardosarmentocastro/database": "0.0.2",
+    "@leonardosarmentocastro/i18n": "0.0.1",
+    "@leonardosarmentocastro/server": "0.0.1",
+    "mongoose": "^5.12.7"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0"
+  }
+}
