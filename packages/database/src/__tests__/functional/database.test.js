@@ -1,7 +1,7 @@
 const test = require('ava');
 const mongoose = require('mongoose');
 
-const database = require('../../database');
+const { database } = require('../../database');
 
 test.before('create sample "products model" to work with on tests', t => {
   const schema = new mongoose.Schema({ name: String, price: Number });
