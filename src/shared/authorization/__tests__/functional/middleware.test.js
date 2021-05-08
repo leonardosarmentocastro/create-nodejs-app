@@ -1,7 +1,7 @@
 const test = require('ava');
 const got = require('got');
 
-const database = require('@leonardosarmentocastro/database');
+const { database } = require('@leonardosarmentocastro/database');
 const { ROUTES_FOR_OPTION } = require('../../constants');
 const { AUTHORIZATION_ERROR_INVALID_TOKEN } = require('../../errors');
 const { translate } = require('@leonardosarmentocastro/i18n');

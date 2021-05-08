@@ -1,7 +1,7 @@
 const test = require('ava');
 const mongoose = require('mongoose');
 
-const database = require('@leonardosarmentocastro/database');
+const { database } = require('@leonardosarmentocastro/database');
 const { authenticationSchema } = require('../../schema');
 const { isPasswordStrongValidator } = require('../../validators');
 const { isRequiredValidator } = require('../../../../shared');

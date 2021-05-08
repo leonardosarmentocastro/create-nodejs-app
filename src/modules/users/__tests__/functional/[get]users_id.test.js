@@ -3,7 +3,7 @@ const got = require('got');
 const theOwl = require('the-owl');
 const mongoose = require('mongoose');
 
-const database = require('@leonardosarmentocastro/database');
+const { database } = require('@leonardosarmentocastro/database');
 const { userNotFoundTestcase } = require('./testcases');
 const {
   closeApiOpenedOnRandomPort,

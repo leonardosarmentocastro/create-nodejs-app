@@ -1,9 +1,9 @@
 const { userTranslatedValidationError } = require('../errors');
 const { UsersModel } = require('../model');
-const { sharedSanitizer } = require('../../../shared');
+const { sanitizer } = require('@leonardosarmentocastro/database');
 
 exports.createUserResolver = async (req, res, next) => {
-  const userPayload = sharedSanitizer(req.body);
+  const userPayload = sanitizer(req.body);
   const userDoc = new UsersModel(userPayload);
 
   try {

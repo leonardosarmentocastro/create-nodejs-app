@@ -1,5 +1,5 @@
 require('dotenv').config(); // Load environment variables from ".env".
-const database = require('@leonardosarmentocastro/database');
+const { database } = require('@leonardosarmentocastro/database');
 const { server } = require('./src/server');
 
 (async () => {

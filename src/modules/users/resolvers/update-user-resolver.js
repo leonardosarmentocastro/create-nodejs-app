@@ -2,7 +2,7 @@ const { isMongoId } = require('validator');
 
 const { userNotFoundError, userTranslatedValidationError } = require('../errors');
 const { UsersModel } = require('../model');
-const { sharedSanitizer } = require('../../../shared');
+const { sanitizer } = require('@leonardosarmentocastro/database');
 
 exports.updateUserResolver = async (req, res) => {
   const userId = req.params.id;
@@ -11,7 +11,7 @@ exports.updateUserResolver = async (req, res) => {
   const userDoc = await UsersModel.findById(userId);
   if (!userDoc) return userNotFoundError(req, res);
 
-  const userPayload = sharedSanitizer(req.body);
+  const userPayload = sanitizer(req.body);
   const userToUpdate = Object.assign(userDoc, userPayload);
 
   try {
