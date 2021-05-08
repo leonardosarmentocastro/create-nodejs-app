@@ -7,11 +7,10 @@ const {
   isRequiredValidator,
   isTooLongValidator,
   isValidEmailValidator,
-  // paginationPlugin,
-  sharedSchema,
   sharedValidate,
 } = require('../../shared');
 
+const { commonSchema } = require('@leonardosarmentocastro/database');
 const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const usersSchema = new mongoose.Schema({
@@ -45,7 +44,7 @@ const transform = (doc, ret) => {
 };
 
 // Setup
-usersSchema.add(sharedSchema);
+usersSchema.add(commonSchema);
 usersSchema.add(authenticationSchema);
 usersSchema.plugin(paginationPlugin);
 usersSchema.post('validate', validationsMiddleware);
