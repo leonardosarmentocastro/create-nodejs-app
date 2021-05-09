@@ -16,7 +16,7 @@ test('server can start/close and is reachable', async t => {
 test('server is customizable (routes can be added)', async t => {
   const port = 8080;
   const api = await server.start(port, {
-    connect: (app) => {
+    routes: (app) => {
       app.get('/custom-route', (req, res) => res.json({ customizable: true }))
     },
   });
@@ -30,7 +30,7 @@ test('server is customizable (routes can be added)', async t => {
 test('server is customizable (middlewares can be added)', async t => {
   const port = 8080;
   const api = await server.start(port, {
-    connect: (app) => {
+    middlewares: (app) => {
       app.use((req, res, next) => {
         res.set('customizable', true);
         next();
@@ -62,6 +62,24 @@ test('(error) can not start two servers using the same port', async t => {
   await t.throwsAsync(async () => {
     await server.start(port);
   });
+
+  await api.close();
+});
+
+test('by default, the server parses json bodies from requests', async t => {
+  const port = 8080;
+  const payload = { example: true };
+  const api = await server.start(port, {
+    routes: (app) => {
+      app.post('/json', (req, res) => {
+        t.deepEqual(req.body, payload, 'tip: if json parsing is disable, "req.body" would be "undefined"');
+        return res.status(200).json(req.body);
+      });
+    },
+  });
+
+  const body = await got.post(`http://127.0.0.1:${port}/json`, { json: payload }).json();
+  t.deepEqual(body, payload); // just... double checking. :)
 
   await api.close();
 });

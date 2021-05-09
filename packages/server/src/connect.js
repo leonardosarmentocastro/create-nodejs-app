@@ -9,12 +9,18 @@ const DEFAULT = {
         .filter(method => method !== 'connect')
         .forEach(method => this[method]());
     },
+    bodyParser() {
+      app.use(express.json());
+      app.use(express.urlencoded({
+        extended: true
+      }));
+    },
     cors() {
       app.use(cors());
     },
     prettifyJsonOutput() {
       app.set('json spaces', 2);
-    }
+    },
   }),
 
   routes: (app = express()) => ({
@@ -27,7 +33,7 @@ const DEFAULT = {
   }),
 };
 
-exports.connect = (app = express()) => {
-  DEFAULT.middlewares(app).connect();
-  DEFAULT.routes(app).connect();
-};
+exports.connect = (app = express()) => ({
+  middlewares: DEFAULT.middlewares(app),
+  routes: DEFAULT.routes(app),
+});

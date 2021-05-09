@@ -2,7 +2,12 @@ const express = require('express');
 const { connect } = require('./connect');
 
 const DEFAULT = {
-  connect: (app = express()) => {}, // Connect your custom middlewares (app.use()) and routes (app.get('/')).
+  // connecting "middlewares" and "routes" are essentially the same.
+  // the reason for dividing it in 2 methods is: middlewares must be set *first*.
+  connect: {
+    middlewares: (app = express()) => {},
+    routes: (app = express()) => {},
+  },
 };
 
 const server = {
@@ -41,10 +46,15 @@ const server = {
     });
   },
 
-  async start(port = process.env.PORT, options = DEFAULT) {
+  async start(port = process.env.PORT, __connect__ = DEFAULT.connect) {
     const app = express();
-    options.connect(app);
-    connect(app);
+    const { middlewares, routes } = connect(app);
+
+    if (__connect__.middlewares) __connect__.middlewares(app); // first custom middlewares
+    middlewares.connect(); // then default middlewares
+
+    if (__connect__.routes) __connect__.routes(app); // first custom routes
+    routes.connect(); // then default routes
 
     const api = await this.listen(app, port);
     return api;
