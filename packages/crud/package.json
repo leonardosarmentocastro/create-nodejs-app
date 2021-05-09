@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@leonardosarmentocastro/database": "0.0.2",
+    "@leonardosarmentocastro/database": "0.0.4",
     "@leonardosarmentocastro/i18n": "0.0.1",
-    "@leonardosarmentocastro/server": "0.0.1",
+    "@leonardosarmentocastro/server": "0.0.2",
     "mongoose": "^5.12.7"
   },
   "devDependencies": {
