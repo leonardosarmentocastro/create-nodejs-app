@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 node index.js"
+    "start": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 node index.js",
+    "test": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
+    "test:functional": "ava **/functional/**/*.test.js --verbose --serial"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,7 @@
     "mongoose": "^5.12.7"
   },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^3.15.0",
+    "got": "^11.8.2"
   }
 }

@@ -13,6 +13,7 @@ exports.crud = {
   connect(app, model = DEFAULTS.model) {
     const { collectionName } = model.collection; // "users"
     const basePath = `/${collectionName}`; // "/users"
+    console.log(`[ crud::info ] creating routes for "${basePath}"`);
 
     app.route(basePath)
       // .get(paginationMiddleware, findUsersResolver)
