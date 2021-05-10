@@ -13,3 +13,4 @@ contributing.md
 package-lock.json
 .travis.yml
 .gitignore
+.np-config.json
