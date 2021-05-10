@@ -145,6 +145,30 @@ test('[C] when failing to create an entry due to "schema validation", return a t
 // TODO: when constructing a "schema" for tests, inject a method that throws. Then, assert the translated unexpected error.
 test.todo('[R] when failing to read registries for any unknown reason, return an translated unexpected error');
 
+test('[R] when failing to read an entry due to "id is not a mongoid", return an translated error', async t => {
+  await t.context.model.deleteMany({});
+  const id = '0123456789';
+
+  return got(`http://127.0.0.1:8080/products/${id}`, {
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(ERROR_DOCUMENT_NOT_FOUND, 'pt-br', { id }));
+  });
+});
+
+test('[R] when failing to read an entry due to "doc of ${id} not found", return an translated error', async t => {
+  await t.context.model.deleteMany({});
+  const id = new mongoose.Types.ObjectId();
+
+  return got(`http://127.0.0.1:8080/products/${id}`, {
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(ERROR_DOCUMENT_NOT_FOUND, 'pt-br', { id }));
+  });
+});
+
 test('[U] when failing to update an entry due to "id is not a mongoid", return a translated error', async t => {
   await t.context.model.deleteMany({});
   const id = '0123456789';
