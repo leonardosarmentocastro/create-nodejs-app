@@ -1,0 +1,22 @@
+{
+  "name": "@leonardosarmentocastro/validate",
+  "version": "1.0.0",
+  "description": "validate constraints in anything",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "npm run test:unit",
+    "test:unit": "ava **/unit/**/*.test.js --verbose"
+  },
+  "keywords": [
+    "validate",
+    "constraints"
+  ],
+  "author": "leonardosarmentocastro",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^3.15.0"
+  }
+}
