@@ -1,3 +1,4 @@
+ERROR_UNEXPECTED: Desculpe, ocorreu um erro inesperado.
 VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: Este "{field}" já está em uso.
 VALIDATOR_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
 VALIDATOR_ERROR_FIELD_IS_TOO_LONG: O campo "{field}" é longo demais (máximo de caracteres é {maxLength}).

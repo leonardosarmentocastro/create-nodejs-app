@@ -1,11 +1,10 @@
+const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
+
 const { DEFAULTS } = require('./defaults');
-const { createResolver } = require('./resolvers');
+const { createResolver, findResolver } = require('./resolvers');
+
 
 const deleteResolver = (req, res) => res.status(200).json({ deleted: true });
-const findResolver = (model = DEFAULTS.model) => async (req, res) => {
-  const found = await model.find();
-  return res.status(200).json(found);
-};
 const findByIdResolver = (req, res) => res.status(200).json({ read: true });
 const updateResolver = (req, res) => res.status(200).json({ updated: true });
 
@@ -17,8 +16,7 @@ exports.crud = {
     console.log(`[ crud::info ] creating routes for "${basePath}"`);
 
     app.route(basePath)
-      // .get(paginationMiddleware, findUsersResolver)
-      .get(findResolver(model))
+      .get(paginationMiddleware, findResolver(model))
       .post(createResolver(model));
 
     app.route(`${basePath}/:id`)
