@@ -3,10 +3,11 @@ const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
 const { DEFAULTS } = require('./defaults');
 const {
   createResolver,
+  deleteResolver,
   readResolver,
   readByIdResolver,
+  serveCreatedDocResolver,
   updateResolver,
-  deleteResolver,
 } = require('./resolvers');
 
 // TODO: como gerar documentação automática usando the-owl? vish, aí vai ser super sayadin
@@ -19,7 +20,7 @@ exports.crud = {
 
     app.route(basePath)
       .get(paginationMiddleware, readResolver(model))
-      .post(createResolver(model));
+      .post(createResolver(model), serveCreatedDocResolver);
 
     app.route(`${basePath}/:id`)
       .delete(deleteResolver(model))
