@@ -21,6 +21,8 @@ const translatedError = (req, res, { err, doc }) => {
 };
 
 module.exports = {
+  ERROR_DOCUMENT_NOT_FOUND,
+  ERROR_UNEXPECTED,
   documentNotFoundError,
   translatedError,
   translatedUnexpectedError,

@@ -8,6 +8,7 @@ const { validate, isRequiredValidator } = require('@leonardosarmentocastro/valid
 const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const { crud } = require('../../crud');
+const { ERROR_DOCUMENT_NOT_FOUND } = require('../../errors');
 const PRODUCT1 = { name: 'product1' }
 
 test.before('setup: start an api/connect to database', async t => {
@@ -45,7 +46,10 @@ test.after.always('teardown: api/database', async t => {
   await server.close(t.context.api);
 });
 
-test('[C] must succeed on creating an entry for any given model (e.g. "/products")', async t => {
+test('-------------------- success scenarios:', t => t.pass());
+
+
+test('[C] must succeed on creating an entry for any given model (e.g. "POST /products")', async t => {
   const response = await got.post(`http://127.0.0.1:8080/products`, { json: PRODUCT1 });
   const body = JSON.parse(response.body);
 
@@ -55,7 +59,7 @@ test('[C] must succeed on creating an entry for any given model (e.g. "/products
   t.truthy(body.id);
 });
 
-test('[R] must succeed on reading entries for any given model (e.g. "/products")', async t => {
+test('[R] must succeed on reading entries for any given model (e.g. "GET /products")', async t => {
   await t.context.model.deleteMany({});
   const product1 = (await t.context.model.create(PRODUCT1)).toObject();
 
@@ -75,7 +79,7 @@ test('[R] must succeed on reading entries for any given model (e.g. "/products")
   });
 });
 
-test('[U] must succeed on updating an entry for any given model (e.g. "/products")', async t => {
+test('[U] must succeed on updating an entry for any given model (e.g. "PUT /products/:id")', async t => {
   await t.context.model.deleteMany({});
   const product1 = (await t.context.model.create(PRODUCT1)).toObject();
   const payload = { name: 'product1::updated' };
@@ -93,9 +97,9 @@ test('[U] must succeed on updating an entry for any given model (e.g. "/products
   });
 });
 
-// --- errors
+test('-------------------- error scenarios:', t => t.pass());
 
-test('[C] when failing to create an entry for model, return an translated error', t => {
+test('[C] when failing to create an entry due to "schema validation", return a translated error', t => {
   const field = 'name';
   const payload = { [field]: '' };
 
@@ -111,3 +115,44 @@ test('[C] when failing to create an entry for model, return an translated error'
 });
 
 test.todo('[R] when failing to read registries for any given model, return an translated error');
+
+test('[U] when failing to update an entry due to "id is not a mongoid", return a translated error', async t => {
+  await t.context.model.deleteMany({});
+  const id = '0123456789';
+
+  return got.put(`http://127.0.0.1:8080/products/${id}`, {
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(ERROR_DOCUMENT_NOT_FOUND, 'pt-br', { id }));
+  });
+});
+
+test('[U] when failing to update an entry due to "doc of ${id} not found", return a translated error', async t => {
+  await t.context.model.deleteMany({});
+  const id = new mongoose.Types.ObjectId();
+
+  return got.put(`http://127.0.0.1:8080/products/${id}`, {
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(ERROR_DOCUMENT_NOT_FOUND, 'pt-br', { id }));
+  });
+});
+
+test('[U] when failing to update an entry due to "schema validation", return a translated error', async t => {
+  await t.context.model.deleteMany({});
+  const product1 = (await t.context.model.create(PRODUCT1)).toObject();
+
+  const field = 'name';
+  const payload = { [field]: '' }; // prop "name" is set as required on validation middleware
+  return got.put(`http://127.0.0.1:8080/products/${product1.id}`, {
+    headers: { 'accept-language': 'pt-br' },
+    json: payload,
+  }).catch(error => {
+    const { validator, ...err } = isRequiredValidator(field)(payload);
+
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(err, 'pt-br', payload));
+  });
+});
