@@ -56,7 +56,7 @@ try {
 
 ### validators
 
-### `isAlreadyInUseValidator = (field = '') => (doc = {}) => ({ code, field, validator })`
+### `isAlreadyInUseValidator = (field = '') => (doc = {})`
 
 
 Validate wheter a field is already present in some registry for this model.
@@ -64,19 +64,19 @@ E.g. checks if user1.email ("banana@email.com") is already being used by any use
 
 Translation code: `VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE`
 
-### `isRequiredValidator = (field = '') => (doc = {}) => ({ code, field, validator })`
+### `isRequiredValidator = (field = '') => (doc = {})`
 
 Validate if a field is present/not empty.
 
 Translation code: `VALIDATOR_ERROR_FIELD_IS_REQUIRED`
 
-### `isTooLongValidator = (field = '', maxLength = 0) => (doc = {}) => ({ code, field, maxLength, validator })`
+### `isTooLongValidator = (field = '', maxLength = 0) => (doc = {})`
 
 Validate if a string field has exceeded a given max length.
 
 Translation code: `VALIDATOR_ERROR_FIELD_IS_TOO_LONG`
 
-### `isValidEmailValidator = (doc = {}) => ({ code, field, validator })`
+### `isValidEmailValidator = (doc = {})`
 
 Validate if field "doc.email" is a valid email.
 
