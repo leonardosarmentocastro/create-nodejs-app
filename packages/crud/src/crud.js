@@ -3,7 +3,6 @@ const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
 const { DEFAULTS } = require('./defaults');
 const { createResolver, findResolver } = require('./resolvers');
 
-
 const deleteResolver = (req, res) => res.status(200).json({ deleted: true });
 const findByIdResolver = (req, res) => res.status(200).json({ read: true });
 const updateResolver = (req, res) => res.status(200).json({ updated: true });
