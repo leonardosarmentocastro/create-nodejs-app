@@ -80,6 +80,18 @@ test('[R] must succeed on reading entries for any given model (e.g. "GET /produc
   });
 });
 
+test('[R] must succeed on reading an entry searching by its id (e.g. "GET /products/:id")', async t => {
+  await t.context.model.deleteMany({});
+  const product1 = (await t.context.model.create(PRODUCT1)).toObject();
+
+  const response = await got(`http://127.0.0.1:8080/products/${product1.id}`);
+  const body = JSON.parse(response.body);
+
+  t.assert(response.statusCode === 200);
+  t.notDeepEqual(body, {});
+  t.deepEqual(body, product1);
+});
+
 test('[U] must succeed on updating an entry for any given model (e.g. "PUT /products/:id")', async t => {
   await t.context.model.deleteMany({});
   const product1 = (await t.context.model.create(PRODUCT1)).toObject();
