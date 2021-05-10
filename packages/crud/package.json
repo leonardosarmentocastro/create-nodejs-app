@@ -19,7 +19,8 @@
     "@leonardosarmentocastro/pagination": "0.0.2",
     "@leonardosarmentocastro/server": "0.0.2",
     "@leonardosarmentocastro/validate": "0.0.1",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.7",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "ava": "^3.15.0",

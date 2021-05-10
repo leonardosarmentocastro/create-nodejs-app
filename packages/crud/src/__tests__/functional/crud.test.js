@@ -55,21 +55,6 @@ test('[C] must succeed on creating an entry for any given model (e.g. "/products
   t.truthy(body.id);
 });
 
-test('[C] when failing to create an entry for model, return an translated error', t => {
-  const field = 'name';
-  const payload = { [field]: '' };
-
-  return got.post(`http://127.0.0.1:8080/products`, {
-    json: payload,
-    headers: { 'accept-language': 'pt-br' },
-  }).catch(error => {
-    const { validator, ...err } = isRequiredValidator(field)(payload);
-
-    t.assert(error.response.statusCode == 500);
-    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(err, 'pt-br', payload));
-  });
-});
-
 test('[R] must succeed on reading entries for any given model (e.g. "/products")', async t => {
   await t.context.model.deleteMany({});
   const product1 = (await t.context.model.create(PRODUCT1)).toObject();
@@ -87,6 +72,41 @@ test('[R] must succeed on reading entries for any given model (e.g. "/products")
     previousPage: null,
     totalCount: 1,
     totalPages: 1,
+  });
+});
+
+test('[U] must succeed on updating an entry for any given model (e.g. "/products")', async t => {
+  await t.context.model.deleteMany({});
+  const product1 = (await t.context.model.create(PRODUCT1)).toObject();
+  const payload = { name: 'product1::updated' };
+
+  const response = await got.put(`http://127.0.0.1:8080/products/${product1.id}`, {
+    json: payload,
+  });
+  const body = JSON.parse(response.body);
+
+  t.assert(response.statusCode === 200);
+  t.notDeepEqual(body, {});
+  t.deepEqual(body, {
+    id: product1.id,
+    name: payload.name,
+  });
+});
+
+// --- errors
+
+test('[C] when failing to create an entry for model, return an translated error', t => {
+  const field = 'name';
+  const payload = { [field]: '' };
+
+  return got.post(`http://127.0.0.1:8080/products`, {
+    json: payload,
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    const { validator, ...err } = isRequiredValidator(field)(payload);
+
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(err, 'pt-br', payload));
   });
 });
 

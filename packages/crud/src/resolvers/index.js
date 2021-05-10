@@ -1,4 +1,5 @@
 module.exports = {
   ...require('./create-resolver'),
-  ...require('./find-resolver'),
+  ...require('./read-resolver'),
+  ...require('./update-resolver'),
 };

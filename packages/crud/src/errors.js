@@ -1,14 +1,10 @@
 const { translate } = require('@leonardosarmentocastro/i18n');
 
-// const USERS_ERROR_USER_NOT_FOUND = {
-//   code: 'USERS_ERROR_USER_NOT_FOUND',
-//   field: 'id',
-// };
-
-// const userNotFoundError = (req, res) =>
-//   res.status(500).json(
-//     translate.error(USERS_ERROR_USER_NOT_FOUND, req.locale, { userId: req.params.id })
-//   );
+const ERROR_DOCUMENT_NOT_FOUND = { code: 'ERROR_DOCUMENT_NOT_FOUND', field: 'id' };
+const documentNotFoundError = (req, res) =>
+  res.status(500).json(
+    translate.error(ERROR_DOCUMENT_NOT_FOUND, req.locale, { id: req.params.id })
+  );
 
 const ERROR_UNEXPECTED = { code: 'ERROR_UNEXPECTED', field: '' };
 const translatedUnexpectedError = (req, res, { err }) =>
@@ -25,8 +21,7 @@ const translatedError = (req, res, { err, doc }) => {
 };
 
 module.exports = {
-  // USERS_ERROR_USER_NOT_FOUND,
-  // userNotFoundError,
+  documentNotFoundError,
   translatedError,
   translatedUnexpectedError,
 };
