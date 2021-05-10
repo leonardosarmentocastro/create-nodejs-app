@@ -130,7 +130,8 @@ test('[C] when failing to create an entry due to "schema validation", return a t
   });
 });
 
-test.todo('[R] when failing to read registries for any given model, return an translated error');
+// TODO: when constructing a "schema" for tests, inject a method that throws. Then, assert the translated unexpected error.
+test.todo('[R] when failing to read registries for any unknown reason, return an translated unexpected error');
 
 test('[U] when failing to update an entry due to "id is not a mongoid", return a translated error', async t => {
   await t.context.model.deleteMany({});
@@ -172,3 +173,18 @@ test('[U] when failing to update an entry due to "schema validation", return a t
     t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(err, 'pt-br', payload));
   });
 });
+
+test('[D] when failing to delete an entry due to "doc of ${id} not found", return a translated error', async t => {
+  await t.context.model.deleteMany({});
+  const id = new mongoose.Types.ObjectId();
+
+  return got.put(`http://127.0.0.1:8080/products/${id}`, {
+    headers: { 'accept-language': 'pt-br' },
+  }).catch(error => {
+    t.assert(error.response.statusCode == 500);
+    t.deepEqual(JSON.parse(error.response.body), i18n.translate.error(ERROR_DOCUMENT_NOT_FOUND, 'pt-br', { id }));
+  });
+});
+
+// TODO: when constructing a "schema" for tests, inject a method that throws. Then, assert the translated unexpected error.
+test.todo('[D] when failing to delete registries for any unknown reason, return an translated unexpected error');
