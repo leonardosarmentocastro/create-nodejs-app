@@ -16,12 +16,12 @@ const schema = new mongoose.Schema({
 });
 
 // set your validations
-schema.post('validate', async (userDoc, next) => {
+schema.post('validate', async (doc, next) => {
   const constraints = [
     ...['username'].map(field => isRequiredValidator(field)),
     isTooLongValidator('username', USERNAME_MAX_LENGTH),
   ];
-  const error = await validate(constraints, userDoc);
+  const error = await validate(constraints, doc);
 
   return next(error);
 });
