@@ -9,6 +9,7 @@ const findResolver = (model = DEFAULTS.model) => async (req, res) => {
 const findByIdResolver = (req, res) => res.status(200).json({ read: true });
 const updateResolver = (req, res) => res.status(200).json({ updated: true });
 
+// TODO: como gerar documentação automática usando the-owl? vish, aí vai ser super sayadin
 exports.crud = {
   connect(app, model = DEFAULTS.model) {
     const { collectionName } = model.collection; // "users"
@@ -26,6 +27,3 @@ exports.crud = {
       .put(updateResolver);
   },
 };
-
-// translation keys? R: genéricas (ao invés de "USER_NOT_FOUND" -> "MODEL_NOT_FOUND")
-// como gerar documentação automática usando the-owl? vish, aí vai ser super sayadin

@@ -1,2 +1,4 @@
-TRANSLATED_ERROR: Something went wrong. Try again, {name}!
-TRANSLATED_HELLO: Hello "{name}". Welcome!
+VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: This "{field}" is already in use.
+VALIDATOR_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.
+VALIDATOR_ERROR_FIELD_IS_TOO_LONG: The field "{field}" is too long (max length is {maxLength}).
+VALIDATOR_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
