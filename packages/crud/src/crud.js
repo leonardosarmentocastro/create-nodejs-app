@@ -1,12 +1,17 @@
 const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
 
 const { DEFAULTS } = require('./defaults');
-const { createResolver, readResolver, updateResolver } = require('./resolvers');
+const {
+  createResolver,
+  readResolver,
+  updateResolver,
+  deleteResolver,
+} = require('./resolvers');
 
-const deleteResolver = (req, res) => res.status(200).json({ deleted: true });
 const findByIdResolver = (req, res) => res.status(200).json({ read: true });
 
 // TODO: como gerar documentação automática usando the-owl? vish, aí vai ser super sayadin
+// Injeta o model num método que executa os tests e gera documentação
 exports.crud = {
   connect(app, model = DEFAULTS.model) {
     const { collectionName } = model.collection; // "users"
@@ -19,7 +24,7 @@ exports.crud = {
 
     // TODO:
     app.route(`${basePath}/:id`)
-      .delete(deleteResolver)
+      .delete(deleteResolver(model))
       .get(findByIdResolver)
       .put(updateResolver(model));
   },

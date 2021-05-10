@@ -9,7 +9,7 @@ const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const { crud } = require('../../crud');
 const { ERROR_DOCUMENT_NOT_FOUND } = require('../../errors');
-const PRODUCT1 = { name: 'product1' }
+const PRODUCT1 = { name: 'product1' };
 
 test.before('setup: start an api/connect to database', async t => {
   await database.connect();
@@ -20,6 +20,7 @@ test.before('setup: start an api/connect to database', async t => {
     },
     routes: (app) => {
       const schema = new mongoose.Schema({ name: String });
+
       schema.post('validate', async (doc, next) => {
         const constraints = [ isRequiredValidator('name') ];
         const error = await validate(constraints, doc);
@@ -95,6 +96,21 @@ test('[U] must succeed on updating an entry for any given model (e.g. "PUT /prod
     id: product1.id,
     name: payload.name,
   });
+});
+
+test('[D] must succeed on deleting an entry for any given model (e.g. "DELETE /products/:id")', async t => {
+  await t.context.model.deleteMany({});
+  const product1 = (await t.context.model.create(PRODUCT1)).toObject();
+
+  const doc1 = await t.context.model.findById(product1.id);
+  t.deepEqual(doc1.toObject(), product1);
+
+  const response = await got.delete(`http://127.0.0.1:8080/products/${product1.id}`);
+  t.assert(response.statusCode === 200);
+  t.is(response.body, '');
+
+  const doc = await t.context.model.findById(product1.id);
+  t.is(doc, null);
 });
 
 test('-------------------- error scenarios:', t => t.pass());
