@@ -18,5 +18,11 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^3.15.0"
+  },
+  "dependencies": {
+    "validator": "^13.6.0"
+  },
+  "peerDependencies": {
+    "validator": "^13.6.0"
   }
 }
