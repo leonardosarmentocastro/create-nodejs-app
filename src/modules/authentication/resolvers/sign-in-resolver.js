@@ -5,12 +5,12 @@ const {
   AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH,
 } = require('../errors');
 const { UsersModel } = require('../../users');
-const { isRequiredValidator, sharedValidate } = require('../../../shared');
+const { isRequiredValidator, validate } = require('@leonardosarmentocastro/validate');
 
 exports.signInResolver = async (req, res, next) => {
   try {
     const constraints = [ ...[ 'email', 'password' ].map(field => isRequiredValidator(field)) ];
-    const err = await sharedValidate(constraints, req.body);
+    const err = await validate(constraints, req.body);
     if (err) throw { err, statusCode: 400 };
 
     const { email, password } = req.body;

@@ -1,17 +1,17 @@
 const got = require('got');
 
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
-const { USERS_ERROR_USER_NOT_FOUND } = require('../../../errors');
 const { translate } = require('@leonardosarmentocastro/i18n');
+const { ERROR_DOCUMENT_NOT_FOUND } = require('@leonardosarmentocastro/crud');
 
 exports.userNotFoundTestcase = {
   title1: "(500) must return a translated error if the user was not found",
   title2: '(500) must return a translated error when deleting an user with an invalid mongo "id"',
-  test: (t, userId) =>
+  test: (t, id) =>
     got(t.context.testcaseUrl, getRequestOptions(t))
       .catch(error => {
-        const err = USERS_ERROR_USER_NOT_FOUND;
-        const args = { userId };
+        const err = ERROR_DOCUMENT_NOT_FOUND;
+        const args = { id };
 
         t.assert(error.response.statusCode === 500);
         t.deepEqual(error.response.body, translate.error(err, LOCALE, args));

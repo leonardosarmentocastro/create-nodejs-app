@@ -7,8 +7,8 @@ const {
   isRequiredValidator,
   isTooLongValidator,
   isValidEmailValidator,
-  sharedValidate,
-} = require('../../shared');
+  validate,
+} = require('@leonardosarmentocastro/validate');
 
 const { commonSchema } = require('@leonardosarmentocastro/database');
 const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
@@ -27,7 +27,7 @@ const validationsMiddleware = async (userDoc, next) => {
     isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH),
     isValidEmailValidator,
   ];
-  const error = await sharedValidate(constraints, userDoc);
+  const error = await validate(constraints, userDoc);
 
   return next(error);
 };

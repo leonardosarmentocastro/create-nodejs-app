@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { authenticationEncrypter } = require('./encrypter');
 const { isPasswordStrongValidator } = require('./validators');
-const { isRequiredValidator, sharedValidate } = require('../../shared');
+const { isRequiredValidator, validate } = require('@leonardosarmentocastro/validate');
 
 // Schema definitions
 const authenticationSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const preSaveMiddleware = async function() {
 
 const validationsMiddleware = async (authorizationDoc, next) => {
   const constraints = [ isRequiredValidator('password'), isPasswordStrongValidator ];
-  const error = await sharedValidate(constraints, authorizationDoc);
+  const error = await validate(constraints, authorizationDoc);
 
   return next(error);
 };

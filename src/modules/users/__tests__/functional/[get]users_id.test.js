@@ -41,8 +41,8 @@ test('(200) must return the user saved on database if it exists', async t => {
 
 // Unhappy path tests
 test(userNotFoundTestcase.title1, t => {
-  const userId = mongoose.Types.ObjectId();
-  t.context.testcaseUrl = getUrl(t, userId);
+  const id = mongoose.Types.ObjectId();
+  t.context.testcaseUrl = getUrl(t, id);
 
-  return userNotFoundTestcase.test(t, userId);
+  return userNotFoundTestcase.test(t, id);
 });

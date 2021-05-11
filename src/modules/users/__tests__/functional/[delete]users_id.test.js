@@ -39,8 +39,8 @@ test('(200) must succeed on deleting the user, returning an empty body', async t
 
 // Unhappy path tests
 test(userNotFoundTestcase.title2, t => {
-  const userId = '123';
-  t.context.testcaseUrl = getUrl(t, userId);
+  const id = '123';
+  t.context.testcaseUrl = getUrl(t, id);
 
-  return userNotFoundTestcase.test(t, userId);
+  return userNotFoundTestcase.test(t, id);
 });

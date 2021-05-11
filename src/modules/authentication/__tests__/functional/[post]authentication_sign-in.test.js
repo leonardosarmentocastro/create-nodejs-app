@@ -10,7 +10,7 @@ const {
 } = require('../../errors');
 const { translate } = require('@leonardosarmentocastro/i18n');
 const { UsersModel } = require('../../../users/model');
-const { isRequiredValidator } = require('../../../../shared');
+const { isRequiredValidator } = require('@leonardosarmentocastro/validate');
 const { validUserFixture } = require('../../../users/__tests__/__fixtures__');
 const {
   closeApiOpenedOnRandomPort,

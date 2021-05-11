@@ -3,7 +3,7 @@ const got = require('got');
 const { validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
 const { translate } = require('@leonardosarmentocastro/i18n');
-const { isRequiredValidator } = require('../../../../../shared');
+const { isRequiredValidator } = require('@leonardosarmentocastro/validate');
 
 exports.fieldIsEmptyTestcase = (field) => ({
   title: `(500) must return a translated error when providing an empty "${field}"`,

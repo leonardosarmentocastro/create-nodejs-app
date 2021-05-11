@@ -5,10 +5,16 @@ AUTHENTICATION_ERROR_TOKEN_EXPIRED: Autenticação falhou pois o token está exp
 AUTHENTICATION_ERROR_TOKEN_INVALID: Autenticação falhou pois o token é inválido.
 AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE: Autenticação falhou pois o token ainda não pode ser usado.
 AUTHORIZATION_ERROR_INVALID_TOKEN: Você não tem permissão para acessar rotas privadas com um token de autorização inválido.
-SHARED_ERROR_EMAIL_INVALID: O email "{email}" é inválido.
-SHARED_ERROR_FIELD_ALREADY_IN_USE: Este {field} já está em uso.
-SHARED_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
-SHARED_ERROR_FIELD_IS_TOO_LONG: O nome de usuário "{username}" é longo demais (máximo de caracteres é {maxLength}).
-SHARED_ERROR_UNEXPECTED: Desculpe, ocorreu um erro inesperado.
+
+# @leonardosarmentocastro/pagination
 PAGINATION_ERROR_QUERY_PARAMETER_INVALID: O parâmetro de busca "{field}" é inválido.
-USERS_ERROR_USER_NOT_FOUND: Usuário "{userId}" não encontrado.
+
+# @leonardosarmentocastro/crud
+ERROR_DOCUMENT_NOT_FOUND: Documento para id "{id}" não foi encontrado.
+ERROR_UNEXPECTED: Desculpe, ocorreu um erro inesperado.
+
+# @leonardosarmentocastro/validate
+VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: Este "{field}" já está em uso.
+VALIDATOR_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
+VALIDATOR_ERROR_FIELD_IS_TOO_LONG: O campo "{field}" é longo demais (máximo de caracteres é {maxLength}).
+VALIDATOR_ERROR_EMAIL_INVALID: O email "{email}" é inválido.

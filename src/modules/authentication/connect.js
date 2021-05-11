@@ -1,9 +1,10 @@
 const { signInResolver, signTokenResolver } = require('./resolvers');
-const { createUserResolver } = require('../users');
+const { UsersModel } = require('../users');
+const { createResolver } = require('@leonardosarmentocastro/crud');
 
 exports.connect = (app) => {
   app.post('/authentication/sign-in', signInResolver, signTokenResolver);
-  app.post('/authentication/sign-up', createUserResolver, signTokenResolver);
+  app.post('/authentication/sign-up', createResolver(UsersModel), signTokenResolver);
 };
 
 // TODO: remove/erase

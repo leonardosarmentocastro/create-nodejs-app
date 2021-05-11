@@ -32,7 +32,6 @@ const $middlewares = (app) => ({
   //   app.use(authenticationMiddleware);
   // },
 
-  // TODO: REMOVE (https://stackoverflow.com/a/24344756)
   bodyParser() {
     app.use(express.json());
     app.use(express.urlencoded({

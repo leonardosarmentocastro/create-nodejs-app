@@ -1,24 +1,10 @@
-const {
-  createUserResolver,
-  deleteUserResolver,
-  findMyselfResolver,
-  findUserByIdResolver,
-  findUsersResolver,
-  serveCreatedUserResolver,
-  updateUserResolver,
-} = require('./resolvers');
-const { paginationMiddleware } = require('@leonardosarmentocastro/pagination');
+const { crud } = require('@leonardosarmentocastro/crud');
+const { findMyselfResolver } = require('./resolvers');
+const { UsersModel } = require('./model');
 
 exports.connect = (app) => {
-  app.route('/users')
-    .get(paginationMiddleware, findUsersResolver)
-    .post(createUserResolver, serveCreatedUserResolver);
+  crud.connect(app, UsersModel);
 
   app.route('/users/me')
     .get(findMyselfResolver);
-
-  app.route('/users/:id')
-    .delete(deleteUserResolver)
-    .get(findUserByIdResolver)
-    .put(updateUserResolver);
 };

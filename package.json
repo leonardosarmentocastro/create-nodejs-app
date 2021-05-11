@@ -29,10 +29,12 @@
     "the-owl": "1.1.1"
   },
   "dependencies": {
+    "@leonardosarmentocastro/crud": "0.0.2",
     "@leonardosarmentocastro/database": "0.0.4",
     "@leonardosarmentocastro/i18n": "0.0.1",
     "@leonardosarmentocastro/pagination": "0.0.2",
     "@leonardosarmentocastro/server": "0.0.1",
+    "@leonardosarmentocastro/validate": "0.0.1",
     "@phc/pbkdf2": "^1.1.14",
     "async-retry": "^1.2.3",
     "body-parser": "^1.19.0",

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const { database } = require('@leonardosarmentocastro/database');
 const { authenticationSchema } = require('../../schema');
 const { isPasswordStrongValidator } = require('../../validators');
-const { isRequiredValidator } = require('../../../../shared');
+const { isRequiredValidator } = require('@leonardosarmentocastro/validate');
 
 // Setup
 test.before('connect to database', t => database.connect());
