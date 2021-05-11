@@ -67,9 +67,28 @@ crud.connect(app, model);
 // [DELETE] /users/:id
 ```
 
-### dependencies
+### peer dependencies
 
 * `@leonardosarmentocastro/pagination`
 * `@leonardosarmentocastro/i18n`
+
+## translations
+
+its mandatory to set these translations codes to their respective files:
+
+* `ERROR_DOCUMENT_NOT_FOUND`
+* `ERROR_UNEXPECTED`
+
+e.g.
+
+```yml
+# ./translations/en-us.yml
+ERROR_DOCUMENT_NOT_FOUND: Document for id "{id}" was not found.
+ERROR_UNEXPECTED: Sorry, an unexpected error has occurred.
+
+# ./translations/pt-br.yml
+ERROR_DOCUMENT_NOT_FOUND: Documento para id "{id}" não foi encontrado.
+ERROR_UNEXPECTED: Desculpe, ocorreu um erro inesperado.
+```
 
 thats it.
