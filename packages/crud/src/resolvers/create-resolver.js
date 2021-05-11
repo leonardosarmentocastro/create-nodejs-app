@@ -14,7 +14,6 @@ exports.createResolver = (model = DEFAULTS.model) => async (req, res, next) => {
 
     next();
   } catch(err) {
-    console.log('@ err', err)
     return translatedError(req, res, { err, doc });
   }
 };

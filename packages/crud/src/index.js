@@ -1,4 +1,5 @@
 module.exports = {
-  ...require('./resolvers'),
   ...require('./crud'),
+  ...require('./resolvers'),
+  ...require('./errors'),
 };
