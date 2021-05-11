@@ -1,6 +1,3 @@
-const express = require('express'); // TODO: REMOVE (https://stackoverflow.com/a/24344756)
-const errorhandler = require('errorhandler');
-const morgan = require('morgan');
 const i18n = require('@leonardosarmentocastro/i18n');
 const server = require('@leonardosarmentocastro/server');
 
@@ -32,22 +29,8 @@ const $middlewares = (app) => ({
   //   app.use(authenticationMiddleware);
   // },
 
-  bodyParser() {
-    app.use(express.json());
-    app.use(express.urlencoded({
-      extended: true
-    }));
-  },
-
   generateApiDocs() {
     if (process.env.NODE_ENV === 'test') require('the-owl').connect(app);
-  },
-  prettifyStacktraceOnBrowser() {
-    app.use(errorhandler());
-  },
-  logRequestsOnConsole() {
-    const logFormat = 'dev';
-    app.use(morgan(logFormat));
   },
 });
 
@@ -63,8 +46,10 @@ exports.server = {
   ...server,
   async start(port) {
     const api = await server.start(port, {
-      connect: (app) => {
+      middlewares: (app) => {
         $middlewares(app).connect();
+      },
+      routes: (app) => {
         $routes(app).connect();
       },
     });
