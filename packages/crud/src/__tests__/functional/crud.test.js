@@ -47,8 +47,7 @@ test.after.always('teardown: api/database', async t => {
   await server.close(t.context.api);
 });
 
-test('-------------------- success scenarios:', t => t.pass());
-
+test('++++++++++++++++++++ success scenarios:', t => t.pass());
 
 test('[C] must succeed on creating an entry for any given model (e.g. "POST /products")', async t => {
   const response = await got.post(`http://127.0.0.1:8080/products`, { json: PRODUCT1 });
@@ -125,7 +124,7 @@ test('[D] must succeed on deleting an entry for any given model (e.g. "DELETE /p
   t.is(doc, null);
 });
 
-test('-------------------- error scenarios:', t => t.pass());
+test('xxxxxxxxxxxxxxxxxxxx error scenarios:', t => t.pass());
 
 test('[C] when failing to create an entry due to "schema validation", return a translated error', t => {
   const field = 'name';
