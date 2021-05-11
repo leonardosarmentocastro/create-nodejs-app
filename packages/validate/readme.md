@@ -81,3 +81,28 @@ Translation code: `VALIDATOR_ERROR_FIELD_IS_TOO_LONG`
 Validate if field "doc.email" is a valid email.
 
 Translation code: `VALIDATOR_ERROR_EMAIL_INVALID`
+
+## translations
+
+its mandatory to set these translations codes to their respective files:
+
+* `VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE`
+* `VALIDATOR_ERROR_FIELD_IS_REQUIRED`
+* `VALIDATOR_ERROR_FIELD_IS_TOO_LONG`
+* `VALIDATOR_ERROR_EMAIL_INVALID`
+
+e.g.
+
+```yml
+# ./translations/en-us.yml
+VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: This "{field}" is already in use.
+VALIDATOR_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.
+VALIDATOR_ERROR_FIELD_IS_TOO_LONG: The field "{field}" is too long (max length is {maxLength}).
+VALIDATOR_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
+
+# ./translations/pt-br.yml
+VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: Este "{field}" já está em uso.
+VALIDATOR_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
+VALIDATOR_ERROR_FIELD_IS_TOO_LONG: O campo "{field}" é longo demais (máximo de caracteres é {maxLength}).
+VALIDATOR_ERROR_EMAIL_INVALID: O email "{email}" é inválido.
+```
