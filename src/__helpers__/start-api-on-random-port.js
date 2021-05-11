@@ -5,6 +5,7 @@ const { server } = require('../server');
 exports.startApiOnRandomPort = async (t) => {
   if (!t.context.endpointOriginalPath) {
     console.warn('[WARNING] The test context field "endpointOriginalPath" (e.g. "/users/:id") is not set - API documentation will not be generated.');
+    console.warn(`[WARNING] test title: "${t.title}"`);
   }
 
   const availablePort = await detectPort();
