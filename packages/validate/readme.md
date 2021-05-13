@@ -64,6 +64,12 @@ E.g. checks if user1.email ("banana@email.com") is already being used by any use
 
 Translation code: `VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE`
 
+### `isPasswordStrongValidator = (doc = {})`
+
+Validate if `doc.password` is considered somewhat guessable.
+
+Translation code: `VALIDATOR_ERROR_PASSWORD_NOT_STRONG`
+
 ### `isRequiredValidator = (field = '') => (doc = {})`
 
 Validate if a field is present/not empty.
@@ -87,6 +93,7 @@ Translation code: `VALIDATOR_ERROR_EMAIL_INVALID`
 its mandatory to set these translations codes to their respective files:
 
 * `VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE`
+* `VALIDATOR_ERROR_PASSWORD_NOT_STRONG`
 * `VALIDATOR_ERROR_FIELD_IS_REQUIRED`
 * `VALIDATOR_ERROR_FIELD_IS_TOO_LONG`
 * `VALIDATOR_ERROR_EMAIL_INVALID`
@@ -96,12 +103,14 @@ e.g.
 ```yml
 # ./translations/en-us.yml
 VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: This "{field}" is already in use.
+VALIDATOR_ERROR_PASSWORD_NOT_STRONG: Password is not strong enough.
 VALIDATOR_ERROR_FIELD_IS_REQUIRED: The field "{field}" is required.
 VALIDATOR_ERROR_FIELD_IS_TOO_LONG: The field "{field}" is too long (max length is {maxLength}).
 VALIDATOR_ERROR_EMAIL_INVALID: The email "{email}" is invalid.
 
 # ./translations/pt-br.yml
 VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE: Este "{field}" já está em uso.
+VALIDATOR_ERROR_PASSWORD_NOT_STRONG: Senha não é forte o bastante.
 VALIDATOR_ERROR_FIELD_IS_REQUIRED: O campo "{field}" é mandatório.
 VALIDATOR_ERROR_FIELD_IS_TOO_LONG: O campo "{field}" é longo demais (máximo de caracteres é {maxLength}).
 VALIDATOR_ERROR_EMAIL_INVALID: O email "{email}" é inválido.

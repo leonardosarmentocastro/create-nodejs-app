@@ -20,7 +20,8 @@
     "ava": "^3.15.0"
   },
   "dependencies": {
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "zxcvbn": "^4.4.2"
   },
   "peerDependencies": {
     "validator": "^13.6.0"
