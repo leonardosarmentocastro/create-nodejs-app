@@ -35,3 +35,8 @@
           - assino um token pra ele
           - retorno o usuário alterado no body e o token no header
 
+---
+
+- tirar conceito de "roles"
+- adicionar conceito de token no banco (atrelado ao dispositivo de acesso)?
+-

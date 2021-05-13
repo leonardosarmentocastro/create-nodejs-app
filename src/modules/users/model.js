@@ -10,7 +10,7 @@ const {
   validate,
 } = require('@leonardosarmentocastro/validate');
 
-const { commonSchema } = require('@leonardosarmentocastro/database');
+const { commonSchema, transform } = require('@leonardosarmentocastro/database');
 const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const usersSchema = new mongoose.Schema({
@@ -32,17 +32,6 @@ const validationsMiddleware = async (userDoc, next) => {
   return next(error);
 };
 
-// Virtuals - https://mongoosejs.com/docs/api.html#document_Document-toObject
-const transform = (doc, ret) => {
-  const {
-    __v, _id, // MongoDB default
-    password, // From "authenticationSchema"
-    ...fields
-  } = ret;
-
-  return fields;
-};
-
 // Setup
 usersSchema.add(commonSchema);
 usersSchema.add(authenticationSchema);
@@ -56,7 +45,6 @@ usersSchema.set('toObject', {
 const UsersModel = mongoose.model('User', usersSchema);
 
 module.exports = {
-  transform,
   usersSchema,
   UsersModel,
   USERS_USERNAME_MAX_LENGTH,
