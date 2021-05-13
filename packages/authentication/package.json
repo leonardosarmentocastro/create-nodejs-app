@@ -32,7 +32,8 @@
     "upash": "^1.0.2"
   },
   "peerDependencies": {
-    "@leonardosarmentocastro/database": "0.0.4",
+    "@leonardosarmentocastro/crud": "0.0.3",
+    "@leonardosarmentocastro/database": "0.0.8",
     "@leonardosarmentocastro/i18n": "0.0.1",
     "@leonardosarmentocastro/server": "0.0.2",
     "@leonardosarmentocastro/validate": "0.0.2",
