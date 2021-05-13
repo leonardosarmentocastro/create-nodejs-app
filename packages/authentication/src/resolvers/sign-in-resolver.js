@@ -1,11 +1,12 @@
+const { isRequiredValidator, validate } = require('@leonardosarmentocastro/validate');
+
+const { DEFAULTS } = require('../defaults');
 const { encrypter } = require('../encrypter');
 const {
   translatedError,
   AUTHENTICATION_ERROR_EMAIL_NOT_FOUND,
   AUTHENTICATION_ERROR_PASSWORD_MISMATCH,
 } = require('../errors');
-const { DEFAULTS } = require('../defaults');
-const { isRequiredValidator, validate } = require('@leonardosarmentocastro/validate');
 
 exports.signInResolver = (model = DEFAULTS.model) => async (req, res, next) => {
   try {
