@@ -21,7 +21,7 @@ test('[preSaveMiddleware] must set a new value to "updatedAt" field', async t =>
   t.assert(schema.updatedAt !== oneDayAgo);
 });
 
-test('(transform) must strip "__v", "_id" and "password" from doc', t => {
+test('(transform) must strip "__v" and "_id" from doc', t => {
   const fieldsNotToBeStripped = {
     id: '123',
     email: 'email@domain.com',
@@ -34,7 +34,6 @@ test('(transform) must strip "__v", "_id" and "password" from doc', t => {
 
     __v: 0,
     _id: 'must be stripped',
-    password: '123',
   };
 
   t.deepEqual(transform(doc, ret), fieldsNotToBeStripped);

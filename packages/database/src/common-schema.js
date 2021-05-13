@@ -13,7 +13,6 @@ const preSaveMiddleware = function(next) {
 const transform = (doc, ret) => {
   const {
     __v, _id, // MongoDB default
-    password, // from "@leonardo.sarmentocastro/authentication"
     ...fields
   } = ret;
 
@@ -34,6 +33,7 @@ const commonSchema = new mongoose.Schema({
   },
 });
 commonSchema.pre('save', preSaveMiddleware);
+commonSchema.set('toObject', { transform });
 
 module.exports = {
   commonSchema,
