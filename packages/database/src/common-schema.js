@@ -7,7 +7,18 @@ const preSaveMiddleware = function(next) {
   schema.updatedAt = schema.updatedAt ? dayjs().toISOString() : schema.createdAt;
 
   next();
-}
+};
+
+// Virtuals - https://mongoosejs.com/docs/api.html#document_Document-toObject
+const transform = (doc, ret) => {
+  const {
+    __v, _id, // MongoDB default
+    password, // From "authenticationSchema"
+    ...fields
+  } = ret;
+
+  return fields;
+};
 
 // Schema definitions
 const commonSchema = new mongoose.Schema({
@@ -23,8 +34,13 @@ const commonSchema = new mongoose.Schema({
   },
 });
 commonSchema.pre('save', preSaveMiddleware);
+commonSchema.set('toObject', {
+  transform,
+  virtuals: true // Expose "id" instead of "_id".
+});
 
 module.exports = {
+  commonSchema,
   preSaveMiddleware,
-  commonSchema
+  transform,
 };

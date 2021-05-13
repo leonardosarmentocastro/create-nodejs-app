@@ -1,7 +1,7 @@
 const dayjs = require('dayjs');
 const test = require('ava');
 
-const { preSaveMiddleware } = require('../../common-schema');
+const { preSaveMiddleware, transform } = require('../../common-schema');
 
 test('[preSaveMiddleware] must set the same value of "createdAt" to "updateAt" on document creation', async t => {
   const next = () => null;
@@ -19,4 +19,23 @@ test('[preSaveMiddleware] must set a new value to "updatedAt" field', async t =>
 
   preSaveMiddleware.call(schema, next);
   t.assert(schema.updatedAt !== oneDayAgo);
+});
+
+test('(transform) must strip "__v", "_id" and "password" from doc', t => {
+  const fieldsNotToBeStripped = {
+    id: '123',
+    email: 'email@domain.com',
+    username: 'username'
+  };
+
+  const doc = {}; // The mongoose document which is being converted
+  const ret = { // The plain object representation which has been converted
+    ...fieldsNotToBeStripped,
+
+    __v: 0,
+    _id: 'must be stripped',
+    password: '123',
+  };
+
+  t.deepEqual(transform(doc, ret), fieldsNotToBeStripped);
 });
