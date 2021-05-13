@@ -1,0 +1,38 @@
+{
+  "name": "@leonardosarmentocastro/authentication",
+  "version": "0.0.0",
+  "description": "authentication",
+  "main": "src/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
+    "test:functional": "ava **/functional/**/*.test.js --verbose --serial"
+  },
+  "keywords": [
+    "authentication",
+    "express",
+    "mongoose"
+  ],
+  "author": "leonardosarmentocastro",
+  "license": "ISC",
+  "dependencies": {
+    "@leonardosarmentocastro/database": "0.0.4",
+    "@leonardosarmentocastro/i18n": "0.0.1",
+    "@leonardosarmentocastro/server": "0.0.2",
+    "@leonardosarmentocastro/validate": "0.0.1",
+    "mongoose": "^5.12.7"
+  },
+  "peerDependencies": {
+    "@leonardosarmentocastro/database": "0.0.4",
+    "@leonardosarmentocastro/i18n": "0.0.1",
+    "@leonardosarmentocastro/server": "0.0.2",
+    "@leonardosarmentocastro/validate": "0.0.1",
+    "mongoose": "^5.12.7"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "got": "^11.8.2"
+  }
+}
