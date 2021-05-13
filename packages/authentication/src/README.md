@@ -1,16 +1,3 @@
-environment variables
-process.env.AUTHENTICATION_SECRET
-
-translation keys
-AUTHENTICATION_ERROR_EMAIL_NOT_FOUND:
-AUTHENTICATION_ERROR_PASSWORD_MISMATCH:
-AUTHENTICATION_ERROR_TOKEN_EXPIRED:
-AUTHENTICATION_ERROR_TOKEN_INVALID:
-AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE:
-
----
-
-
 > criar usuário
   > digita usuário/senha
   > confirma formulario
@@ -35,6 +22,7 @@ AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE:
   - assino um novo token
   - retorno informações mais recentes do usuário no body e o token no header
 
+TODO: NUM FUTURO DISTANTE
 > alterar dados do usuário
   > checo a "role" do usuário
     > se usuário é "admin"
@@ -47,9 +35,3 @@ AUTHENTICATION_ERROR_TOKEN_NOT_BEFORE:
           - permitir alterar dados
           - assino um token pra ele
           - retorno o usuário alterado no body e o token no header
-
----
-
-- tirar conceito de "roles"
-- adicionar conceito de token no banco (atrelado ao dispositivo de acesso)?
--
