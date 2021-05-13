@@ -7,8 +7,9 @@
     "access": "public"
   },
   "scripts": {
-    "test": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 npm run test:functional",
-    "test:functional": "ava **/functional/**/*.test.js --verbose --serial"
+    "database:start": "docker-compose stop database && docker-compose up -d database",
+    "test": "npm run database:start && npm run test:functional",
+    "test:functional": "MONGODB_DATABASE_NAME=db-test MONGODB_HOST=0.0.0.0 ava **/functional/**/*.test.js --verbose --serial"
   },
   "keywords": [
     "crud",
