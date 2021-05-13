@@ -1,6 +1,6 @@
 {
   "name": "@leonardosarmentocastro/crud",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "crud",
   "main": "src/index.js",
   "publishConfig": {
