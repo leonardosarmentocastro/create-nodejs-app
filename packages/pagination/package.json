@@ -1,6 +1,6 @@
 {
   "name": "@leonardosarmentocastro/pagination",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "mongoose pagination",
   "main": "src/index.js",
   "publishConfig": {
@@ -20,7 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@leonardosarmentocastro/database": "0.0.2",
-    "@leonardosarmentocastro/i18n": "^0.0.1",
+    "@leonardosarmentocastro/i18n": "^0.1.0",
     "ava": "^3.15.0",
     "mongoose": "^5.12.7"
   },
