@@ -10,7 +10,7 @@
     "start:server": "nodemon index.js",
     "start:production": "node index.js",
     "start": "npm run env:symlink:development && npm run start:database && npm run start:server",
-    "test": "npm run test:unit && npm run test:functional:local",
+    "test": "npm run test:functional:local",
     "test:ci": "nyc npm run test:unit && npm run test:functional",
     "test:functional": "ava **/functional/**/*.test.js --verbose --serial",
     "test:functional:create-docs": "CREATE_DOCS=true npm run test:functional:local",
