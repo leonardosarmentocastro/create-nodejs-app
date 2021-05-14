@@ -3,5 +3,4 @@ module.exports = {
   ...require('./errors'),
   ...require('./middleware'),
   ...require('./schema'),
-  ...require('./validators'),
 };
