@@ -4,7 +4,6 @@ env:
   APP_NAME: create-nodejs-app
   APP_PROCESS_TYPE: web
   AUTHENTICATION_SECRET: authentication-secret-test
-  AUTHORIZATION_TOKEN: authorization-token-test
   LANGUAGE: pt-br # Not necessary to set, as default values are already set in code.
   NODE_ENV: test
   MONGODB_DATABASE_NAME: db-ci
