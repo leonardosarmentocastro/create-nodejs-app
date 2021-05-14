@@ -39,7 +39,6 @@ usersSchema.plugin(plugSchema(authenticationSchema));
 usersSchema.plugin(paginationPlugin);
 usersSchema.post('validate', validationsMiddleware);
 
-
 const UsersModel = mongoose.model('User', usersSchema);
 
 module.exports = {

@@ -1,6 +1,6 @@
 const i18n = require('@leonardosarmentocastro/i18n');
 const server = require('@leonardosarmentocastro/server');
-const { authenticationMiddleware } = require('@leonardosarmentocastro/authentication');
+// const { authenticationMiddleware } = require('@leonardosarmentocastro/authentication'); // TODO: plug when?
 
 const modules = require('./modules');
 
