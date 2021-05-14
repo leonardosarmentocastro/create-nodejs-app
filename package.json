@@ -31,7 +31,7 @@
     "the-owl": "1.1.1"
   },
   "dependencies": {
-    "@leonardosarmentocastro/authentication": "0.0.1",
+    "@leonardosarmentocastro/authentication": "0.0.2",
     "@leonardosarmentocastro/crud": "0.0.5",
     "@leonardosarmentocastro/database": "0.0.8",
     "@leonardosarmentocastro/i18n": "0.0.1",
