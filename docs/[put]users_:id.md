@@ -21,18 +21,14 @@
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1be4057d3b514048f8 \
--d '{
-  "email": "new-email@domain.com"
-}' \
+http://localhost:51501/users/609e03da4e73c579b910d3f7 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1be4057d3b514048f8`
+Path: `/users/609e03da4e73c579b910d3f7`
 
 Query parameters: _empty_
 
@@ -41,16 +37,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "new-email@domain.com"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -62,11 +51,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:23.209Z",
-  "updatedAt": "2019-09-09T22:07:23.857Z",
+  "createdAt": "2021-05-14T05:00:10.324Z",
+  "updatedAt": "2021-05-14T05:00:11.620Z",
   "email": "new-email@domain.com",
   "username": "username123",
-  "id": "5d76cd1be4057d3b514048f8"
+  "id": "609e03da4e73c579b910d3f7"
 }
 ```
 
@@ -74,18 +63,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1be4057d3b514048f9 \
--d '{
-  "username": "new-username"
-}' \
+http://localhost:51501/users/609e03db4e73c579b910d3f8 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1be4057d3b514048f9`
+Path: `/users/609e03db4e73c579b910d3f8`
 
 Query parameters: _empty_
 
@@ -94,16 +79,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "username": "new-username"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -115,11 +93,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:23.209Z",
-  "updatedAt": "2019-09-09T22:07:24.286Z",
+  "createdAt": "2021-05-14T05:00:10.324Z",
+  "updatedAt": "2021-05-14T05:00:11.912Z",
   "email": "email@domain.com",
   "username": "new-username",
-  "id": "5d76cd1be4057d3b514048f9"
+  "id": "609e03db4e73c579b910d3f8"
 }
 ```
 
@@ -127,18 +105,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ce4057d3b514048fa \
--d '{
-  "password": "abc123def!@#"
-}' \
+http://localhost:51501/users/609e03db4e73c579b910d3f9 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ce4057d3b514048fa`
+Path: `/users/609e03db4e73c579b910d3f9`
 
 Query parameters: _empty_
 
@@ -147,16 +121,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -168,11 +135,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:23.209Z",
-  "updatedAt": "2019-09-09T22:07:24.331Z",
+  "createdAt": "2021-05-14T05:00:10.324Z",
+  "updatedAt": "2021-05-14T05:00:11.971Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d76cd1ce4057d3b514048fa"
+  "id": "609e03db4e73c579b910d3f9"
 }
 ```
 
@@ -180,19 +147,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ce4057d3b514048fb \
--d '{
-  "email": "email@domain.com",
-  "username": "username123"
-}' \
+http://localhost:51501/users/609e03db4e73c579b910d3fa \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ce4057d3b514048fb`
+Path: `/users/609e03db4e73c579b910d3fa`
 
 Query parameters: _empty_
 
@@ -201,17 +163,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -223,11 +177,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:23.209Z",
-  "updatedAt": "2019-09-09T22:07:24.666Z",
+  "createdAt": "2021-05-14T05:00:10.324Z",
+  "updatedAt": "2021-05-14T05:00:12.499Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d76cd1ce4057d3b514048fb"
+  "id": "609e03db4e73c579b910d3fa"
 }
 ```
 
@@ -235,21 +189,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ce4057d3b514048fc \
--d '{
-  "id": "value",
-  "_id": "value",
-  "createdAt": "value",
-  "updatedAt": "value"
-}' \
+http://localhost:51501/users/609e03dc4e73c579b910d3fb \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ce4057d3b514048fc`
+Path: `/users/609e03dc4e73c579b910d3fb`
 
 Query parameters: _empty_
 
@@ -258,19 +205,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "id": "value",
-  "_id": "value",
-  "createdAt": "value",
-  "updatedAt": "value"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -282,11 +219,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:23.209Z",
-  "updatedAt": "2019-09-09T22:07:24.960Z",
+  "createdAt": "2021-05-14T05:00:10.324Z",
+  "updatedAt": "2021-05-14T05:00:13.036Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d76cd1ce4057d3b514048fc"
+  "id": "609e03dc4e73c579b910d3fb"
 }
 ```
 
@@ -294,18 +231,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ce4057d3b514048fd \
--d '{
-  "email": "invalid@123!!!!.com.br"
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d3fc \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ce4057d3b514048fd`
+Path: `/users/609e03dd4e73c579b910d3fc`
 
 Query parameters: _empty_
 
@@ -314,16 +247,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "invalid@123!!!!.com.br"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -335,7 +261,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_EMAIL_INVALID",
+  "code": "VALIDATOR_ERROR_EMAIL_INVALID",
   "field": "email",
   "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
@@ -345,18 +271,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1de4057d3b514048fe \
--d '{
-  "password": "123456789"
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d3fd \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1de4057d3b514048fe`
+Path: `/users/609e03dd4e73c579b910d3fd`
 
 Query parameters: _empty_
 
@@ -365,16 +287,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "password": "123456789"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -395,9 +310,9 @@ Body:
     },
     "score": 0
   },
-  "code": "AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG",
+  "code": "VALIDATOR_ERROR_PASSWORD_NOT_STRONG",
   "field": "password",
-  "message": "Autenticação falhou pois a senha não é forte o bastante."
+  "message": "Senha não é forte o bastante."
 }
 ```
 
@@ -405,14 +320,13 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1de4057d3b51404900 \
+http://localhost:51501/users/609e03dd4e73c579b910d3ff \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1de4057d3b51404900`
+Path: `/users/609e03dd4e73c579b910d3ff`
 
 Query parameters: _empty_
 
@@ -421,7 +335,6 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -435,9 +348,9 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_USER_NOT_FOUND",
+  "code": "ERROR_DOCUMENT_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d76cd1de4057d3b51404900\" não encontrado."
+  "message": "Documento para id \"609e03dd4e73c579b910d3ff\" não foi encontrado."
 }
 ```
 
@@ -445,20 +358,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1de4057d3b51404901 \
--d '{
-  "email": "email@already-being-used.com",
-  "username": "user2_username123",
-  "password": "user2_abc123def!@#"
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d400 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1de4057d3b51404901`
+Path: `/users/609e03dd4e73c579b910d400`
 
 Query parameters: _empty_
 
@@ -467,18 +374,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@already-being-used.com",
-  "username": "user2_username123",
-  "password": "user2_abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -490,9 +388,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE",
   "field": "email",
-  "message": "Este email já está em uso."
+  "message": "Este \"email\" já está em uso."
 }
 ```
 
@@ -500,20 +398,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1de4057d3b51404903 \
--d '{
-  "email": "user2_email@domain.com",
-  "username": "already-being-used",
-  "password": "user2_abc123def!@#"
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d402 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1de4057d3b51404903`
+Path: `/users/609e03dd4e73c579b910d402`
 
 Query parameters: _empty_
 
@@ -522,18 +414,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "user2_email@domain.com",
-  "username": "already-being-used",
-  "password": "user2_abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -545,9 +428,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE",
   "field": "username",
-  "message": "Este username já está em uso."
+  "message": "Este \"username\" já está em uso."
 }
 ```
 
@@ -555,18 +438,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1de4057d3b51404905 \
--d '{
-  "email": ""
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d404 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1de4057d3b51404905`
+Path: `/users/609e03dd4e73c579b910d404`
 
 Query parameters: _empty_
 
@@ -575,16 +454,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": ""
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -596,7 +468,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "email",
   "message": "O campo \"email\" é mandatório."
 }
@@ -606,18 +478,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ee4057d3b51404906 \
--d '{
-  "username": ""
-}' \
+http://localhost:51501/users/609e03dd4e73c579b910d405 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ee4057d3b51404906`
+Path: `/users/609e03dd4e73c579b910d405`
 
 Query parameters: _empty_
 
@@ -626,16 +494,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "username": ""
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -647,7 +508,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "username",
   "message": "O campo \"username\" é mandatório."
 }
@@ -657,18 +518,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ee4057d3b51404907 \
--d '{
-  "password": ""
-}' \
+http://localhost:51501/users/609e03de4e73c579b910d406 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ee4057d3b51404907`
+Path: `/users/609e03de4e73c579b910d406`
 
 Query parameters: _empty_
 
@@ -677,16 +534,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "password": ""
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -698,7 +548,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "password",
   "message": "O campo \"password\" é mandatório."
 }
@@ -708,18 +558,14 @@ Body:
 
 ```sh
 curl -X PUT \
-http://localhost:52532/users/5d76cd1ee4057d3b51404908 \
--d '{
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
-}' \
+http://localhost:51501/users/609e03de4e73c579b910d407 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd1ee4057d3b51404908`
+Path: `/users/609e03de4e73c579b910d407`
 
 Query parameters: _empty_
 
@@ -728,16 +574,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -749,9 +588,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_TOO_LONG",
+  "code": "VALIDATOR_ERROR_FIELD_IS_TOO_LONG",
   "field": "username",
   "maxLength": 24,
-  "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é 24)."
+  "message": "O campo \"username\" é longo demais (máximo de caracteres é 24)."
 }
 ```

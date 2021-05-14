@@ -8,14 +8,8 @@
 
 ```sh
 curl -X POST \
-http://localhost:52627/authentication/sign-up \
--d '{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51467/authentication/sign-up \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -30,18 +24,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -51,6 +36,6 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
-| authorization | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNTY4MDY2ODUzLCJleHAiOjE1Njg2NzE2NTMsImlzcyI6ImNyZWF0ZS1ub2RlanMtYXBwL2F1dGhlbnRpY2F0aW9uIiwic3ViIjoiNWQ3NmNkMjUyZTYzMjIzYjZkZDNmNGU2In0.PZx5hbr3NfvENQQ-mnRtTOM9Q8Wqk5PcWhq5S8oiQ88 |
+| authorization | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjIwOTY4NDA1LCJleHAiOjE2MjE1NzMyMDUsImlzcyI6IkBsZW9uYXJkb3Nhcm1lbnRvY2FzdHJvL2F1dGhlbnRpY2F0aW9uIiwic3ViIjoiNjA5ZTAzZDVmNmJiZTk3OWI0NmU1ZjUwIn0.nfsl_9jpm2C1H69IJkvnhZbRlWWZFV2mVYHlBp3QolA |
 
 Body: _empty_

@@ -9,14 +9,13 @@
 
 ```sh
 curl -X DELETE \
-http://localhost:52605/users/5d76cd225ceebd3b6a74e74b \
+http://localhost:51471/users/609e03d6514cce79b5f656c0 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d76cd225ceebd3b6a74e74b`
+Path: `/users/609e03d6514cce79b5f656c0`
 
 Query parameters: _empty_
 
@@ -25,7 +24,6 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -41,9 +39,8 @@ Body: _empty_
 
 ```sh
 curl -X DELETE \
-http://localhost:52605/users/123 \
+http://localhost:51471/users/123 \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
@@ -57,7 +54,6 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -71,8 +67,8 @@ Body:
 
 ```
 {
-  "code": "USERS_ERROR_USER_NOT_FOUND",
+  "code": "ERROR_DOCUMENT_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"123\" não encontrado."
+  "message": "Documento para id \"123\" não foi encontrado."
 }
 ```

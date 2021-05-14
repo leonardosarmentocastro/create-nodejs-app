@@ -17,14 +17,8 @@
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -39,18 +33,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -62,11 +47,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:27.790Z",
-  "updatedAt": "2019-09-09T22:07:27.790Z",
+  "createdAt": "2021-05-14T05:00:09.105Z",
+  "updatedAt": "2021-05-14T05:00:09.105Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d76cd1f07f5b83b5fbf792c"
+  "id": "609e03d9408fdb79b84266be"
 }
 ```
 
@@ -74,18 +59,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#",
-  "id": "value",
-  "_id": "value",
-  "createdAt": "value",
-  "updatedAt": "value"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -100,22 +75,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "abc123def!@#",
-  "id": "value",
-  "_id": "value",
-  "createdAt": "value",
-  "updatedAt": "value"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -127,11 +89,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-09-09T22:07:27.790Z",
-  "updatedAt": "2019-09-09T22:07:27.790Z",
+  "createdAt": "2021-05-14T05:00:09.105Z",
+  "updatedAt": "2021-05-14T05:00:09.105Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d76cd1f07f5b83b5fbf792d"
+  "id": "609e03d9408fdb79b84266bf"
 }
 ```
 
@@ -139,14 +101,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "invalid@123!!!!.com.br",
-  "username": "username123",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -161,18 +117,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "invalid@123!!!!.com.br",
-  "username": "username123",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -184,7 +131,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_EMAIL_INVALID",
+  "code": "VALIDATOR_ERROR_EMAIL_INVALID",
   "field": "email",
   "message": "O email \"invalid@123!!!!.com.br\" é inválido."
 }
@@ -194,14 +141,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "123456789"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -216,18 +157,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": "123456789"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -248,9 +180,9 @@ Body:
     },
     "score": 0
   },
-  "code": "AUTHENTICATION_ERROR_PASSWORD_NOT_STRONG",
+  "code": "VALIDATOR_ERROR_PASSWORD_NOT_STRONG",
   "field": "password",
-  "message": "Autenticação falhou pois a senha não é forte o bastante."
+  "message": "Senha não é forte o bastante."
 }
 ```
 
@@ -258,14 +190,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@already-being-used.com",
-  "username": "user2_username123",
-  "password": "user2_abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -280,18 +206,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@already-being-used.com",
-  "username": "user2_username123",
-  "password": "user2_abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -303,9 +220,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE",
   "field": "email",
-  "message": "Este email já está em uso."
+  "message": "Este \"email\" já está em uso."
 }
 ```
 
@@ -313,14 +230,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "user2_email@domain.com",
-  "username": "already-being-used",
-  "password": "user2_abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -335,18 +246,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "user2_email@domain.com",
-  "username": "already-being-used",
-  "password": "user2_abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -358,9 +260,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_ALREADY_IN_USE",
+  "code": "VALIDATOR_ERROR_FIELD_IS_ALREADY_IN_USE",
   "field": "username",
-  "message": "Este username já está em uso."
+  "message": "Este \"username\" já está em uso."
 }
 ```
 
@@ -368,14 +270,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "",
-  "username": "username123",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -390,18 +286,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "",
-  "username": "username123",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -413,7 +300,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "email",
   "message": "O campo \"email\" é mandatório."
 }
@@ -423,14 +310,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -445,18 +326,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -468,7 +340,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "username",
   "message": "O campo \"username\" é mandatório."
 }
@@ -478,14 +350,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": ""
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -500,18 +366,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "username123",
-  "password": ""
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -523,7 +380,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "password",
   "message": "O campo \"password\" é mandatório."
 }
@@ -533,14 +390,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52573/users \
--d '{
-  "email": "email@domain.com",
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51488/users \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -555,18 +406,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "username": "aaaaaaaaaaaaaaaaaaaaaaaaa",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -578,9 +420,9 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_TOO_LONG",
+  "code": "VALIDATOR_ERROR_FIELD_IS_TOO_LONG",
   "field": "username",
   "maxLength": 24,
-  "message": "O nome de usuário \"aaaaaaaaaaaaaaaaaaaaaaaaa\" é longo demais (máximo de caracteres é 24)."
+  "message": "O campo \"username\" é longo demais (máximo de caracteres é 24)."
 }
 ```

@@ -12,13 +12,8 @@
 
 ```sh
 curl -X POST \
-http://localhost:52488/authentication/sign-in \
--d '{
-  "email": "email@domain.com",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51459/authentication/sign-in \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -33,17 +28,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -53,7 +40,7 @@ Headers:
 
 | Key | Value |
 | :--- | :--- |
-| authorization | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNTY4MDY2ODM5LCJleHAiOjE1Njg2NzE2MzksImlzcyI6ImNyZWF0ZS1ub2RlanMtYXBwL2F1dGhlbnRpY2F0aW9uIiwic3ViIjoiNWQ3NmNkMTczYWFiOTAzYjNkNGEwYzE4In0.oi-31tS8ZeAcwEX4Sc-yaRYHXyyt066A-EvSLbKoC24 |
+| authorization | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7fSwiaWF0IjoxNjIwOTY4NDA0LCJleHAiOjE2MjE1NzMyMDQsImlzcyI6IkBsZW9uYXJkb3Nhcm1lbnRvY2FzdHJvL2F1dGhlbnRpY2F0aW9uIiwic3ViIjoiNjA5ZTAzZDQyNjU0YmI3OWIyYzZkMmQ1In0.pyW8e3Z3XPf4KC-EHj6mXgUEF5r2qZTaQYVVoXZYoqk |
 
 Body: _empty_
 
@@ -61,12 +48,8 @@ Body: _empty_
 
 ```sh
 curl -X POST \
-http://localhost:52488/authentication/sign-in \
--d '{
-  "password": "abc123def!@#"
-}' \
+http://localhost:51459/authentication/sign-in \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -81,16 +64,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -102,7 +78,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "email",
   "message": "O campo \"email\" é mandatório."
 }
@@ -112,12 +88,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52488/authentication/sign-in \
--d '{
-  "email": "email@domain.com"
-}' \
+http://localhost:51459/authentication/sign-in \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -132,16 +104,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -153,7 +118,7 @@ Body:
 
 ```
 {
-  "code": "SHARED_ERROR_FIELD_IS_REQUIRED",
+  "code": "VALIDATOR_ERROR_FIELD_IS_REQUIRED",
   "field": "password",
   "message": "O campo \"password\" é mandatório."
 }
@@ -163,13 +128,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52488/authentication/sign-in \
--d '{
-  "email": "not-registered-email@domain.com",
-  "password": "abc123def!@#"
-}' \
+http://localhost:51459/authentication/sign-in \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -184,17 +144,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "not-registered-email@domain.com",
-  "password": "abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -206,7 +158,7 @@ Body:
 
 ```
 {
-  "code": "AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND",
+  "code": "AUTHENTICATION_ERROR_EMAIL_NOT_FOUND",
   "message": "Autenticação falhou pois não há nenhum usuário registrado com este email."
 }
 ```
@@ -215,13 +167,8 @@ Body:
 
 ```sh
 curl -X POST \
-http://localhost:52488/authentication/sign-in \
--d '{
-  "email": "email@domain.com",
-  "password": "not-abc123def!@#"
-}' \
+http://localhost:51459/authentication/sign-in \
 -H 'accept-language: pt-br'
--H 'authorization: authorization-token-dev'
 -H 'content-type: application/json'
 ```
 
@@ -236,17 +183,9 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
-| authorization | authorization-token-dev |
 | content-type | application/json |
 
-Body: 
-
-```
-{
-  "email": "email@domain.com",
-  "password": "not-abc123def!@#"
-}
-```
+Body: _empty_
 
 **Response** :hatching_chick:
 
@@ -258,7 +197,7 @@ Body:
 
 ```
 {
-  "code": "AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH",
+  "code": "AUTHENTICATION_ERROR_PASSWORD_MISMATCH",
   "message": "Autenticação falhou pois a senha fornecida não corresponde a senha do usuário."
 }
 ```
