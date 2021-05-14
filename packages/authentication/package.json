@@ -20,7 +20,7 @@
   "author": "leonardosarmentocastro",
   "license": "ISC",
   "dependencies": {
-    "@leonardosarmentocastro/crud": "0.0.4",
+    "@leonardosarmentocastro/crud": "0.0.5",
     "@leonardosarmentocastro/database": "0.0.8",
     "@leonardosarmentocastro/i18n": "0.0.1",
     "@leonardosarmentocastro/server": "0.0.2",
