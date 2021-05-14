@@ -3,7 +3,7 @@ const got = require('got');
 const { invalidUserFixture, validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
 const { translate } = require('@leonardosarmentocastro/i18n');
-const { isPasswordStrongValidator } = require('../../../../authentication');
+const { isPasswordStrongValidator } = require('@leonardosarmentocastro/validate');
 
 exports.passwordIsStrongTestcase = {
   title: '(500) must return an error when providing a "password" that is not strong enough',

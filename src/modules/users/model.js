@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-
-// WARNING: Circular dependency prone: server startup > (bootstrap users module) "createUserResolver" requires "UsersModel" > requires "authentication barrel" > "connect" requires "createUserResolver"
-const { authenticationSchema } = require('../authentication/schema'); // TODO: think it at higher level on how to avoid it with module exporting convention
+const { authenticationSchema } = require('@leonardosarmentocastro/authentication'); // TODO: think it at higher level on how to avoid it with module exporting convention
+const { commonSchema, plugSchema, transform } = require('@leonardosarmentocastro/database');
+const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 const {
   isAlreadyInUseValidator,
   isRequiredValidator,
@@ -9,9 +9,6 @@ const {
   isValidEmailValidator,
   validate,
 } = require('@leonardosarmentocastro/validate');
-
-const { commonSchema, transform } = require('@leonardosarmentocastro/database');
-const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 
 const usersSchema = new mongoose.Schema({
   email: String,
@@ -33,14 +30,15 @@ const validationsMiddleware = async (userDoc, next) => {
 };
 
 // Setup
-usersSchema.add(commonSchema);
-usersSchema.add(authenticationSchema);
-usersSchema.plugin(paginationPlugin);
-usersSchema.post('validate', validationsMiddleware);
 usersSchema.set('toObject', {
   transform,
   virtuals: true // Expose "id" instead of "_id".
 });
+usersSchema.plugin(plugSchema(commonSchema));
+usersSchema.plugin(plugSchema(authenticationSchema));
+usersSchema.plugin(paginationPlugin);
+usersSchema.post('validate', validationsMiddleware);
+
 
 const UsersModel = mongoose.model('User', usersSchema);
 

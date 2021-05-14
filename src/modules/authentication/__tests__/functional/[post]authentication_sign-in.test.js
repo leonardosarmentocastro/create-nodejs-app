@@ -2,15 +2,15 @@ const test = require('ava');
 const got = require('got');
 const jwt = require('jsonwebtoken');
 const theOwl = require('the-owl');
-
-const { database } = require('@leonardosarmentocastro/database');
 const {
-  AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND,
-  AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH,
-} = require('../../errors');
+  AUTHENTICATION_ERROR_EMAIL_NOT_FOUND,
+  AUTHENTICATION_ERROR_PASSWORD_MISMATCH,
+} = require('@leonardosarmentocastro/authentication');
+const { database } = require('@leonardosarmentocastro/database');
 const { translate } = require('@leonardosarmentocastro/i18n');
-const { UsersModel } = require('../../../users/model');
 const { isRequiredValidator } = require('@leonardosarmentocastro/validate');
+
+const { UsersModel } = require('../../../users/model');
 const { validUserFixture } = require('../../../users/__tests__/__fixtures__');
 const {
   closeApiOpenedOnRandomPort,
@@ -84,7 +84,7 @@ test('(404) must return an error when providing an "email" that is not registere
   })
   .catch(error => {
     t.assert(error.response.statusCode == 404);
-    t.deepEqual(error.response.body, translate.error(AUTHENTICATION_ERROR_USER_EMAIL_NOT_FOUND, LOCALE, {}));
+    t.deepEqual(error.response.body, translate.error(AUTHENTICATION_ERROR_EMAIL_NOT_FOUND, LOCALE, {}));
   });
 });
 
@@ -98,6 +98,6 @@ test('(404) must return an error when providing a "password" that mismatches use
   })
   .catch(error => {
     t.assert(error.response.statusCode == 404);
-    t.deepEqual(error.response.body, translate.error(AUTHENTICATION_ERROR_USER_PASSWORD_MISMATCH, LOCALE, {}));
+    t.deepEqual(error.response.body, translate.error(AUTHENTICATION_ERROR_PASSWORD_MISMATCH, LOCALE, {}));
   });
 });
