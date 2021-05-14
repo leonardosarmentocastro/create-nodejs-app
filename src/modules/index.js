@@ -1,5 +1,5 @@
 // CONVENTION: Re-export each module.
 module.exports = {
-  health: { ...require('./health') },
+  authentication: { ...require('./authentication') },
   users: { ...require('./users') },
 };

@@ -1,10 +1,10 @@
 const got = require('got');
 
 const { validPrefixedUserFixture } = require('../../__fixtures__');
-const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
-const { translate } = require('../../../../../i18n');
+const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
+const { translate } = require('@leonardosarmentocastro/i18n');
 const { UsersModel } = require('../../../model');
-const { isAlreadyInUseValidator } = require('../../../../../shared');
+const { isAlreadyInUseValidator } = require('@leonardosarmentocastro/validate');
 
 exports.fieldIsAlreadyInUseTestcase = (field, value) => ({
   title: `(500) must return a translated error when "${field}" is already in use by another user`,

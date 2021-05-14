@@ -1,3 +1,10 @@
+# create-nodejs-app
+
+TODO:
+- aceitar o PR e iniciar processo LERNA
+- add "isMatchinRegex" validator from 'hayashiteam/api'
+- grab changes for "isTooLongValidator" from 'hayashiteam/api'
+
 ## ROADMAP
 
 http://userguide.icu-project.org/formatparse/messages
@@ -14,6 +21,7 @@ https://yaml-multiline.info/
   - add signup, signin and login(try to split it into a module so I can plug in wherever I want)
 4. try libs
   - try on frontend (which is to come): https://github.com/sindresorhus/ky
+5. create fronte-end consumer application
 
 
 ## Templates
@@ -54,7 +62,29 @@ https://yaml-multiline.info/
   * authorization middleware
   * deploy to heroku using travis.ci/gitlab ready
 
-## Working
+## Developing locally
+
+There are two main dependencies: [Node.js](https://github.com/nvm-sh/nvm) and [Docker](https://docs.docker.com/get-docker/).
+
+Once both are installed, land on the project folder and install it's packages:
+
+```sh
+cd ~/poc_nodejs_microservice
+npm install
+```
+
+Now, it's simply as that:
+
+> Database will be started usingand docker-compose, environment variables will be loaded
+> according to `.env.example`/`.env`, and the server will be running locally in live-reload in your terminal.
+
+```sh
+npm start
+```
+
+## Running locally
+
+Check out below another ways to run the micro-service locally, only using Docker:
 
 ```sh
 # Running everything from "docker-compose" and taking advantage from "container name resolution":
@@ -86,11 +116,15 @@ docker-compose up database
 MONGODB_HOST=0.0.0.0 MONGODB_DATABASE_NAME="db-test" npm start
 ```
 
-## Reference
+## Useful links
 
 How do I correctly clone a JavaScript object?
 https://stackoverflow.com/a/10869248/6655011
 
-## Draft
+## Libs to use
 
-Explicando nomenclaturas: Resolvers e o exemplo do "fazer visita a um consultório".
+- sending emails
+https://github.com/forwardemail/email-templates
+
+- Creating CLIs with Ink, React and a bit of magic
+https://vadimdemedes.com/posts/creating-clis-with-ink-react-and-a-bit-of-magic

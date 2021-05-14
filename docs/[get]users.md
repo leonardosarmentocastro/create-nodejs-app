@@ -9,8 +9,9 @@
 
 ```sh
 curl -X GET \
-http://localhost:51182/users?l=2&p=2 \
+http://localhost:52591/users?l=2&p=2 \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
@@ -29,6 +30,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -44,18 +46,18 @@ Body:
 {
   "docs": [
     {
-      "createdAt": "2019-07-13T19:08:38.952Z",
-      "updatedAt": "2019-07-13T19:08:38.952Z",
+      "createdAt": "2019-09-09T22:07:28.903Z",
+      "updatedAt": "2019-09-09T22:07:28.903Z",
       "email": "user3_email@domain.com",
       "username": "user3_username123",
-      "id": "5d2a2c375e5a5b92c91b48b6"
+      "id": "5d76cd21011ecf3b60b2a121"
     },
     {
-      "createdAt": "2019-07-13T19:08:38.952Z",
-      "updatedAt": "2019-07-13T19:08:38.952Z",
+      "createdAt": "2019-09-09T22:07:28.903Z",
+      "updatedAt": "2019-09-09T22:07:28.903Z",
       "email": "user4_email@domain.com",
       "username": "user4_username123",
-      "id": "5d2a2c375e5a5b92c91b48b7"
+      "id": "5d76cd21011ecf3b60b2a122"
     }
   ],
   "hasNextPage": false,
@@ -71,8 +73,9 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:51182/users \
+http://localhost:52591/users \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
@@ -86,6 +89,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 

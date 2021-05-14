@@ -1,9 +1,9 @@
 const got = require('got');
 
 const { validUserFixtureForTestcases } = require('../../__fixtures__');
-const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
-const { translate } = require('../../../../../i18n');
-const { isTooLongValidator } = require('../../../../../shared');
+const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
+const { translate } = require('@leonardosarmentocastro/i18n');
+const { isTooLongValidator } = require('@leonardosarmentocastro/validate');
 
 exports.fieldIsTooLongTestcase = (field, maxLength) => ({
   title: `(500) must return a translated error when providing a "${field}" that exceeds "${maxLength}" characters`,

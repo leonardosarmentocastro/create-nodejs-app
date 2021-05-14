@@ -1,9 +1,9 @@
 const got = require('got');
 
 const { invalidUserFixture, validUserFixtureForTestcases } = require('../../__fixtures__');
-const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
-const { translate } = require('../../../../../i18n');
-const { isValidEmailValidator } = require('../../../../../shared');
+const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
+const { translate } = require('@leonardosarmentocastro/i18n');
+const { isValidEmailValidator } = require('@leonardosarmentocastro/validate');
 
 exports.emailIsInvalidTestcase = {
   title: `(500) must return an error when providing an invalid email`,

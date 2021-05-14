@@ -1,16 +1,16 @@
 const got = require('got');
 
-const { validUserFixtureForTestcases } = require('../../__fixtures__');
+const { invalidUserFixture, validUserFixtureForTestcases } = require('../../__fixtures__');
 const { getRequestOptions, LOCALE } = require('../../../../../__helpers__');
 const { translate } = require('@leonardosarmentocastro/i18n');
-const { isRequiredValidator } = require('@leonardosarmentocastro/validate');
+const { isPasswordStrongValidator } = require('@leonardosarmentocastro/validate');
 
-exports.fieldIsEmptyTestcase = (field) => ({
-  title: `(500) must return a translated error when providing an empty "${field}"`,
+exports.passwordIsStrongTestcase = {
+  title: '(500) must return an error when providing a "password" that is not strong enough',
   test: (t) => {
     const userPayload = {
       ...validUserFixtureForTestcases(t),
-      [field]: '',
+      password: invalidUserFixture.password,
     };
 
     return got(t.context.testcaseUrl, {
@@ -18,9 +18,9 @@ exports.fieldIsEmptyTestcase = (field) => ({
       body: userPayload,
     })
     .catch(error => {
-      const { validator, ...err } = isRequiredValidator(field)(userPayload);
+      const { validator, ...err } = isPasswordStrongValidator(userPayload);
       t.assert(error.response.statusCode == 500);
       t.deepEqual(error.response.body, translate.error(err, LOCALE, userPayload));
-    });
+    })
   },
-});
+};

@@ -1,23 +1,17 @@
-
 const mongoose = require('mongoose');
-
-const { paginationPlugin, sharedSchema } = require('../../shared');
+const { authenticationSchema } = require('@leonardosarmentocastro/authentication'); // TODO: think it at higher level on how to avoid it with module exporting convention
+const { commonSchema, plugSchema, transform } = require('@leonardosarmentocastro/database');
+const { paginationPlugin } = require('@leonardosarmentocastro/pagination');
 const {
   isAlreadyInUseValidator,
-  isValidEmailValidator,
   isRequiredValidator,
   isTooLongValidator,
-  sharedValidate,
-} = require('../../shared');
+  isValidEmailValidator,
+  validate,
+} = require('@leonardosarmentocastro/validate');
 
 const usersSchema = new mongoose.Schema({
   email: String,
-
-  // Set of fields that must be stripped out when serving this model's data.
-  privateFields: {
-    password: String,
-  },
-
   username: String,
 });
 
@@ -25,45 +19,30 @@ const usersSchema = new mongoose.Schema({
 const USERS_USERNAME_MAX_LENGTH = 24;
 const validationsMiddleware = async (userDoc, next) => {
   const constraints = [
-    isRequiredValidator('email'),
-    isRequiredValidator('username'),
-    isValidEmailValidator,
-    isAlreadyInUseValidator('email'),
+    ...['email', 'username'].map(field => isRequiredValidator(field)),
+    ...['email', 'username'].map(field => isAlreadyInUseValidator(field)),
     isTooLongValidator('username', USERS_USERNAME_MAX_LENGTH),
-    isAlreadyInUseValidator('username'),
+    isValidEmailValidator,
   ];
-  const error = await sharedValidate(constraints, userDoc);
+  const error = await validate(constraints, userDoc);
 
   return next(error);
 };
 
-// Virtuals - https://mongoosejs.com/docs/api.html#document_Document-toObject
-const transform = (doc, ret) => {
-  const {
-    __v,
-    _id,
-    privateFields,
-    ...publicFields
-  } = ret;
-
-  return publicFields;
-};
-
 // Setup
-usersSchema.add(sharedSchema);
-usersSchema.plugin(paginationPlugin);
-usersSchema.post('validate', validationsMiddleware);
 usersSchema.set('toObject', {
   transform,
   virtuals: true // Expose "id" instead of "_id".
 });
+usersSchema.plugin(plugSchema(commonSchema));
+usersSchema.plugin(plugSchema(authenticationSchema));
+usersSchema.plugin(paginationPlugin);
+usersSchema.post('validate', validationsMiddleware);
 
 const UsersModel = mongoose.model('User', usersSchema);
 
 module.exports = {
-  transform,
   usersSchema,
   UsersModel,
   USERS_USERNAME_MAX_LENGTH,
-  validationsMiddleware,
 };

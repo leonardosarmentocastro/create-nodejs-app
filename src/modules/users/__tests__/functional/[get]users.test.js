@@ -2,12 +2,12 @@ const test = require('ava');
 const got = require('got');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const { database } = require('@leonardosarmentocastro/database');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { UsersModel } = require('../../model');
 const { validPrefixedUserFixture } = require('../__fixtures__');
 

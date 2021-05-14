@@ -1,8 +1,8 @@
 const got = require('got');
 
 const { validUserFixtureForTestcases } = require('../../__fixtures__');
-const { getRequestOptions, LOCALE } = require('../../../../__helpers__');
-const { SCHEMA_NOT_SETTABLE_FIELDS } = require('../../../../../shared');
+const { getRequestOptions } = require('../../../../../__helpers__');
+const { SCHEMA_NOT_SETTABLE_FIELDS } = require('@leonardosarmentocastro/database');
 
 exports.notSettableFieldsAreIgnoredTestcase = {
   title: `(200) The fields "${SCHEMA_NOT_SETTABLE_FIELDS.toString()}" must be ignored when creating or updating an user`,

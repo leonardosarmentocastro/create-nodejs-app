@@ -9,13 +9,14 @@
 
 ```sh
 curl -X GET \
-http://localhost:51190/users/5d2a2c3718ee6a92d4524cf4 \
+http://localhost:52601/users/5d76cd21f90db03b69f60d71 \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d2a2c3718ee6a92d4524cf4`
+Path: `/users/5d76cd21f90db03b69f60d71`
 
 Query parameters: _empty_
 
@@ -24,6 +25,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -37,11 +39,11 @@ Body:
 
 ```
 {
-  "createdAt": "2019-07-13T19:08:39.789Z",
-  "updatedAt": "2019-07-13T19:08:39.789Z",
+  "createdAt": "2019-09-09T22:07:29.907Z",
+  "updatedAt": "2019-09-09T22:07:29.907Z",
   "email": "email@domain.com",
   "username": "username123",
-  "id": "5d2a2c3718ee6a92d4524cf4"
+  "id": "5d76cd21f90db03b69f60d71"
 }
 ```
 
@@ -49,13 +51,14 @@ Body:
 
 ```sh
 curl -X GET \
-http://localhost:51190/users/5d2a2c3718ee6a92d4524cf5 \
+http://localhost:52601/users/5d76cd22f90db03b69f60d72 \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d2a2c3718ee6a92d4524cf5`
+Path: `/users/5d76cd22f90db03b69f60d72`
 
 Query parameters: _empty_
 
@@ -64,6 +67,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -79,6 +83,6 @@ Body:
 {
   "code": "USERS_ERROR_USER_NOT_FOUND",
   "field": "id",
-  "message": "Usuário \"5d2a2c3718ee6a92d4524cf5\" não encontrado."
+  "message": "Usuário \"5d76cd22f90db03b69f60d72\" não encontrado."
 }
 ```

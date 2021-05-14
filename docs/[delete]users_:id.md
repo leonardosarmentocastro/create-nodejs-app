@@ -1,7 +1,7 @@
 # [delete] /users/:id
 
 * [(200) must succeed on deleting the user, returning an empty body](#2ad51d5aa8)
-* [(500) must return a translated error when searching for an user with an invalid mongo "id"](#c2363a9bad)
+* [(500) must return a translated error when deleting an user with an invalid mongo "id"](#074c048f2a)
 
 ---
 
@@ -9,13 +9,14 @@
 
 ```sh
 curl -X DELETE \
-http://localhost:51196/users/5d2a2c38f1fdb692da29249b \
+http://localhost:52605/users/5d76cd225ceebd3b6a74e74b \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
 
-Path: `/users/5d2a2c38f1fdb692da29249b`
+Path: `/users/5d76cd225ceebd3b6a74e74b`
 
 Query parameters: _empty_
 
@@ -24,6 +25,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 
@@ -35,12 +37,13 @@ Headers: _empty_
 
 Body: _empty_
 
-### :chicken: `(500) must return a translated error when searching for an user with an invalid mongo "id"` <a name="c2363a9bad"></a>
+### :chicken: `(500) must return a translated error when deleting an user with an invalid mongo "id"` <a name="074c048f2a"></a>
 
 ```sh
 curl -X DELETE \
-http://localhost:51196/users/123 \
+http://localhost:52605/users/123 \
 -H 'accept-language: pt-br'
+-H 'authorization: authorization-token-dev'
 ```
 
 **Request** :egg:
@@ -54,6 +57,7 @@ Headers:
 | Key | Value |
 | :--- | :--- |
 | accept-language | pt-br |
+| authorization | authorization-token-dev |
 
 Body: _empty_
 

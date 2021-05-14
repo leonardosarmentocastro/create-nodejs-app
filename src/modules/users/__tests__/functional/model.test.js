@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const database = require('../../../../database');
+const { database } = require('@leonardosarmentocastro/database');
 const { UsersModel } = require('../../model');
 
 test.before(t => database.connect());
@@ -13,6 +13,7 @@ test('user creation must succeeds', async t => {
   await new UsersModel({
     email: 'email@domain.com',
     username: 'username-123',
+    password: 'abc123def!@#' // score 3
   }).save();
 
   t.assert((await getUsersSavedOnDatabase()).length === 1);

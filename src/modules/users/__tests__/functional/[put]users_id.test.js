@@ -3,13 +3,14 @@ const got = require('got');
 const mongoose = require('mongoose');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const { database } = require('@leonardosarmentocastro/database');
 const {
   emailIsInvalidTestcase,
   fieldIsAlreadyInUseTestcase,
   fieldIsEmptyTestcase,
   fieldIsTooLongTestcase,
   notSettableFieldsAreIgnoredTestcase,
+  passwordIsStrongTestcase,
   userNotFoundTestcase,
 } = require('./testcases');
 const { UsersModel, USERS_USERNAME_MAX_LENGTH } = require('../../model');
@@ -18,7 +19,7 @@ const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort,
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { validUserFixture } = require('../__fixtures__');
 
 // Setup
@@ -64,6 +65,19 @@ test.after.always('tear down', t => closeApiOpenedOnRandomPort(t));
   });
 });
 
+test('(200) must succeed on updating "password", while not sending it on payload', async t => {
+  const notUpdatedUser = await UsersModel.findById(t.context.user.id); // NOTE: Necessary to have access to "password".
+  const response = await got.put(getUrl(t), {
+    ...getRequestOptions(t),
+    body: { password: 'abc123def!@#' }, // score 3
+  });
+  t.assert(response.statusCode === 200);
+  t.falsy(response.body.password); // must not be on returned payload
+
+  const updatedUser = await UsersModel.findById(t.context.user.id);
+  t.assert(notUpdatedUser.password !== updatedUser.password);
+});
+
 test('(200) must be idempotent when updating without setting new values to fields', async t => {
   const { email, username } = t.context.user;
   const userPayload = { email, username };
@@ -84,16 +98,18 @@ test(notSettableFieldsAreIgnoredTestcase.title, t => {
 });
 
 // Unhappy path tests
-test(userNotFoundTestcase.title1, t => {
-  const userId = mongoose.Types.ObjectId();
-  t.context.testcaseUrl = getUrl(t, userId);
-
-  return userNotFoundTestcase.test(t, userId);
+[ emailIsInvalidTestcase, passwordIsStrongTestcase ].forEach(testcase => {
+  test(testcase.title, t => {
+    t.context.testcaseUrl = getUrl(t);
+    return testcase.test(t);
+  });
 });
 
-test(emailIsInvalidTestcase.title, t => {
-  t.context.testcaseUrl = getUrl(t);
-  return emailIsInvalidTestcase.test(t);
+test(userNotFoundTestcase.title1, t => {
+  const id = mongoose.Types.ObjectId();
+  t.context.testcaseUrl = getUrl(t, id);
+
+  return userNotFoundTestcase.test(t, id);
 });
 
 [
@@ -108,7 +124,7 @@ test(emailIsInvalidTestcase.title, t => {
   });
 });
 
-[ 'email', 'username' ].forEach(field => {
+[ 'email', 'username', 'password' ].forEach(field => {
   const testcase = fieldIsEmptyTestcase(field);
 
   test(testcase.title, t => {

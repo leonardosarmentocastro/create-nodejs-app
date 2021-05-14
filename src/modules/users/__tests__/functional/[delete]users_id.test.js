@@ -2,7 +2,7 @@ const test = require('ava');
 const got = require('got');
 const theOwl = require('the-owl');
 
-const database = require('../../../../database');
+const { database } = require('@leonardosarmentocastro/database');
 const { UsersModel } = require('../../model');
 const { userNotFoundTestcase } = require('./testcases');
 const { validUserFixture } = require('../__fixtures__');
@@ -11,7 +11,7 @@ const {
   getRequestOptions,
   startApiOnRandomPort,
   closeApiOpenedOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 
 // Setup
 test.before('prepare: start api / connect to database', async t => {
@@ -39,8 +39,8 @@ test('(200) must succeed on deleting the user, returning an empty body', async t
 
 // Unhappy path tests
 test(userNotFoundTestcase.title2, t => {
-  const userId = '123';
-  t.context.testcaseUrl = getUrl(t, userId);
+  const id = '123';
+  t.context.testcaseUrl = getUrl(t, id);
 
-  return userNotFoundTestcase.test(t, userId);
+  return userNotFoundTestcase.test(t, id);
 });

@@ -3,13 +3,13 @@ const got = require('got');
 const theOwl = require('the-owl');
 const mongoose = require('mongoose');
 
-const database = require('../../../../database');
+const { database } = require('@leonardosarmentocastro/database');
 const { userNotFoundTestcase } = require('./testcases');
 const {
   closeApiOpenedOnRandomPort,
   getRequestOptions,
   startApiOnRandomPort
-} = require('../../../__helpers__');
+} = require('../../../../__helpers__');
 const { UsersModel } = require('../../model');
 const { getUrl } = require('./__helpers__');
 const { validUserFixture } = require('../__fixtures__');
@@ -35,13 +35,14 @@ test('(200) must return the user saved on database if it exists', async t => {
   t.assert(response.statusCode === 200);
   t.assert(response.body.id === savedUser.id);
   Object.keys(user)
+    .filter(key => key !== 'password')
     .forEach(key => t.assert(response.body[key] === user[key]));
 });
 
 // Unhappy path tests
 test(userNotFoundTestcase.title1, t => {
-  const userId = mongoose.Types.ObjectId();
-  t.context.testcaseUrl = getUrl(t, userId);
+  const id = mongoose.Types.ObjectId();
+  t.context.testcaseUrl = getUrl(t, id);
 
-  return userNotFoundTestcase.test(t, userId);
+  return userNotFoundTestcase.test(t, id);
 });
